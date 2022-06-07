@@ -4,7 +4,6 @@ import { Modal } from './components/UI/Modal/Modal'
 
 
 export const App = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <div>
