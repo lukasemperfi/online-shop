@@ -14,7 +14,7 @@ export const IconButton = styled.button<IconButtonProps>`
     overflow: hidden;
     width: ${({ width }) => width ? width + 'px' : '50px'};
     height: ${({ height }) => height ? height + 'px' : '50px'};
-
+    color: var(--primary);
     &:disabled {
       opacity: 0.2;
       cursor: auto;

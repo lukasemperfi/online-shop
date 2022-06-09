@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import { css } from "styled-components";
 
-export const GloabalStyle = createGlobalStyle`
+export const resetCss = css`
 *{
 	padding: 0;
 	margin: 0;
@@ -21,15 +21,9 @@ html,body{
 	width: 100%;
 	font-size: 100%;
 	line-height: 1;
-	font-size: 10px;
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
 }
 input,button,textarea{font-family:inherit;}
 
@@ -42,9 +36,4 @@ ul li{list-style: none;}
 img{vertical-align: top;}
 
 h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
-
-#root {
-	min-height: 100%; 
-	overflow: hidden;
-}
 `

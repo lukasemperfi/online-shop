@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { App } from './App';
-import { GloabalStyle } from './global.styled';
+import { GloabalStyle } from './styles/global.styled';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement

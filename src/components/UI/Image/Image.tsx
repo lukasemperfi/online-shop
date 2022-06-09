@@ -3,11 +3,12 @@ import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import { ImageContainer } from './Image.styled';
 
 interface ImageProps extends ComponentPropsWithoutRef<'img'> {
-    styles?: FlattenSimpleInterpolation;
+    containerStyle?: FlattenSimpleInterpolation;
+    imageStyle?: FlattenSimpleInterpolation;
 }
 
 
-export const Image: FC<ImageProps> = ({ styles, ...rest }) =>
-    <ImageContainer styles={styles}>
+export const Image: FC<ImageProps> = ({ containerStyle, imageStyle, ...rest }) =>
+    <ImageContainer containerStyle={containerStyle} imageStyle={imageStyle}>
         <img {...rest} />
     </ImageContainer>
