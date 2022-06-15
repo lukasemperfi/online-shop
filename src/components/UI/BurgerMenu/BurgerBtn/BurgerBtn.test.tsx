@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { BurgerBtn } from "./BurgerBtn"
+import * as Styled from './BurgerBtn.styled'
 
 const onClick = jest.fn()
 
@@ -9,7 +10,7 @@ describe('BurgerBtn component', () => {
         render(<BurgerBtn isMobile={false} onClick={onClick} isActive={false} />)
         const lines = screen.getAllByTestId('burger-btn-line') 
         expect(screen.getByTestId('burger-btn')).toBeInTheDocument();
-        expect(lines).toHaveLength(3);
+        expect(lines).toHaveLength(3);        
     })
 
     describe('Visibility on desktop and mobile', () => {
