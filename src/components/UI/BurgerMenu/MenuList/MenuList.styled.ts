@@ -1,6 +1,7 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
+import { calcAdaptiveValue } from '../../../../styles/helpers';
 
-import { colors, spacing } from '../../../../styles/styles';
+import { colors, screenWidth, spacing } from '../../../../styles/styles';
 
 interface MobileProps {
     isMobile: boolean;
@@ -18,7 +19,7 @@ const mobileNav = css<NavProps>`
         background-color: red;
         height: 100vh;
         width: 50vw;
-        padding: 10px;
+        padding: 20px;
         z-index: 9999;
 `
 
@@ -26,8 +27,9 @@ const mobileAnchor = css`
         padding: ${spacing.tiny} 0px;
 `
 
-export const Nav = styled.div<NavProps>`
+export const Nav = styled.nav<NavProps>`
     ${({ isMobile }) => isMobile && mobileNav}
+    ${calcAdaptiveValue('padding', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max )};
     @media (max-width: 576px) {
         width: 100vw;
     }

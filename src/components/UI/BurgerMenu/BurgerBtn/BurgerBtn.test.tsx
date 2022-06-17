@@ -6,6 +6,11 @@ import * as Styled from './BurgerBtn.styled'
 const onClick = jest.fn()
 
 describe('BurgerBtn component', () => {
+    it('burger styled render ', () => {
+        const component = render(<Styled.Burger isMobile={false}/>)
+        
+    })    
+
     it('burger and lines renders', () => {
         render(<BurgerBtn isMobile={false} onClick={onClick} isActive={false} />)
         const lines = screen.getAllByTestId('burger-btn-line') 

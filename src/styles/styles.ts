@@ -6,17 +6,20 @@ export const colors = {
 }
 
 export const fontSizes = {
-    biggest: '2.8rem',
-    largest: '2.3rem',
-    large: '1.2rem',
-    base: '1rem',
-    small: '.9rem',
-    smallest: '.75rem',
+    mobile: '14px',
+    desktop: '16px',
 }
 
 export const spacing = {
+    mobile: '10px',
+    desktop: '20px',
     tiny: '5px',
     small: '10px',
     medium: '20px',
     large: '30px',
+}
+
+export const screenWidth = {
+    min: '320px',
+    max: '1200px',
 }
