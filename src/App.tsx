@@ -4,28 +4,60 @@ import { Image } from './components/UI/Image/Image'
 import { Modal } from './components/UI/Modal/Modal'
 import catImage from './assets/catBig.webp'
 import { BurgerBtn } from './components/UI/BurgerMenu/BurgerBtn/BurgerBtn'
-import { MenuList } from './components/UI/BurgerMenu/MenuList/MenuList'
+import { Menu } from './components/UI/BurgerMenu/Menu/Menu'
 // import { adaptiveValue } from './styles/mixins.styled'
 
 const items = [{name: 'Ботинки', href: '#'}, {name: 'Туфли', href: '#'}, {name: 'Кеды', href: '#'}, {name: 'Сланцы', href: '#'},]
 
 export const App = () => {
 
-
-
-  const mobileAnchor = css`
-  padding: 35px;
-`
-
-console.log('just css', mobileAnchor);
-// console.log(adaptiveValue('padding', 20))
-
   return (
     <>
-    <MenuList
+    <Menu
       items={items}
       isMobile={true}
+      open={false}
     />
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
+    
     </>
   )
 }

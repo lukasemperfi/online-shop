@@ -6,8 +6,9 @@ export const colors = {
 }
 
 export const fontSizes = {
-    mobile: '14px',
-    desktop: '16px',
+    base: '16px',
+    secondary: '14px',
+    h1: '20px',
 }
 
 export const spacing = {
