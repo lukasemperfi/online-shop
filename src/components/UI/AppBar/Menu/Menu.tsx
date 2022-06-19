@@ -22,7 +22,8 @@ export const Menu: FC<MenuProps> = ({ items, isMobile, positionTop, open }) => {
     const isBodyLocked = isMobile && open
 
     useLockedBody(isBodyLocked)
-
+    console.log(positionTop);
+    
     return (
         <Styled.Menu positionTop={positionTop} open={open} isMobile={isMobile}>
             <Styled.Nav isMobile={isMobile}>

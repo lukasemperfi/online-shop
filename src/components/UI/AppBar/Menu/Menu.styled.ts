@@ -13,25 +13,25 @@ interface NavProps {
     isMobile: boolean;
 }
 
-const mobileMenu = css`
+const mobileMenu = css<MenuProps>`
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: ${({ positionTop }) => positionTop  + 'px'};
+    display: block;
+    background-color: #FFFFFF;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
     transform: translateX(-100%);
     transition: all 0.3s linear;
 `
 const mobileMenuOpen = css`
     transform: translateX(0);
+    opacity: 1;
 `
 
 const mobileNav = css`
-    position: absolute;
-    top: 0px;
-    left: 0;
-    display: block;
-    background-color: #FFFFFF;
-    border: 2px solid;
-    border-radius: 2px;
-    height: 100vh;
-    width: 100vw;
-    z-index: 9999;
     ${calcAdaptiveValue('padding', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
 `
 
@@ -41,15 +41,15 @@ const mobileAnchor = css`
 
 export const Menu = styled.div<MenuProps>`
     position: relative;
-    top:  ${({ positionTop }) => positionTop ? (positionTop + 'px') : '0px'};
-    left: 0;   
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
     ${({isMobile}) => isMobile &&  mobileMenu}
     ${({isMobile , open}) => (isMobile && open) && mobileMenuOpen}
 `
 
 export const Nav = styled.nav<NavProps>`
     display: inline-flex;
-    background-color: red;
     ${({ isMobile }) => isMobile && mobileNav}
 `
 

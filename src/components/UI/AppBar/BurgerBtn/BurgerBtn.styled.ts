@@ -2,16 +2,25 @@ import styled, { css } from 'styled-components'
 
 import { colors } from '../../../../styles/styles';
 
-interface BurgerBtnProps {
-    isMobile: boolean;
-}
-
 interface BurgerLineProps {
     isActive: boolean;
 }
 
-export const Burger = styled.div<BurgerBtnProps>`
-    display: ${({ isMobile }) => isMobile ? 'inline-flex' : 'none'};
+const line1Active = css`
+    transform: rotate(45deg);
+    top: 11px;
+`
+const line2Active = css`
+    width: 0%;
+    opacity: 0;
+`
+const line3Active = css`
+    transform: rotate(-45deg);
+    top: 11px;
+`
+
+export const Burger = styled.div`
+    display: inline-flex;
     width: 35px;
     height: 25px;
     position: relative;
@@ -30,19 +39,6 @@ export const Line = styled.span<BurgerLineProps>`
     left: 0;
     transform: rotate(0deg);
     transition: .25s ease-in-out; 
-`
-
-const line1Active = css`
-    transform: rotate(45deg);
-    top: 11px;
-`
-const line2Active = css`
-    width: 0%;
-    opacity: 0;
-`
-const line3Active = css`
-    transform: rotate(-45deg);
-    top: 11px;
 `
 
 export const Line1 = styled(Line)`
