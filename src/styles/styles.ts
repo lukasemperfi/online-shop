@@ -1,3 +1,5 @@
+import { calcAdaptiveValue } from "./helpers"
+
 export const colors = {
     primary: '#292A2F',
     primaryLight: '#F2F2F2',
@@ -23,4 +25,8 @@ export const spacing = {
 export const screenWidth = {
     min: '320px',
     max: '1200px',
+}
+
+export const mediaQuery = {
+    mobile: '(max-width: 960px)',
 }

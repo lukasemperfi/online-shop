@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { colors } from '../../../../styles/styles';
+import { colors } from '../../../styles/styles';
 
 interface BurgerLineProps {
     isActive: boolean;
@@ -42,11 +42,11 @@ export const Line = styled.span<BurgerLineProps>`
 `
 
 export const Line1 = styled(Line)`
-    top: 2px;
+    top: 3px;
     ${({ isActive }) => isActive && line1Active}
 `
 export const Line2 = styled(Line)`
-    top: 11.5px;
+    top: 12px;
     ${({ isActive }) => isActive && line2Active}
 `
 export const Line3 = styled(Line)`

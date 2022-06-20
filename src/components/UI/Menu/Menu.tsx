@@ -1,8 +1,8 @@
 import React, { ComponentPropsWithoutRef, FC, ReactNode } from 'react'
 import styled, { FlattenSimpleInterpolation } from 'styled-components'
-import { useLockedBody } from '../../../../hooks/useLockedBody';
-import { screenWidth } from '../../../../styles/styles';
-import { PageContainer } from '../../PageContainer/PageContainer';
+import { useLockedBody } from '../../../hooks/useLockedBody';
+import { screenWidth } from '../../../styles/styles';
+import { PageContainer } from '../PageContainer/PageContainer';
 
 import * as Styled from './Menu.styled'
 
@@ -22,7 +22,6 @@ export const Menu: FC<MenuProps> = ({ items, isMobile, positionTop, open }) => {
     const isBodyLocked = isMobile && open
 
     useLockedBody(isBodyLocked)
-    console.log(positionTop);
     
     return (
         <Styled.Menu positionTop={positionTop} open={open} isMobile={isMobile}>

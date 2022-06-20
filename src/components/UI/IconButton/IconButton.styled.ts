@@ -11,7 +11,6 @@ export const IconButton = styled.button<IconButtonProps>`
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     width: ${({ width }) => width ? width + 'px' : '50px'};
     height: ${({ height }) => height ? height + 'px' : '50px'};
     color: var(--primary);

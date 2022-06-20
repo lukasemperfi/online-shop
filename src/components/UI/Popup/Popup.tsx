@@ -1,46 +1,58 @@
-import React, { FC, ReactNode, useState } from 'react'
-import styled, { css } from 'styled-components'
+import { ComponentPropsWithoutRef, FC, MouseEvent } from 'react'
+import { FlattenSimpleInterpolation } from 'styled-components';
+
+import * as Styled from './Popup.styled'
+import { useLockedBody } from '../../../hooks/useLockedBody';
 import { Portal } from '../Portal/Portal';
 
-interface PopupProps {
-  children?: ReactNode;
-  onClose?: () => void;
-  isOpened: boolean;
+interface PopupProps extends ComponentPropsWithoutRef<'button'> {
+    overlayStyles?: FlattenSimpleInterpolation;
+    contentContainerStyles?: FlattenSimpleInterpolation;
+    open: boolean;
+    onClose: () => void;
 }
 
+export const Popup: FC<PopupProps> = ({
+    children,
+    open,
+    onClose,
+    overlayStyles,
+    contentContainerStyles
+}) => {
 
-const StyledPopup = styled.div`
-    position: fixed;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    background-color: white;
-`
+    useLockedBody(open)
 
-const StyledOverlay = styled.div`
-    background-color: blue;
-    height: 100%;
-    width: 100%;
-`
+    if (!open) {
+        return null
+    }
 
-const StyledContent = styled.div`
-    display: inline-flex;
-    background-color: yellow;
-`
+    const handleClose = () => {
+        if (onClose) {
+            onClose()
+        }
+    }
 
-export const Popup: FC<PopupProps> = ({ children, onClose, isOpened }) => {
+    const handlePropagation = (event: MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation()
+    }
 
-  if (!isOpened) {
-    return null
-  }
+    return (
+        <Portal>
+            <Styled.Popup>
+                <Styled.Overlay
+                    open={open}
+                    onClick={handleClose}
+                    styles={overlayStyles}
+                >
+                    <Styled.ContentContainer
+                        onClick={handlePropagation}
+                        styles={contentContainerStyles}
+                    >
+                        {children}
+                    </Styled.ContentContainer>
+                </Styled.Overlay>
+            </Styled.Popup>
+        </Portal>
 
-  return (
-    <Portal>
-      <StyledPopup>
-          {children}
-      </StyledPopup>
-    </Portal>
-  )
+    )
 }
