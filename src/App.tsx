@@ -10,6 +10,7 @@ import { useMediaQuery } from './hooks/useMediaQuery'
 import { spacing } from './styles/styles'
 import { useElementSize } from './hooks/useElementSize'
 import { Input } from './components/Input/Input'
+import { Colors, MainButton } from './components/MainButton/MainButton'
 // import { adaptiveValue } from './styles/mixins.styled'
 
 const items = [{ name: 'Ботинки', href: '#' }, { name: 'Туфли', href: '#' }, { name: 'Кеды', href: '#' }, { name: 'Сланцы', href: '#' },]
@@ -54,6 +55,7 @@ export const App = () => {
             type='text'
             errorText='Not correct'
           />
+          <MainButton color={Colors.primary}>Войти</MainButton>
         </StyledDiv>
 
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
