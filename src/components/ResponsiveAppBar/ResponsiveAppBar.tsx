@@ -1,16 +1,16 @@
 import { useEffect, useState, FC } from 'react'
 
 import * as Styled from './ResponsiveAppBar.styled'
-import { mediaQuery, screenWidth } from '../../../styles/styles'
+import { mediaQuery, screenWidth } from '../../styles/styles'
 import { PageContainer } from '../PageContainer/PageContainer'
 import { Menu } from '../Menu/Menu'
-import logo from '../../../assets/logo.png'
+import logo from '../../assets/logo.png'
 import { Image } from '../Image/Image'
-import { BurgerBtn } from '../../BurgerBtn'
-import { useMediaQuery } from '../../../hooks/useMediaQuery'
+import { BurgerBtn } from '../BurgerBtn/BurgerBtn'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { IconButton } from '../IconButton/IconButton'
-import  userIcon  from '../../../assets/user.png'
-import  cartIcon  from '../../../assets/cart.png'
+import  userIcon  from '../../assets/user.png'
+import  cartIcon  from '../../assets/cart.png'
 
 const items = [{ name: 'Ботинки', href: '#' }, { name: 'Туфли', href: '#' }, { name: 'Кеды', href: '#' }, { name: 'Сланцы', href: '#' },]
 

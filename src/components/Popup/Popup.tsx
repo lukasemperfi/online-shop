@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, FC, MouseEvent } from 'react'
 import { FlattenSimpleInterpolation } from 'styled-components';
 
 import * as Styled from './Popup.styled'
-import { useLockedBody } from '../../../hooks/useLockedBody';
+import { useLockedBody } from '../../hooks/useLockedBody';
 import { Portal } from '../Portal/Portal';
 
 interface PopupProps extends ComponentPropsWithoutRef<'button'> {

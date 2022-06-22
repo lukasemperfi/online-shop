@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
-import { calcAdaptiveValue } from '../../../styles/helpers';
-import { screenWidth, spacing } from '../../../styles/styles';
+import { calcAdaptiveValue } from '../../styles/helpers';
+import { screenWidth, spacing } from '../../styles/styles';
 
 interface ResponsiveAppBarProps {
     isMobile: boolean;

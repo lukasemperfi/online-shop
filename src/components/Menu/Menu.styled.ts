@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
-import { calcAdaptiveValue } from '../../../styles/helpers';
+import { calcAdaptiveValue } from '../../styles/helpers';
 
-import { colors, screenWidth, spacing } from '../../../styles/styles';
+import { colors, screenWidth, spacing } from '../../styles/styles';
 
 interface MenuProps {
     positionTop?: number;

@@ -1,7 +1,7 @@
 import React, { ComponentPropsWithoutRef, FC, ReactNode } from 'react'
 import styled, { FlattenSimpleInterpolation } from 'styled-components'
-import { useLockedBody } from '../../../hooks/useLockedBody';
-import { screenWidth } from '../../../styles/styles';
+import { useLockedBody } from '../../hooks/useLockedBody';
+import { screenWidth } from '../../styles/styles';
 import { PageContainer } from '../PageContainer/PageContainer';
 
 import * as Styled from './Menu.styled'

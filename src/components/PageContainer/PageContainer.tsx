@@ -1,7 +1,7 @@
 import React, { ComponentPropsWithoutRef, FC } from 'react'
 import styled from 'styled-components';
-import { calcAdaptiveValue, calcAdaptiveValue2, calcAdaptiveValue3 } from '../../../styles/helpers';
-import { mediaQuery, screenWidth, spacing } from '../../../styles/styles';
+import { calcAdaptiveValue, calcAdaptiveValue2, calcAdaptiveValue3 } from '../../styles/helpers';
+import { mediaQuery, screenWidth, spacing } from '../../styles/styles';
 
 interface PageContainerProps extends ComponentPropsWithoutRef<'div'> {
     maxWidth: string;
