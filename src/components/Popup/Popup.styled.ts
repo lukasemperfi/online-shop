@@ -22,6 +22,7 @@ export const Overlay = styled.div<OverlayProps>`
     width: 100%;
     height: 100%; 
     background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
     justify-content: center;
     align-items: flex-start; 
     padding: 5vw;
@@ -32,14 +33,15 @@ export const Overlay = styled.div<OverlayProps>`
 `;
 
 export const ContentContainer = styled.div<ContentContainerProps>`
-    padding: 3vw;
     background: white;
     border-radius: 4px;
     overflow: auto;
     max-height: 100%;
-    ${({ styles }) => styles}
+    background-color: green;
     @media (max-width: 600px) {
        width: 100%;
+       height: 100%;
        border-radius: 0px;
     }
+    ${({ styles }) => styles}
 `;

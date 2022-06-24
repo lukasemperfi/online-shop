@@ -4,7 +4,10 @@ export const colors = {
     primary: '#292A2F',
     primaryLight: '#F2F2F2',
     secondary: '#FFD800',
-    background: '#FFFFFF',
+    white: '#FFFFFF',
+    black: '#000000',
+    error: '#FB1111',
+    focus: '#4285F4'
 }
 
 export const fontSizes = {

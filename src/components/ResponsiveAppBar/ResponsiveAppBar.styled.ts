@@ -51,6 +51,9 @@ export const cartStyle = css`
     ${iconsStyle}
     position: relative;
 `
+export const contentContainerStyles = css`
+    width: 500px;
+`
 
 export const CartCountStyle = styled.span`
     position: absolute;

@@ -9,24 +9,33 @@ import { Image } from '../Image/Image'
 import { BurgerBtn } from '../BurgerBtn/BurgerBtn'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { IconButton } from '../IconButton/IconButton'
-import  userIcon  from '../../assets/user.png'
-import  cartIcon  from '../../assets/cart.png'
+import userIcon from '../../assets/user.png'
+import cartIcon from '../../assets/cart.png'
+import { Popup } from '../Popup/Popup'
+import { LoginForm } from '../LoginForm/LoginForm'
 
 const items = [{ name: 'Ботинки', href: '#' }, { name: 'Туфли', href: '#' }, { name: 'Кеды', href: '#' }, { name: 'Сланцы', href: '#' },]
 
 interface ResponsiveAppBarProps {
     reference?: any;
-    ResponsiveAppBarHeight?: any;
+    appBarHeight?: any;
 }
 
-export const ResponsiveAppBar:  FC<ResponsiveAppBarProps> = ({reference, ResponsiveAppBarHeight}) => {
+export const ResponsiveAppBar: FC<ResponsiveAppBarProps> = ({ reference, appBarHeight }) => {
     const isMobile = useMediaQuery(mediaQuery.mobile)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
+    // const [isCartPopupOpen, setIsCartPopupOpen] = useState(false)
 
-    const handleMenuOpen = () => {
-        setIsMenuOpen(!isMenuOpen)
-    }
-    
+    const handleIsUserPopupOpen = () => setIsUserPopupOpen(true)
+    const handleIsUserPopupClose = () => setIsUserPopupOpen(false)
+
+    // const handleIsCartPopupOpen = () => setIsCartPopupOpen(true)
+    // const handleIsCartPopupClose = () => setIsCartPopupOpen(false)
+
+    const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen)
+
+
     return (
         <Styled.ResponsiveAppBar ref={reference}>
             <PageContainer maxWidth={screenWidth.max}>
@@ -40,9 +49,23 @@ export const ResponsiveAppBar:  FC<ResponsiveAppBarProps> = ({reference, Respons
                         </a>
                     </Styled.Col2>
                     <Styled.Col3>
-                        <IconButton width={25} height={25} styles={Styled.iconsStyle}>
-                            <img src={userIcon} alt="user-icon" />
-                        </IconButton>
+                        <div>
+                            <IconButton
+                                width={25}
+                                height={25}
+                                styles={Styled.iconsStyle}
+                                onClick={handleIsUserPopupOpen}
+                            >
+                                <img src={userIcon} alt="user-icon" />
+                            </IconButton>
+                            <Popup
+                                open={isUserPopupOpen}
+                                onClose={handleIsUserPopupClose}
+                                contentContainerStyles={Styled.contentContainerStyles}
+                            >
+                                <LoginForm />
+                            </Popup>
+                        </div>
                         <IconButton width={25} height={25} styles={Styled.cartStyle}>
                             <img src={cartIcon} alt="cart-icon" />
                             <Styled.CartCountStyle>2</Styled.CartCountStyle>
@@ -53,7 +76,7 @@ export const ResponsiveAppBar:  FC<ResponsiveAppBarProps> = ({reference, Respons
                     items={items}
                     isMobile={isMobile}
                     open={isMenuOpen}
-                    positionTop={ResponsiveAppBarHeight}
+                    positionTop={appBarHeight}
                 />
             </PageContainer>
         </Styled.ResponsiveAppBar>

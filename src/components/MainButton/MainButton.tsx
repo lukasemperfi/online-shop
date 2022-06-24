@@ -42,7 +42,6 @@ const StyledButton = styled.button<StyledButtonProps>`
     font-weight: 500;
     line-height: inherit;
     cursor: pointer;
-    margin-bottom: 15px;
     box-shadow: 0 1px 5px 0 rgb(0 0 0 / 20%);
     transition: all 0.3s ease;
     ${({ color }) => color && buttonColors[color]}
@@ -57,6 +56,7 @@ const StyledButton = styled.button<StyledButtonProps>`
         opacity: 0.8;
         cursor: auto;
     }
+    ${({ styles }) => styles}
 `
 
 export const MainButton: FC<MainButtonProps> = (

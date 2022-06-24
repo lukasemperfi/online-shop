@@ -11,6 +11,7 @@ import { spacing } from './styles/styles'
 import { useElementSize } from './hooks/useElementSize'
 import { Input } from './components/Input/Input'
 import { Colors, MainButton } from './components/MainButton/MainButton'
+import { LoginForm } from './components/LoginForm/LoginForm'
 // import { adaptiveValue } from './styles/mixins.styled'
 
 const items = [{ name: 'Ботинки', href: '#' }, { name: 'Туфли', href: '#' }, { name: 'Кеды', href: '#' }, { name: 'Сланцы', href: '#' },]
@@ -31,7 +32,7 @@ export const App = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   // const [pagePaddingTopRef, { height: pagePaddingTopHeight }] = useElementSize()
   // const [pagePaddingTopHeight, setPagePaddingTopHeight] = useState(null)
-  const [ResponsiveAppBarRef, { height: ResponsiveAppBarHeight }] = useElementSize()
+  const [ResponsiveAppBarRef, { height: responsiveAppBarHeight }] = useElementSize()
 
   const onClose = () => {
     setIsPopupOpen(false)
@@ -40,24 +41,12 @@ export const App = () => {
 
   return (
     <>
-      {/* <BurgerBtn onClick={() => ''} />
-      <Menu
-        items={items}
-        isMobile={true}
-        open={false}
-      /> */}
-      <StyledPaddding top={ResponsiveAppBarHeight} >
-        {/* <ResponsiveAppBar reference={ResponsiveAppBarRef} ResponsiveAppBarHeight={ResponsiveAppBarHeight}/> */}
-        <StyledDiv>
-          <Input
-            label='E-mail'
-            placeholder='Введите свой email'
-            type='text'
-            errorText='Not correct'
-          />
-          <MainButton color={Colors.primary}>Войти</MainButton>
-        </StyledDiv>
 
+      <StyledPaddding top={responsiveAppBarHeight} >
+        <ResponsiveAppBar
+          reference={ResponsiveAppBarRef}
+          appBarHeight={responsiveAppBarHeight}
+        />
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla sed similique eveniet sit sint et corrupti, magnam saepe veritatis eligendi ut? Culpa unde voluptatem distinctio accusamus quas qui veniam fugit.
