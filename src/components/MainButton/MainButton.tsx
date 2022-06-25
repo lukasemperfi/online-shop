@@ -5,6 +5,7 @@ import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 export enum Colors {
     primary = 'primary',
     secondary = 'secondary',
+    text = 'text'
 }
 
 interface MainButtonProps extends ComponentPropsWithoutRef<'button'> {
@@ -25,6 +26,20 @@ const buttonColors = {
     secondary: css`
     background-color: #FFFFFF;
     color: #292a2f;
+`,
+    text: css`
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    width: auto;
+    height: auto;
+    min-height: auto;
+    &:focus {
+        box-shadow: none;
+    }
+    &:active {
+        opacity: 1;
+    }
 `
 }
 
@@ -44,7 +59,6 @@ const StyledButton = styled.button<StyledButtonProps>`
     cursor: pointer;
     box-shadow: 0 1px 5px 0 rgb(0 0 0 / 20%);
     transition: all 0.3s ease;
-    ${({ color }) => color && buttonColors[color]}
     &:focus {
         box-shadow: 0 0 15px #4285f4;
     }
@@ -56,6 +70,7 @@ const StyledButton = styled.button<StyledButtonProps>`
         opacity: 0.8;
         cursor: auto;
     }
+    ${({ color }) => color && buttonColors[color]}
     ${({ styles }) => styles}
 `
 

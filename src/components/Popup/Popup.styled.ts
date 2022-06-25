@@ -1,4 +1,5 @@
 import styled, { FlattenSimpleInterpolation } from 'styled-components';
+import { colors } from '../../styles/styles';
 
 interface OverlayProps {
     open?: boolean | null;
@@ -37,7 +38,7 @@ export const ContentContainer = styled.div<ContentContainerProps>`
     border-radius: 4px;
     overflow: auto;
     max-height: 100%;
-    background-color: green;
+    background-color: ${colors.white};
     @media (max-width: 600px) {
        width: 100%;
        height: 100%;

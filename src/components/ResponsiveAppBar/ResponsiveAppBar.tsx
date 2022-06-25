@@ -13,6 +13,8 @@ import userIcon from '../../assets/user.png'
 import cartIcon from '../../assets/cart.png'
 import { Popup } from '../Popup/Popup'
 import { LoginForm } from '../LoginForm/LoginForm'
+import { SignupForm } from '../SignupForm/SignupForm'
+import { FormToogle } from '../FormToogle/FormToogle'
 
 const items = [{ name: 'Ботинки', href: '#' }, { name: 'Туфли', href: '#' }, { name: 'Кеды', href: '#' }, { name: 'Сланцы', href: '#' },]
 
@@ -63,7 +65,7 @@ export const ResponsiveAppBar: FC<ResponsiveAppBarProps> = ({ reference, appBarH
                                 onClose={handleIsUserPopupClose}
                                 contentContainerStyles={Styled.contentContainerStyles}
                             >
-                                <LoginForm />
+                              <FormToogle/>
                             </Popup>
                         </div>
                         <IconButton width={25} height={25} styles={Styled.cartStyle}>
