@@ -63,7 +63,8 @@ export const Input: FC<InputProps> = (
     containerStyle,
     errorText,
     ...inputProperties
-  }) => (
+  }) => { 
+   return(
   <Container containerStyle={containerStyle}>
     <StyledLabel>
       {label}
@@ -71,4 +72,4 @@ export const Input: FC<InputProps> = (
     </StyledLabel>
     <Error errorText={errorText}>{errorText}</Error>
   </Container>
-)
+)}

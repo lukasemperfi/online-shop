@@ -8,10 +8,10 @@ interface ResponsiveAppBarProps {
 }
 
 export const ResponsiveAppBar = styled.header`
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
+    /* left: 0; */
+    /* width: 100%; */
     background-color: #FFFFFF;
     z-index: 1000;
     ${calcAdaptiveValue('padding-top', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
@@ -43,32 +43,4 @@ export const Col3 = styled(Col)`
 export const logoStyle = css`
     max-width: 100%;
     min-width: 155px;
-`
-export const iconsStyle = css`
-    margin-left: 15px;
-`
-export const cartStyle = css`
-    ${iconsStyle}
-    position: relative;
-`
-export const contentContainerStyles = css`
-    width: 500px;
-`
-
-export const CartCountStyle = styled.span`
-    position: absolute;
-    left: 10px;
-    top: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 20px;
-    height: 20px;
-    border-radius: 50px;
-    background-color: #f93c00;
-    font-size: 12px;
-    font-weight: 500;
-    color: #fff;
-    padding: 0px 4px;
-    line-height: 1;
 `

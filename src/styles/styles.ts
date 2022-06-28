@@ -1,5 +1,3 @@
-import { calcAdaptiveValue } from "./helpers"
-
 export const colors = {
     primary: '#292A2F',
     primaryLight: '#F2F2F2',

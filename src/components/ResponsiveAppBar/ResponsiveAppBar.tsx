@@ -1,4 +1,4 @@
-import { useEffect, useState, FC } from 'react'
+import { useState, FC, memo } from 'react'
 
 import * as Styled from './ResponsiveAppBar.styled'
 import { mediaQuery, screenWidth } from '../../styles/styles'
@@ -8,38 +8,23 @@ import logo from '../../assets/logo.png'
 import { Image } from '../Image/Image'
 import { BurgerBtn } from '../BurgerBtn/BurgerBtn'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
-import { IconButton } from '../IconButton/IconButton'
-import userIcon from '../../assets/user.png'
-import cartIcon from '../../assets/cart.png'
-import { Popup } from '../Popup/Popup'
-import { LoginForm } from '../LoginForm/LoginForm'
-import { SignupForm } from '../SignupForm/SignupForm'
-import { FormToogle } from '../FormToogle/FormToogle'
+import { useElementSize } from '../../hooks/useElementSize'
+import { UserMenu } from '../UserMenu/UserMenu'
 
 const items = [{ name: 'Ботинки', href: '#' }, { name: 'Туфли', href: '#' }, { name: 'Кеды', href: '#' }, { name: 'Сланцы', href: '#' },]
 
-interface ResponsiveAppBarProps {
-    reference?: any;
-    appBarHeight?: any;
-}
+const MemoUserMenu = memo(UserMenu)
 
-export const ResponsiveAppBar: FC<ResponsiveAppBarProps> = ({ reference, appBarHeight }) => {
+export const ResponsiveAppBar: FC = () => {
+    const [responsiveAppBarRef, { height: responsiveAppBarHeight }] = useElementSize()
     const isMobile = useMediaQuery(mediaQuery.mobile)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
-    // const [isCartPopupOpen, setIsCartPopupOpen] = useState(false)
-
-    const handleIsUserPopupOpen = () => setIsUserPopupOpen(true)
-    const handleIsUserPopupClose = () => setIsUserPopupOpen(false)
-
-    // const handleIsCartPopupOpen = () => setIsCartPopupOpen(true)
-    // const handleIsCartPopupClose = () => setIsCartPopupOpen(false)
 
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen)
-
+console.log('render resp app bar');
 
     return (
-        <Styled.ResponsiveAppBar ref={reference}>
+        <Styled.ResponsiveAppBar ref={responsiveAppBarRef}>
             <PageContainer maxWidth={screenWidth.max}>
                 <Styled.Top isMobile={isMobile} >
                     <Styled.Col1>
@@ -51,34 +36,14 @@ export const ResponsiveAppBar: FC<ResponsiveAppBarProps> = ({ reference, appBarH
                         </a>
                     </Styled.Col2>
                     <Styled.Col3>
-                        <div>
-                            <IconButton
-                                width={25}
-                                height={25}
-                                styles={Styled.iconsStyle}
-                                onClick={handleIsUserPopupOpen}
-                            >
-                                <img src={userIcon} alt="user-icon" />
-                            </IconButton>
-                            <Popup
-                                open={isUserPopupOpen}
-                                onClose={handleIsUserPopupClose}
-                                contentContainerStyles={Styled.contentContainerStyles}
-                            >
-                              <FormToogle/>
-                            </Popup>
-                        </div>
-                        <IconButton width={25} height={25} styles={Styled.cartStyle}>
-                            <img src={cartIcon} alt="cart-icon" />
-                            <Styled.CartCountStyle>2</Styled.CartCountStyle>
-                        </IconButton>
+                        <MemoUserMenu />
                     </Styled.Col3>
                 </Styled.Top>
                 <Menu
                     items={items}
                     isMobile={isMobile}
                     open={isMenuOpen}
-                    positionTop={appBarHeight}
+                    positionTop={responsiveAppBarHeight}
                 />
             </PageContainer>
         </Styled.ResponsiveAppBar>

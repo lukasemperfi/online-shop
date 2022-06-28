@@ -18,7 +18,6 @@ export const useLockedBody = (initialLocked = false) => {
     }
 
     document.body.style.overflow = 'hidden'
-    console.log('work');
     
     return () => {
       if (scrollBarWidth) {

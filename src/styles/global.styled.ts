@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import { calcAdaptiveValue } from "./helpers";
 import { resetCss } from "./reset.styled";
-import { fontSizes, screenWidth, spacing } from "./styles";
+import { fontSizes, screenWidth } from "./styles";
 
 export const GloabalStyle = createGlobalStyle`
 ${resetCss}
@@ -17,7 +17,5 @@ body {
 
 #root {
 	min-height: 100%; 
-	overflow: hidden;
 }
-
 `

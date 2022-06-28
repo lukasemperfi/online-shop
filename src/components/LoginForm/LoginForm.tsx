@@ -1,3 +1,4 @@
+import { ChangeEvent, useState } from 'react'
 import  { css } from 'styled-components'
 
 import { Input } from '../Input/Input'
@@ -8,6 +9,12 @@ const formItemStyle = css`
 `
 
 export const LoginForm = () => {
+    const [value, setValue] = useState('')
+
+    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value)
+    }
+
     return (
         <form>
             <Input
@@ -15,6 +22,8 @@ export const LoginForm = () => {
                 placeholder='Email'
                 containerStyle={formItemStyle}
                 errorText='not valid'
+                onChange={handleOnChange}
+                value={value}
             />
             <Input
                 label='Password'
