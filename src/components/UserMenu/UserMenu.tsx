@@ -17,7 +17,6 @@ export const UserMenu = () => {
 
     // const handleIsCartPopupOpen = () => setIsCartPopupOpen(true)
     // const handleIsCartPopupClose = () => setIsCartPopupOpen(false)
-console.log('render user menu');
 
     return (
         <>

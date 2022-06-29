@@ -21,7 +21,6 @@ export const ResponsiveAppBar: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen)
-console.log('render resp app bar');
 
     return (
         <Styled.ResponsiveAppBar ref={responsiveAppBarRef}>
