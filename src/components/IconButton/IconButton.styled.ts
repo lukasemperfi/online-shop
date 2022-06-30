@@ -8,7 +8,7 @@ interface IconButtonProps {
 
 export const IconButton = styled.button<IconButtonProps>`
     background-color: transparent;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     width: ${({ width }) => width ? width + 'px' : '50px'};
