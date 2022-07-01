@@ -11,8 +11,8 @@ export const IconButton = styled.button<IconButtonProps>`
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: ${({ width }) => width ? width + 'px' : '50px'};
-    height: ${({ height }) => height ? height + 'px' : '50px'};
+    width: ${({ width }) => width ? width + 'px' : 'auto'};
+    height: ${({ height }) => height ? height + 'px' : 'auto'};
     color: var(--primary);
     &:disabled {
       opacity: 0.2;

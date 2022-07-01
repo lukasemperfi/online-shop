@@ -16,9 +16,7 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
     max-width: ${({ maxWidth }) => maxWidth};
     margin: 0 auto;
-    ${calcAdaptiveValue('padding-left', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
-    ${calcAdaptiveValue('padding-right', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
-    padding: 0px ${spacing.desktop};
+    ${calcAdaptiveValue('padding', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
     ${({containerStyles}) => containerStyles }
 `
 

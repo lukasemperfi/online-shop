@@ -1,8 +1,0 @@
-.test {
-    background-color: red;
-    margin-bottom: 10px;
-}
-
-.test.active {
-    background-color: aqua;
-}

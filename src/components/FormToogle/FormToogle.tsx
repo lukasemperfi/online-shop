@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import { colors } from '../../styles/styles'
+import { Colors } from '../../styles/styles'
 import { LoginForm } from '../LoginForm/LoginForm'
-import { Colors, MainButton } from '../MainButton/MainButton'
+import { ButtonColors, MainButton } from '../MainButton/MainButton'
 import { SignupForm } from '../SignupForm/SignupForm'
 
 const Container = styled.div`
-    background-color: ${colors.white};
+    background-color: ${Colors.white};
     width: 100%;
     height: 100%;
     box-shadow: 0 0 30px rgb(0 0 0 / 10%);
@@ -28,7 +28,7 @@ const Links = styled.div`
     column-gap: 5px;
     &  a {
         font-weight: 500;
-        color: ${colors.primary};
+        color: ${Colors.primary};
     }
 `
 
@@ -49,7 +49,7 @@ export const FormToogle = () => {
                 <a href="#">Reset Password</a>
                 <span>|</span>
                 <MainButton
-                    color={Colors.text}
+                    color={ButtonColors.text}
                     onClick={handleisLoginForm}
                 >
                     {isLoginForm ? 'Signup' : 'Login'}

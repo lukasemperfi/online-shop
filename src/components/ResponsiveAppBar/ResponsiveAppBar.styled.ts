@@ -10,8 +10,6 @@ interface ResponsiveAppBarProps {
 export const ResponsiveAppBar = styled.header`
     position: sticky;
     top: 0;
-    /* left: 0; */
-    /* width: 100%; */
     background-color: #FFFFFF;
     z-index: 1000;
     ${calcAdaptiveValue('padding-top', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}

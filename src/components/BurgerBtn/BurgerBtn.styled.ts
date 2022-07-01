@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { colors } from '../../styles/styles';
+import { Colors } from '../../styles/styles';
 
 interface BurgerLineProps {
     isActive: boolean;
@@ -34,7 +34,7 @@ export const Line = styled.span<BurgerLineProps>`
     position: absolute;
     height: 2px;
     width: 100%;
-    background-color: ${colors.primary};
+    background-color: ${Colors.primary};
     opacity: 1;
     left: 0;
     transform: rotate(0deg);

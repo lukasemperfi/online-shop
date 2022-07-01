@@ -1,11 +1,14 @@
 import { ChangeEvent, useState } from 'react'
-import  { css } from 'styled-components'
+import { css } from 'styled-components'
 
 import { Input } from '../Input/Input'
-import { Colors, MainButton } from '../MainButton/MainButton'
+import { ButtonColors, MainButton } from '../MainButton/MainButton'
 
 const formItemStyle = css`
     margin-bottom: 20px;
+`
+const inputStyle = css`
+    padding: 12px 48px 12px 20px;
 `
 
 export const LoginForm = () => {
@@ -21,6 +24,7 @@ export const LoginForm = () => {
                 label='Email'
                 placeholder='Email'
                 containerStyle={formItemStyle}
+                inputStyle={inputStyle}
                 errorText='not valid'
                 onChange={handleOnChange}
                 value={value}
@@ -29,9 +33,10 @@ export const LoginForm = () => {
                 label='Password'
                 placeholder='Password'
                 containerStyle={formItemStyle}
+                inputStyle={inputStyle}
             />
             <MainButton styles={formItemStyle} type='submit'>Log In</MainButton>
-            <MainButton color={Colors.secondary} styles={formItemStyle}>SIGN IN WITH GOOGLE</MainButton>
+            <MainButton color={ButtonColors.secondary} styles={formItemStyle}>SIGN IN WITH GOOGLE</MainButton>
         </form>
     )
 }

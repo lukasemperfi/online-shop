@@ -1,11 +1,12 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
-import { colors } from '../../styles/styles';
+import { maxTextLines } from '../../styles/mixins.styled';
+import { Colors } from '../../styles/styles';
 
-interface CardProps {
+interface ProductCardProps {
     containerStyles?: FlattenSimpleInterpolation;
 }
 
-export const Card = styled.div<CardProps>`
+export const Card = styled.div<ProductCardProps>`
     display: flex;
     flex-direction: column;
     position: relative;
@@ -15,21 +16,13 @@ export const Card = styled.div<CardProps>`
 
 export const LinkTitle = styled.a`
     flex: 1 1 auto;
-    color: ${colors.black};
+    color: ${Colors.black};
 `
 export const CardTitle = styled.div`
     margin-bottom: 10px;
     font-weight: 500;
     line-height: 1.5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -moz-box;
-    -moz-box-orient: vertical;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    line-clamp: 2;
-    box-orient: vertical;
+    ${maxTextLines(2)}
 `
 export const CardPrice = styled.div`
     font-weight: 600;

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { calcAdaptiveValue } from '../../styles/helpers';
 
-import { colors, screenWidth, spacing } from '../../styles/styles';
+import { Colors, screenWidth, spacing } from '../../styles/styles';
 
 interface MenuProps {
     positionTop?: number;
@@ -61,7 +61,7 @@ export const Ul = styled.ul<NavProps>`
 export const Anchor = styled.a<NavProps>`
     display: inline-flex;
     padding: ${spacing.tiny} ${spacing.medium};
-    color: ${colors.primary};
+    color: ${Colors.primary};
     position: relative;
     width: 100%;
     ${({isMobile}) => isMobile && mobileAnchor}

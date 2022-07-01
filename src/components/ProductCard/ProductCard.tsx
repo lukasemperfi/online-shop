@@ -5,15 +5,13 @@ import { ReactComponent as AddCartIcon } from '../../assets/add-cart.svg'
 import { IconButton } from '../IconButton/IconButton'
 import * as Styled from './ProductCard.styled'
 import { FlattenSimpleInterpolation } from 'styled-components'
+import { ProductCardProps } from '../../models/ProductCardProps'
 
-interface ProductCardProps {
-    image: string,
-    title: string,
-    price: number,
+interface Props extends ProductCardProps{
     containerStyles?: FlattenSimpleInterpolation;
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ image, title, price }) => {
+export const ProductCard: FC<Props> = ({ image, title, price }) => {
     return (
         <Styled.Card>
             <a href="#">

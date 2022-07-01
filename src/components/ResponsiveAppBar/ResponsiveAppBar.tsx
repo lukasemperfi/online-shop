@@ -1,7 +1,7 @@
 import { useState, FC, memo } from 'react'
 
 import * as Styled from './ResponsiveAppBar.styled'
-import { breakpoints, mediaQuery, screenWidth } from '../../styles/styles'
+import { Breakpoints, mediaQuery, screenWidth } from '../../styles/styles'
 import { PageContainer } from '../PageContainer/PageContainer'
 import { Menu } from '../Menu/Menu'
 import logo from '../../assets/logo.png'
@@ -17,7 +17,7 @@ const MemoUserMenu = memo(UserMenu)
 
 export const ResponsiveAppBar: FC = () => {
     const [responsiveAppBarRef, { height: responsiveAppBarHeight }] = useElementSize()
-    const isMobile = useMediaQuery(`(max-width: ${breakpoints.lg})`)
+    const isMobile = useMediaQuery(`(max-width: ${Breakpoints.lg})`)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen)
