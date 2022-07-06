@@ -38,6 +38,8 @@ const StyledInput = styled.input<StyledInputProps>`
     font-weight: 500;
     line-height: inherit;
     transition: 0.3s ease;
+    padding: 12px 48px 12px 20px;
+
     ${({ errorText }) => errorText && `box-shadow: 0 0 15px ${Colors.error};`}
 
     &:focus {
@@ -52,7 +54,6 @@ const StyledLabel = styled.label`
     font-weight: 500;
     line-height: 1;
     font-size: inherit;
-    letter-spacing: 0.2em;
     margin-bottom: 5px;
 `
 const Error = styled.div<StyledInputProps>`

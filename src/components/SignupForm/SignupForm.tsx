@@ -7,7 +7,7 @@ const formItemStyle = css`
     margin-bottom: 20px;
 `
 const inputStyle = css`
-    padding: 12px 48px 12px 20px;
+    /* padding: 12px 48px 12px 20px; */
 `
 
 export const SignupForm = () => {

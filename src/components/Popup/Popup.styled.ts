@@ -39,10 +39,13 @@ export const ContentContainer = styled.div<ContentContainerProps>`
     overflow: auto;
     max-height: 100%;
     background-color: ${Colors.white};
+    min-width: 500px;
+
     @media (max-width: 600px) {
        width: 100%;
        height: 100%;
        border-radius: 0px;
     }
+
     ${({ styles }) => styles}
 `;

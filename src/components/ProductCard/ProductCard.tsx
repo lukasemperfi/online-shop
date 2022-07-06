@@ -6,22 +6,18 @@ import { IconButton } from '../IconButton/IconButton'
 import * as Styled from './ProductCard.styled'
 import { FlattenSimpleInterpolation } from 'styled-components'
 import { ProductCardProps } from '../../models/ProductCardProps'
+import { AdaptiveImage } from '../Image/AdaptivImage'
+import { MainButton } from '../MainButton/MainButton'
 
 interface Props extends ProductCardProps{
     containerStyles?: FlattenSimpleInterpolation;
 }
 
-export const ProductCard: FC<Props> = ({ image, title, price }) => {
+export const ProductCard: FC<Props> = ({ image, title, price}) => {
     return (
         <Styled.Card>
             <a href="#">
-                <div >
-                    <Image
-                        src={image}
-                        containerStyle={Styled.imageContainerStyles}
-                        imageStyle={Styled.imageStyles}
-                    />
-                </div>
+                <AdaptiveImage src={image} aspectRatio={0.75} />
             </a>
             <Styled.LinkTitle href="#">
                 <Styled.CardTitle >{title}</Styled.CardTitle>
@@ -34,7 +30,6 @@ export const ProductCard: FC<Props> = ({ image, title, price }) => {
                     <AddCartIcon width='25px' height='25px' fill='#ffd800' />
                 </IconButton>
             </Styled.CardFooter>
-
         </Styled.Card>
     )
 }

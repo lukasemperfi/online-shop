@@ -11,6 +11,7 @@ interface MenuProps {
 
 interface NavProps {
     isMobile: boolean;
+    open?: boolean;
 }
 
 const mobileMenu = css<MenuProps>`
@@ -20,19 +21,29 @@ const mobileMenu = css<MenuProps>`
     padding-top: ${({ positionTop }) => positionTop  + 'px'};
     display: block;
     background-color: #FFFFFF;
-    height: 100vh;
+    /* height: 100vh; */
+    height: 0;
+    /* max-height: 0; */
     width: 100vw;
-    opacity: 0;
-    transform: translateX(-100%);
-    transition: all 0.3s linear;
+    /* opacity: 0; */
+    /* transform: translateX(-100%); */
+    transition: all 0.3s ;
+    /* background-color: red; */
 `
 const mobileMenuOpen = css`
-    transform: translateX(0);
-    opacity: 1;
+    /* transform: translateX(0); */
+    /* opacity: 1; */
+    /* max-height: 100vh; */
+    height: 100vh;
 `
 
 const mobileNav = css`
+    display: none;
     ${calcAdaptiveValue('padding', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
+`
+
+const mobileNavActive = css`
+    display: inline-flex;
 `
 
 const mobileAnchor = css`
@@ -44,6 +55,7 @@ export const Menu = styled.div<MenuProps>`
     display: flex;
     justify-content: center;
     background-color: transparent;
+    
     ${({isMobile}) => isMobile &&  mobileMenu}
     ${({isMobile , open}) => (isMobile && open) && mobileMenuOpen}
 `
@@ -51,11 +63,14 @@ export const Menu = styled.div<MenuProps>`
 export const Nav = styled.nav<NavProps>`
     display: inline-flex;
     ${({ isMobile }) => isMobile && mobileNav}
+    
+    ${({isMobile , open}) => (isMobile && open) && mobileNavActive}
 `
 
 export const Ul = styled.ul<NavProps>`
     display: inline-flex;
     flex-direction: row;
+${({ isMobile }) => isMobile ? 'column' : 'row'}; 
     flex-direction: ${({ isMobile }) => isMobile ? 'column' : 'row'};
 `
 export const Anchor = styled.a<NavProps>`

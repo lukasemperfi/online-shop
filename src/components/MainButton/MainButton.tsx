@@ -11,11 +11,13 @@ export enum ButtonColors {
 interface MainButtonProps extends ComponentPropsWithoutRef<'button'> {
     color?: ButtonColors,
     styles?: FlattenSimpleInterpolation;
+    width?: string;
 }
 
 interface StyledButtonProps {
     color: ButtonColors,
     styles?: FlattenSimpleInterpolation;
+    width?: string;
 }
 
 const buttonButtonColors = {
@@ -34,9 +36,12 @@ const buttonButtonColors = {
     width: auto;
     height: auto;
     min-height: auto;
+    padding: 0;
+
     &:focus {
         box-shadow: none;
     }
+
     &:active {
         opacity: 1;
     }
@@ -44,11 +49,11 @@ const buttonButtonColors = {
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     outline: none;
-    width: 100%;
+    width: ${({width}) => width ? width : '100%' };
     min-height: 42px;
     border: 0;
     border-radius: 4px;
@@ -59,6 +64,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     cursor: pointer;
     box-shadow: 0 1px 5px 0 rgb(0 0 0 / 20%);
     transition: all 0.3s ease;
+    padding: 10px;
 
     &:focus {
         box-shadow: 0 0 15px #4285f4;
@@ -84,12 +90,14 @@ export const MainButton: FC<MainButtonProps> = (
         color = ButtonColors.primary,
         styles,
         onClick,
+        width,
         ...buttonProperties
     }) => (
     <StyledButton
         color={color}
         styles={styles}
         onClick={onClick}
+        width={width}
         {...buttonProperties}
     >
         {children}

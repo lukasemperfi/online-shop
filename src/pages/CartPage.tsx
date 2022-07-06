@@ -77,7 +77,7 @@ export const CartPage = () => {
         />
 
     return (
-        <PageContainer maxWidth='1200px'>
+        <PageContainer>
             <Container>
                 <Header>
                     <CartTitle>Cart</CartTitle>

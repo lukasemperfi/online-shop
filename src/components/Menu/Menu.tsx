@@ -25,7 +25,7 @@ export const Menu: FC<MenuProps> = ({ items, isMobile, positionTop, open }) => {
     
     return (
         <Styled.Menu positionTop={positionTop} open={open} isMobile={isMobile}>
-            <Styled.Nav isMobile={isMobile}>
+            <Styled.Nav isMobile={isMobile} open={open}>
                 <Styled.Ul isMobile={isMobile}>
                     {items?.map((item, index) =>
                         <li key={index}>

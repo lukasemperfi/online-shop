@@ -12,8 +12,6 @@ export const ResponsiveAppBar = styled.header`
     top: 0;
     background-color: #FFFFFF;
     z-index: 1000;
-    ${calcAdaptiveValue('padding-top', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
-    ${calcAdaptiveValue('padding-bottom', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
     box-shadow: 0 6px 4px -4px rgb(0 0 0 / 20%);
 `
 export const Top = styled.div<ResponsiveAppBarProps>`

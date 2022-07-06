@@ -9,6 +9,7 @@ import { maxTextLines } from '../../styles/mixins.styled'
 import { Input } from '../Input/Input'
 import { Breakpoints, Colors } from '../../styles/styles'
 import { ProductCardProps } from '../../models/ProductCardProps'
+import { AdaptiveImage } from '../Image/AdaptivImage'
 
 const Container = styled.div`
     display: flex;
@@ -39,6 +40,11 @@ const ProductInfoTitle = styled.div`
     ${maxTextLines(2)}
 `
 
+interface PriceProps {
+    quantity: boolean;
+}
+
+
 const Quantity = styled.div`
     display: flex; 
     justify-content: center;
@@ -62,52 +68,57 @@ const inputStyles = css`
     }
 `
 
-const Price = styled.div`
+const Price = styled.div<PriceProps>`
     font-weight: 500;
-    display: flex;
-    justify-content: center;
+    display: flex; 
+    justify-content: ${({quantity}) => quantity ? 'center' : 'flex-start'};
     align-items: center;
-    flex: 0 0 33%;
+    flex: 1 1 15%;
+    padding: 10px;
+
 `
 const DeleteItem = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    flex: 0 0 10%;
 `
 
 interface CartItem extends ProductCardProps {
-
+    quantity?: boolean;
 }
 
-export const CartItem: FC<CartItem> = ({ image, title, price }) => {
+const imageShoes = 'https://lukasemperfi.github.io/Dr.Martens/img/cards/product-card/1461%20SMOOTH%20LEATHER%20OXFORD%20SHOES%20green/26226300.80.jpg'
+
+export const CartItem: FC<CartItem> = ({ image, title, price, quantity = false }) => {
+
+
     return (
         <Container>
             <ProductInfo>
                 <ProductInfoImage>
-                    <Image
-                        src={image}
-                    />
+                    <AdaptiveImage src={image} aspectRatio={0.75} />
                 </ProductInfoImage>
                 <ProductInfoBody>
                     <ProductInfoTitle>{title}</ProductInfoTitle>
                 </ProductInfoBody>
             </ProductInfo>
-            <Quantity>
-                <QuantityBody>
-                    <IconButton>
-                        <MinusIcon width={15} height={15} />
-                    </IconButton>
-                    <Input
-                        defaultValue={1}
-                        inputStyle={inputStyles}
-                    />
-                    <IconButton>
-                        <PlusIcon width={15} height={15} />
-                    </IconButton>
-                </QuantityBody>
-            </Quantity>
-            <Price>${price}</Price>
+            {quantity && (
+                <Quantity>
+                    <QuantityBody>
+                        <IconButton>
+                            <MinusIcon width={15} height={15} />
+                        </IconButton>
+                        <Input
+                            defaultValue={1}
+                            inputStyle={inputStyles}
+                        />
+                        <IconButton>
+                            <PlusIcon width={15} height={15} />
+                        </IconButton>
+                    </QuantityBody>
+                </Quantity>
+            )}
+            <Price quantity={quantity}>${price}</Price>
             <DeleteItem>
                 <IconButton>
                     <TrashIcon width={25} height={25} />

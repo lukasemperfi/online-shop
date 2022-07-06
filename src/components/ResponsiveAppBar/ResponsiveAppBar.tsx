@@ -24,7 +24,7 @@ export const ResponsiveAppBar: FC = () => {
 
     return (
         <Styled.ResponsiveAppBar ref={responsiveAppBarRef}>
-            <PageContainer maxWidth={screenWidth.max}>
+            <PageContainer>
                 <Styled.Top isMobile={isMobile} >
                     <Styled.Col1>
                         {isMobile && <BurgerBtn onClick={handleMenuOpen} />}
