@@ -1,7 +1,7 @@
-import { ComponentPropsWithoutRef, FC } from 'react';
+import { ComponentPropsWithoutRef, FC, forwardRef } from 'react';
 
-import styled, { FlattenSimpleInterpolation } from 'styled-components';
-import { Colors } from '../../styles/styles';
+import { FlattenSimpleInterpolation } from 'styled-components';
+import * as Styled from './Input.styled'
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label?: string,
@@ -10,88 +10,36 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
   inputStyle?: FlattenSimpleInterpolation,
 }
 
-interface StyledInputProps {
-  errorText?: string,
-  inputStyle?: FlattenSimpleInterpolation,
-}
-
-interface ContainerProps {
-  containerStyle?: FlattenSimpleInterpolation
-}
-
-const Container = styled.div<ContainerProps>`
-    ${({ containerStyle }) => containerStyle}
-`
-
-const StyledInput = styled.input<StyledInputProps>`
-    outline: none;
-    display: block;
-    background: rgba(0, 0, 0, 0.1);
-    width: 100%;
-    height: 100%;
-    border: 0;
-    border-radius: 4px;
-    box-sizing: border-box;
-    color: ${Colors.primary};
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: 500;
-    line-height: inherit;
-    transition: 0.3s ease;
-    padding: 12px 48px 12px 20px;
-
-    ${({ errorText }) => errorText && `box-shadow: 0 0 15px ${Colors.error};`}
-
-    &:focus {
-      ${({ errorText }) => !errorText && `box-shadow: 0 0 15px ${Colors.focus};`}
-    }
-
-    ${({ inputStyle }) => inputStyle}
-`
-const StyledLabel = styled.label`
-    display: block;
-    color: ${Colors.primary};
-    font-weight: 500;
-    line-height: 1;
-    font-size: inherit;
-    margin-bottom: 5px;
-`
-const Error = styled.div<StyledInputProps>`
-  color: ${Colors.error};
-  font-size: inherit;
-  display: ${({ errorText }) => errorText ? 'block' : 'none'};
-  margin-top: 10px;
-`
-
-export const Input: FC<InputProps> = (
-  {
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({
     label,
     containerStyle,
     inputStyle,
     errorText,
     ...inputProperties
-  }) => {
-  return (
-    <Container containerStyle={containerStyle}>
-      {label
-        ?
-        <StyledLabel>
-          {label}
-        </StyledLabel>
-        :
-        null}
-      <StyledInput
-        errorText={errorText}
-        inputStyle={inputStyle}
-        {...inputProperties}
-      />
-      {errorText
-        ?
-        <Error errorText={errorText}>
-          {errorText}
-        </Error>
-        :
-        null}
-    </Container>
-  )
-}
+  }, ref) => {
+    return (
+      <Styled.Container containerStyle={containerStyle}>
+        {label
+          ?
+          <Styled.Label>
+            {label}
+          </Styled.Label>
+          :
+          null}
+        <Styled.Input
+          errorText={errorText}
+          inputStyle={inputStyle}
+          ref={ref}
+          {...inputProperties}
+        />
+        {errorText
+          ?
+          <Styled.Error errorText={errorText}>
+            {errorText}
+          </Styled.Error>
+          :
+          null}
+      </Styled.Container>
+    )
+  })
