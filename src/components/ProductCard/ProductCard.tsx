@@ -8,18 +8,22 @@ import { FlattenSimpleInterpolation } from 'styled-components'
 import { ProductCardProps } from '../../models/ProductCardProps'
 import { AdaptiveImage } from '../Image/AdaptivImage'
 import { MainButton } from '../MainButton/MainButton'
+import { Link } from 'react-router-dom'
+import { ProductsRoutes } from '../../navigation/routeNames'
 
 interface Props extends ProductCardProps{
     containerStyles?: FlattenSimpleInterpolation;
 }
 
 export const ProductCard: FC<Props> = ({ image, title, price}) => {
+    const cardId = 5
+        
     return (
         <Styled.Card>
-            <a href="#">
+            <Link to={`${ProductsRoutes.ProductsPage}/${cardId}`}>
                 <AdaptiveImage src={image} aspectRatio={0.75} />
-            </a>
-            <Styled.LinkTitle href="#">
+            </Link>
+            <Styled.LinkTitle to={`${ProductsRoutes.ProductsPage}/${cardId}`}>
                 <Styled.CardTitle >{title}</Styled.CardTitle>
             </Styled.LinkTitle>
             <Styled.CardFooter>

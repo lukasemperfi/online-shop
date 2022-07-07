@@ -1,13 +1,20 @@
-export enum PublicRoutes  {
-    MainLayout = '/',
-    ProductsPage = '/products'
-}
-
-export enum PrivateAdminRoutes  {
-    AdminPanel = '/admin',
+export enum MainRoutes  {
+    Main = '/',
 }
 
 export enum ProductsRoutes  {
     ProductsPage = '/products',
-    ProductDetails = ':id'
+    ProductDetails = '/products/:id'
+}
+
+export enum AdminRoutes  {
+    AdminPage = '/admin',
+}
+
+export enum CartRoutes  {
+    Cart = '/cart',
+}
+
+export enum PageNotFoundRoutes  {
+    PageNotFound = '*',
 }

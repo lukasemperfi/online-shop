@@ -10,6 +10,7 @@ import { BurgerBtn } from '../BurgerBtn/BurgerBtn'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useElementSize } from '../../hooks/useElementSize'
 import { UserMenu } from '../UserMenu/UserMenu'
+import { Link } from 'react-router-dom'
 
 const items = [{ name: 'Ботинки', href: '#' }, { name: 'Туфли', href: '#' }, { name: 'Кеды', href: '#' }, { name: 'Сланцы', href: '#' },]
 
@@ -30,9 +31,9 @@ export const ResponsiveAppBar: FC = () => {
                         {isMobile && <BurgerBtn onClick={handleMenuOpen} />}
                     </Styled.Col1>
                     <Styled.Col2>
-                        <a href="/#">
+                        <Link to={'/'}>
                             <Image imageStyle={Styled.logoStyle} src={logo} />
-                        </a>
+                        </Link>
                     </Styled.Col2>
                     <Styled.Col3>
                         <MemoUserMenu />

@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ResponsiveAppBar } from '../../components/ResponsiveAppBar/ResponsiveAppBar'
@@ -15,6 +16,12 @@ const Wrapper = styled.div`
 `
 
 export const MainLayout = () => {
+  // const navigate = useNavigate()
+
+  // useEffect(() => {
+  //   navigate('products')
+  // }, [])
+
   return (
     <Wrapper>
       <ResponsiveAppBar />

@@ -6,6 +6,7 @@ import { ItemsList } from "../components/ItemsList/ItemsList"
 import { productsData } from '../productsData'
 import { ProductCardProps } from "../models/ProductCardProps"
 import { Card } from "../components/Card/Card"
+import { auth, db } from "../firebase"
 
 const data = [
     {
@@ -72,19 +73,13 @@ const Skeleton = styled.span`
 
 export const ProductsPage = () => {
 
-    const mockLoad = () => {
-        
-        return 'image'
-    }
-
-
-    const renderItem = (item: any, index: number) =>
+    const renderItem = (item: any, index: number) => (
         <ProductCard
             image={item.image}
             title={item.title}
             price={item.price}
             key={index}
-        />
+        />)
 
     return (
         <PageContainer>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
 import { maxTextLines } from '../../styles/mixins.styled';
 import { Colors } from '../../styles/styles';
@@ -15,7 +16,7 @@ export const Card = styled.div<ProductCardProps>`
     ${({ containerStyles }) => containerStyles}
 `
 
-export const LinkTitle = styled.a`
+export const LinkTitle = styled(Link)`
     flex: 1 1 auto;
     color: ${Colors.black};
 `

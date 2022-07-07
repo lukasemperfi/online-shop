@@ -1,50 +1,33 @@
-import { Routes, Route, useRoutes, Navigate } from 'react-router-dom';
+import { Routes, Route, useRoutes, } from 'react-router-dom';
+import { errorRouteGroup, homeRoutes, mainRoutes } from './routes';
 import { MainLayout } from '../components/MainLayout/MainLayout';
 import { AdminPage } from '../pages/AdminPage';
 import { CartPage } from '../pages/CartPage';
 import { PageNotFound } from '../pages/PageNotFound';
 import { ProductDetails } from '../pages/ProductDetails';
 import { ProductsPage } from '../pages/ProductsPage';
-import { PublicRoutes } from './routeNames';
-
+import { HomePage } from '../pages/HomePage';
 
 export const AppRouter = () => {
 
-	const productsRoutes = [
-		{ path: 'products', element: <ProductsPage /> },
-		{ path: 'products/:id', element: <ProductDetails /> },
-	];
+	// const routes = useRoutes([
+	// 	homeRoutes, 
+	// 	mainRoutes, 
+	// 	...errorRouteGroup
+	// ])
 
-	const privateAdminRoutes = [
-		{ path: 'admin', element: <AdminPage /> },
-	];
+	// return <>{routes}</>
 
-	const cartRoutes = [
-		{ path: 'cart', element: <CartPage /> },
-	];
-
-	const mainRoutes = {
-		path: '/',
-		element: <MainLayout />,
-		children: [
-			...productsRoutes,
-			...privateAdminRoutes,
-			...cartRoutes,
-		],
-	};
-
-	const routes = useRoutes([mainRoutes])
-	return <>{routes}</>
-
-	// return (
-	// 	<Routes>
-	// 		<Route path={PublicRoutes.MainLayout} element={<MainLayout />}>
-	// 			<Route path='products' element={<ProductsPage />} />
-	// 			<Route path='products/:id' element={<ProductDetails />} />
-	// 			<Route path='admin' element={<AdminPage />} />
-	// 		</Route>
-	// 		<Route path='*' element={<PageNotFound />} />
-	// 	</Routes>
-	// )
+	return (
+		<Routes>
+			<Route path='/' element={<MainLayout />}>
+				<Route index element={<HomePage />} />
+				<Route path='products' element={<ProductsPage />} />
+				<Route path='products/:id' element={<ProductDetails />} />
+				<Route path='cart' element={<CartPage />} />
+				<Route path='admin' element={<AdminPage />} />
+			</Route>
+			<Route path='*' element={<PageNotFound />} />
+		</Routes>)
 
 }

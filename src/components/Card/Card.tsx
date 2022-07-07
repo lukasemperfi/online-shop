@@ -7,6 +7,8 @@ import * as Styled from './Card.styled'
 import styled, { FlattenSimpleInterpolation } from 'styled-components'
 import { ProductCardProps } from '../../models/ProductCardProps'
 import { AdaptiveImage } from '../Image/AdaptivImage'
+import { Link } from 'react-router-dom'
+import { ProductsRoutes } from '../../navigation/routeNames'
 
 export enum CardVariant {
     primary = 'primary',
@@ -22,9 +24,9 @@ interface Props extends ProductCardProps {
 export const Card: FC<Props> = ({ image, title, price, variant = CardVariant.primary }) => {
     return (
         <Styled.Card>
-            <a href="#">
+            <Link to={ProductsRoutes.ProductDetails}>
                 <AdaptiveImage src={image} aspectRatio={0.75} />
-            </a>
+            </Link>
             <Styled.LinkTitle href="#">
                 <Styled.CardTitle >{title}</Styled.CardTitle>
             </Styled.LinkTitle>

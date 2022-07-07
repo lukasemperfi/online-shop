@@ -6,8 +6,13 @@ import userIcon from '../../assets/user.png'
 import cartIcon from '../../assets/cart.png'
 import { FormToogle } from '../FormToogle/FormToogle'
 import { Popup } from '../Popup/Popup'
+import { useMatch, useNavigate } from 'react-router-dom'
+import { CartRoutes } from '../../navigation/routeNames'
 
 export const UserMenu = () => {
+    const navigate = useNavigate()
+    const match = useMatch(CartRoutes.Cart)
+    const isCartPage = match !== null
 
     const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
     // const [isCartPopupOpen, setIsCartPopupOpen] = useState(false)
@@ -17,6 +22,14 @@ export const UserMenu = () => {
 
     // const handleIsCartPopupOpen = () => setIsCartPopupOpen(true)
     // const handleIsCartPopupClose = () => setIsCartPopupOpen(false)
+
+    const cartIconOnclick = () => {
+        if (!isCartPage) {
+            console.log('navigate');           
+            navigate(CartRoutes.Cart)
+        }
+
+    }
 
     return (
         <>
@@ -37,7 +50,12 @@ export const UserMenu = () => {
                     <FormToogle />
                 </Popup>
             </div>
-            <IconButton width={25} height={25} styles={Styled.cartStyle}>
+            <IconButton
+                width={25}
+                height={25}
+                styles={Styled.cartStyle}
+                onClick={cartIconOnclick}
+            >
                 <img src={cartIcon} alt="cart-icon" />
                 <Styled.CartCountStyle>2</Styled.CartCountStyle>
             </IconButton>

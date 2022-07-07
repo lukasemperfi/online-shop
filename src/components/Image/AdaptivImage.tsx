@@ -1,13 +1,15 @@
 import React, { ComponentPropsWithoutRef, FC } from 'react'
 
-import styled, { css } from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
 interface AdaptiveImageProps extends ComponentPropsWithoutRef<'img'> {
     aspectRatio?: number;
+    imageStyles?: FlattenSimpleInterpolation;
 }
 
 interface StyledAdaptiveImageProps {
     aspectRatio?: number;
+    imageStyles?: FlattenSimpleInterpolation;
 }
 
 const skeleton = css`
@@ -48,12 +50,15 @@ const StyledAdaptiveImage = styled.img<StyledAdaptiveImageProps>`
     object-fit: cover;
 
     ${skeleton}
+    ${({imageStyles}) => imageStyles }
+
 `
 
-export const AdaptiveImage: FC<AdaptiveImageProps> = ({ aspectRatio, ...imageProperies }) => {
+export const AdaptiveImage: FC<AdaptiveImageProps> = ({ aspectRatio, imageStyles, ...imageProperies }) => {
     return (
         <StyledAdaptiveImage
             aspectRatio={aspectRatio}
+            imageStyles={imageStyles}
             {...imageProperies}
         />
     )
