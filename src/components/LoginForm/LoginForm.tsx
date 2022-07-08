@@ -6,6 +6,8 @@ import {useForm, SubmitHandler } from 'react-hook-form';
 
 import { Input } from '../Input/Input'
 import { ButtonColors, MainButton } from '../MainButton/MainButton'
+import { useAppDispatch } from '../../hooks/redux';
+import { signIn } from '../../store/authSlice';
 
 
 const formItemStyle = css`
@@ -26,13 +28,15 @@ const schema = yup.object({
 })
 
 export const LoginForm = () => {
+    const dispatch = useAppDispatch()
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         mode: 'all',
         resolver: yupResolver(schema)
     });
 
 const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data)
+    // console.log(data)
+    dispatch(signIn(data))
 }
 
     return (

@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import { Colors } from '../../styles/styles'
 import { LoginForm } from '../LoginForm/LoginForm'
 import { ButtonColors, MainButton } from '../MainButton/MainButton'
-import { SignupForm } from '../SignupForm/SignupForm'
+import { SignUpForm } from '../SignUpForm/SignupForm'
+
 
 const Container = styled.div`
     background-color: ${Colors.white};
@@ -44,7 +45,7 @@ export const FormToogle = () => {
             <Title>
                 {isLoginForm ? 'LOGIN' : 'REGISTRATION'}
             </Title>
-            {isLoginForm ? <LoginForm /> : <SignupForm />}
+            {isLoginForm ? <LoginForm /> : <SignUpForm />}
             <Links>
                 <a href="#">Reset Password</a>
                 <span>|</span>
@@ -52,7 +53,7 @@ export const FormToogle = () => {
                     color={ButtonColors.text}
                     onClick={handleisLoginForm}
                 >
-                    {isLoginForm ? 'Signup' : 'Login'}
+                    {isLoginForm ? 'signUp' : 'Login'}
                 </MainButton>
             </Links>
         </Container>

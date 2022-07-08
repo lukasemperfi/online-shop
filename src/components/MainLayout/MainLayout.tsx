@@ -3,9 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ResponsiveAppBar } from '../../components/ResponsiveAppBar/ResponsiveAppBar'
-import { useAppDispatch } from '../../hooks/redux'
 import { CartPage } from '../../pages/CartPage'
-import { logout } from '../../store/testSlice'
 
 const Main = styled.main`
   flex: 1 1 auto;

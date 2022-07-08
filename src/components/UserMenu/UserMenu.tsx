@@ -8,8 +8,12 @@ import { FormToogle } from '../FormToogle/FormToogle'
 import { Popup } from '../Popup/Popup'
 import { useMatch, useNavigate } from 'react-router-dom'
 import { CartRoutes } from '../../navigation/routeNames'
+import { ButtonColors, MainButton } from '../MainButton/MainButton'
+import { useAppDispatch } from '../../hooks/redux'
+import { logOut } from '../../store/authSlice'
 
 export const UserMenu = () => {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const match = useMatch(CartRoutes.Cart)
     const isCartPage = match !== null
@@ -31,8 +35,13 @@ export const UserMenu = () => {
 
     }
 
+    const onLogOut = () => {
+        dispatch(logOut())
+    }
+
     return (
         <>
+            <MainButton color={ButtonColors.text} onClick={onLogOut}>LogOut</MainButton>
             <div>
                 <IconButton
                     width={25}

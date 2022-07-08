@@ -5,6 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Input } from '../Input/Input'
 import { MainButton } from '../MainButton/MainButton'
+import { useAppDispatch } from '../../hooks/redux';
+import { signUp } from '../../store/authSlice';
 
 const formItemStyle = css`
     margin-bottom: 20px;
@@ -27,14 +29,16 @@ const schema = yup.object({
     passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords does not match')
 })
 
-export const SignupForm = () => {
+export const SignUpForm = () => {
+    const dispatch = useAppDispatch()
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
             mode: 'all',
             resolver: yupResolver(schema)
         });
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
-        console.log(data)
+        // console.log(data)
+        dispatch(signUp(data))
     }
     
     return (
