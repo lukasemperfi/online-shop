@@ -21,21 +21,6 @@ export const AppRouter = () => {
 
 	// return <>{routes}</>
 	
-	useEffect(() => {
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-			  const uid = user.uid;
-			  console.log('User loggin');
-			  
-			  // ...
-			} else {
-				console.log('User is signed out');
-				
-			  // User is signed out
-			  // ...
-			}
-		  });
-	}, [])
 
 	return (
 		<Routes>

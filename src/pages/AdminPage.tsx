@@ -9,8 +9,8 @@ import { Breakpoints } from '../styles/styles'
 import userIcon from '../assets/user.png'
 import { Image } from '../components/Image/Image'
 import { AdminProductCard } from '../components/AdminProductCard/AdminProductCard'
-import { Popup } from '../components/Popup/Popup'
 import { AddNewProductForm } from '../components/AddNewProductForm/AddNewProductForm'
+import { MainPopup } from '../components/MainPopup/MainPopup'
 const data = [
   {
     image: 'https://i.insider.com/61d1c0e2aa741500193b2d18?width=1136&format=jpeg',
@@ -145,12 +145,12 @@ export const AdminPage = () => {
           data={data}
           renderItem={renderItem}
         />
-        <Popup
-          open={isAddNewProductPopupOpen}
+        <MainPopup
+          isOpened={isAddNewProductPopupOpen}
           onClose={handleAddNewProductPopupOnClose}
         >
           <AddNewProductForm/>
-        </Popup>
+        </MainPopup>
       </Products>
     </GridContainer>
   )

@@ -4,16 +4,16 @@ import styled from 'styled-components'
 import { Colors } from '../../styles/styles'
 import { LoginForm } from '../LoginForm/LoginForm'
 import { ButtonColors, MainButton } from '../MainButton/MainButton'
-import { SignUpForm } from '../SignUpForm/SignupForm'
+import { SignUpForm } from '../SignUpForm/SignUpForm'
 
 
 const Container = styled.div`
-    background-color: ${Colors.white};
+    /* background-color: ${Colors.white};
     width: 100%;
     height: 100%;
     box-shadow: 0 0 30px rgb(0 0 0 / 10%);
-    overflow: hidden;
-    padding: 40px;
+    overflow: hidden; */
+    padding: 40px; 
 `
 
 const Title = styled.h2`

@@ -54,6 +54,18 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: string }>(
     }
 );
 
+export const trackUserAuth = createAsyncThunk<void, void, { rejectValue: string }>(
+    `userAuth/trackUserAuth`,
+    async (_, { rejectWithValue }) => {
+        try {
+            await signOut(auth)
+
+        } catch (error: any) {
+            return rejectWithValue(error.message as string);
+        }
+    }
+);
+
 
 const authentication = createSlice({
     name: 'userAuth',

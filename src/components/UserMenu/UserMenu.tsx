@@ -5,12 +5,12 @@ import * as Styled from './UserMenu.styled'
 import userIcon from '../../assets/user.png'
 import cartIcon from '../../assets/cart.png'
 import { FormToogle } from '../FormToogle/FormToogle'
-import { Popup } from '../Popup/Popup'
 import { useMatch, useNavigate } from 'react-router-dom'
 import { CartRoutes } from '../../navigation/routeNames'
 import { ButtonColors, MainButton } from '../MainButton/MainButton'
 import { useAppDispatch } from '../../hooks/redux'
 import { logOut } from '../../store/authSlice'
+import { MainPopup } from '../MainPopup/MainPopup'
 
 export const UserMenu = () => {
     const dispatch = useAppDispatch()
@@ -51,13 +51,12 @@ export const UserMenu = () => {
                 >
                     <img src={userIcon} alt="user-icon" />
                 </IconButton>
-                <Popup
-                    open={isUserPopupOpen}
+                <MainPopup
+                    isOpened={isUserPopupOpen}
                     onClose={handleIsUserPopupClose}
-                    contentContainerStyles={Styled.contentContainerStyles}
                 >
                     <FormToogle />
-                </Popup>
+                </MainPopup>
             </div>
             <IconButton
                 width={25}

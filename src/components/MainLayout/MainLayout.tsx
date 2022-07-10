@@ -4,6 +4,9 @@ import styled from 'styled-components'
 
 import { ResponsiveAppBar } from '../../components/ResponsiveAppBar/ResponsiveAppBar'
 import { CartPage } from '../../pages/CartPage'
+import { FormToogle } from '../FormToogle/FormToogle'
+import { MainPopup } from '../MainPopup/MainPopup'
+import { OverlayingPopup } from '../OverlayingPopup/OverlayingPopup'
 
 const Main = styled.main`
   flex: 1 1 auto;
