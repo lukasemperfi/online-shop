@@ -8,6 +8,7 @@ import { DropdownMenu } from '../DropdownMenu/DropdownMenu'
 import { FormToogle } from '../FormToogle/FormToogle'
 import { ItemsList } from '../ItemsList/ItemsList'
 import { MainPopup } from '../MainPopup/MainPopup'
+import { MenuTest } from '../Menu/MenuTest'
 import { MenuList } from '../MenuList/MenuList'
 import { OverlayingPopup } from '../OverlayingPopup/OverlayingPopup'
 
@@ -42,22 +43,21 @@ export const MainLayout = () => {
 
   return (
     <Wrapper>
-      {/* <ResponsiveAppBar />
+      <ResponsiveAppBar />
       <Main>
         <Outlet />
-      </Main>
-      <footer>Footer</footer> */}
-      <DropdownMenu
+      </Main> 
+      <footer>Footer</footer>  
+      {/* <DropdownMenu
         data={data}
         renderItem={({name, href}) => {
           return ( <a href={href}>{name}</a>)
         }}
-      />
-
-      {/* <MenuList
+      /> */}
+      {/* <MenuTest
         data={data}
         renderItem={({ name, href }) => {
-          return `${name}`
+          return (<a href={href}>{name}</a>)
         }}
       /> */}
     </Wrapper>
