@@ -68,7 +68,7 @@ const data = [
 
 export const CartPage = () => {
 
-    const renderItem = ({image, title, price}: ProductCardProps, index: number) =>
+    const renderItem = ({image, title, price}: ProductCardProps, index?: number) =>
         <CartItem
             key={index}
             image={image}

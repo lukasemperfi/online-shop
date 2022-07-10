@@ -4,7 +4,7 @@ import { Breakpoints } from '../../styles/styles';
 
 interface ItemsListProps<T> {
   data: T[];
-  renderItem: (item: T, index: number) => ReactNode;
+  renderItem: (item: T, index?: number) => ReactNode;
   containerStyles?: FlattenSimpleInterpolation;
   columns?: boolean;
   gap?: string;

@@ -73,7 +73,7 @@ const Skeleton = styled.span`
 
 export const ProductsPage = () => {
 
-    const renderItem = (item: any, index: number) => (
+    const renderItem = (item: any, index?: number) => (
         <ProductCard
             image={item.image}
             title={item.title}

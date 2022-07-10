@@ -110,7 +110,7 @@ export const AdminPage = () => {
     setIsAddNewProductPopupOpen(false)
   }
 
-  const renderItem = (item: ProductCardProps, index: number) =>
+  const renderItem = (item: ProductCardProps, index?: number) =>
     <CartItem
       image={item.image}
       title={item.title}
