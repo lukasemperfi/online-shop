@@ -1,102 +1,13 @@
-import styled, { css } from 'styled-components'
-import { calcAdaptiveValue } from '../../styles/helpers';
+import styled from 'styled-components'
 
-import { Colors, screenWidth, spacing } from '../../styles/styles';
+import { StyledProps } from './models/StyledProps'
+import * as styles from './styles'
 
-interface MenuProps {
-    positionTop?: number;
-    open: boolean;
-    isMobile: boolean;
-}
-
-interface NavProps {
-    isMobile: boolean;
-    open?: boolean;
-}
-
-const mobileMenu = css<MenuProps>`
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding-top: ${({ positionTop }) => positionTop  + 'px'};
-    display: block;
-    background-color: #FFFFFF;
-    /* height: 100vh; */
-    height: 0;
-    /* max-height: 0; */
-    width: 100vw;
-    /* opacity: 0; */
-    /* transform: translateX(-100%); */
-    transition: all 0.3s ;
-    /* background-color: red; */
-`
-const mobileMenuOpen = css`
-    /* transform: translateX(0); */
-    /* opacity: 1; */
-    /* max-height: 100vh; */
-    height: 100vh;
+export const Container = styled.div<StyledProps>`
+    ${({ isMobile }) => isMobile ? styles.mobileContainerStyle : styles.desktopContainerStyle}
 `
 
-const mobileNav = css`
-    display: none;
-    ${calcAdaptiveValue('padding', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
-`
-
-const mobileNavActive = css`
-    display: inline-flex;
-`
-
-const mobileAnchor = css`
-    padding: ${spacing.small} 0px;
-`
-
-export const Menu = styled.div<MenuProps>`
-    position: relative;
-    display: flex;
-    justify-content: center;
-    background-color: transparent;
-    
-    ${({isMobile}) => isMobile &&  mobileMenu}
-    ${({isMobile , open}) => (isMobile && open) && mobileMenuOpen}
-`
-
-export const Nav = styled.nav<NavProps>`
-    display: inline-flex;
-    ${({ isMobile }) => isMobile && mobileNav}
-    
-    ${({isMobile , open}) => (isMobile && open) && mobileNavActive}
-`
-
-export const Ul = styled.ul<NavProps>`
-    display: inline-flex;
-    flex-direction: row;
-${({ isMobile }) => isMobile ? 'column' : 'row'}; 
-    flex-direction: ${({ isMobile }) => isMobile ? 'column' : 'row'};
-`
-export const Anchor = styled.a<NavProps>`
-    display: inline-flex;
-    padding: ${spacing.tiny} ${spacing.medium};
-    color: ${Colors.primary};
-    position: relative;
-    width: 100%;
-    ${({isMobile}) => isMobile && mobileAnchor}
-    &:active {
-        color: inherit;
-    }
-    &:after {
-        position: absolute;
-        content: "";
-        width: 0px;
-        height: 1.5px;
-        bottom: 0;
-        left: 50%;
-        right: 0;
-        background: #000;
-        transition: all 0.4s;
-        transform: translateX(-50%);
-        overflow: hidden;
-    }
-    &:hover::after {
-        width: 100%;
-    }
+export const Nav = styled.nav<StyledProps>`
+    display: inline-block;
+    ${({isOpen, isMobile}) => (isMobile && !isOpen) ? styles.mobileNavStyle : styles.desktopNavStyle}
 `

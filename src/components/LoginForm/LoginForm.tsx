@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from 'react'
-import { css } from 'styled-components'
+import styled, { css } from 'styled-components'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {useForm, SubmitHandler } from 'react-hook-form';
 
 import { Input } from '../Input/Input'
 import { ButtonColors, MainButton } from '../MainButton/MainButton'
-import { useAppDispatch } from '../../hooks/redux';
-import { signIn } from '../../store/authSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { selectIsLoading, signIn } from '../../store/userSlice';
 
 
 const formItemStyle = css`
@@ -16,6 +16,17 @@ const formItemStyle = css`
 const inputStyle = css`
     /* padding: 12px 48px 12px 20px; */
 `
+
+// const StyledOverlay = styled.div`
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     z-index: 1000000;
+//     background-color: black;
+//     opacity: 0.5;
+// `
 
 interface FormData {
     email: string;
@@ -33,6 +44,7 @@ export const LoginForm = () => {
         mode: 'all',
         resolver: yupResolver(schema)
     });
+    // const isLoading = useAppSelector(selectIsLoading)
 
 const onSubmit: SubmitHandler<FormData> = (data) => {
     // console.log(data)

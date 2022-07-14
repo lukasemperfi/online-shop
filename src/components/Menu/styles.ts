@@ -1,4 +1,5 @@
 import { css } from 'styled-components'
+
 import { StyledProps } from './models/StyledProps'
 
 export const desktopPageContainerStyle = css`

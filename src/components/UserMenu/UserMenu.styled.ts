@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components'
 
 export const iconsStyle = css`
     margin-left: 15px;
+    /* position: fixed;
+    left: 0; */
 `
 
 export const contentContainerStyles = css`

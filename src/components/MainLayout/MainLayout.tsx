@@ -1,16 +1,16 @@
-import { useEffect } from 'react'
+import { MouseEvent, RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ResponsiveAppBar } from '../../components/ResponsiveAppBar/ResponsiveAppBar'
 import { CartPage } from '../../pages/CartPage'
 import { DropdownMenu } from '../DropdownMenu/DropdownMenu'
-import { FormToogle } from '../FormToogle/FormToogle'
 import { ItemsList } from '../ItemsList/ItemsList'
 import { MainPopup } from '../MainPopup/MainPopup'
-import { MenuTest } from '../Menu/MenuTest'
+import { Menu } from '../Menu/Menu'
 import { MenuList } from '../MenuList/MenuList'
 import { OverlayingPopup } from '../OverlayingPopup/OverlayingPopup'
+import { Popover } from '../Popover/Popover'
 
 const Main = styled.main`
   flex: 1 1 auto;
@@ -38,6 +38,24 @@ const data = [
 
 ]
 
+const SButton = styled.button`
+  width: 30px;
+  height: 30px;
+  margin-left: 100px;
+  margin-top: 200px;
+`
+
+interface ElementPositionProps {
+  top: number | null,
+  bottom: number | null,
+  left: number | null,
+  right: number | null,
+}
+
+interface DropDownProps {
+  elementPosition: ElementPositionProps;
+}
+
 
 export const MainLayout = () => {
 
@@ -46,20 +64,8 @@ export const MainLayout = () => {
       <ResponsiveAppBar />
       <Main>
         <Outlet />
-      </Main> 
-      <footer>Footer</footer>  
-      {/* <DropdownMenu
-        data={data}
-        renderItem={({name, href}) => {
-          return ( <a href={href}>{name}</a>)
-        }}
-      /> */}
-      {/* <MenuTest
-        data={data}
-        renderItem={({ name, href }) => {
-          return (<a href={href}>{name}</a>)
-        }}
-      /> */}
+      </Main>
+      <footer>Footer</footer>
     </Wrapper>
   )
 }

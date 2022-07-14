@@ -1,16 +1,29 @@
-import { useState } from 'react'
+import { MouseEvent, MouseEventHandler, useState } from 'react'
 
 import { IconButton } from '../IconButton/IconButton'
 import * as Styled from './UserMenu.styled'
 import userIcon from '../../assets/user.png'
 import cartIcon from '../../assets/cart.png'
-import { FormToogle } from '../FormToogle/FormToogle'
 import { useMatch, useNavigate } from 'react-router-dom'
 import { CartRoutes } from '../../navigation/routeNames'
 import { ButtonColors, MainButton } from '../MainButton/MainButton'
-import { useAppDispatch } from '../../hooks/redux'
-import { logOut } from '../../store/authSlice'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { logOut, selectIsLoading, selectIsLoggedIn, selectUser } from '../../store/userSlice'
 import { MainPopup } from '../MainPopup/MainPopup'
+import { Popover } from '../Popover/Popover'
+import { DropdownMenu } from '../DropdownMenu/DropdownMenu'
+import { PopoverPlacement } from '../../hooks/usePopoverPosition/models/PopoverPlacement'
+import { ModalFormToggle } from '../ModalFormToggle/ModalFormToggle'
+
+import { v4 as uuidv4 } from 'uuid';
+import { DropdownMenuItem } from '../DropdownMenu/DropdownMenuItem'
+import { db, usersCollection } from '../../firebase/firebase'
+import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
+
+interface DropdownMenuItem {
+    name: string,
+    handleClick?: MouseEventHandler
+}
 
 export const UserMenu = () => {
     const dispatch = useAppDispatch()
@@ -18,18 +31,39 @@ export const UserMenu = () => {
     const match = useMatch(CartRoutes.Cart)
     const isCartPage = match !== null
 
+    const user = useAppSelector(selectUser)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const isLoading = useAppSelector(selectIsLoading)
+
+    console.log(user);
+    // console.log('isLoading', isLoading);
+    // const isLoggedIn = true
+
+
     const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
-    // const [isCartPopupOpen, setIsCartPopupOpen] = useState(false)
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+    const isOpened = Boolean(anchorEl);
 
-    const handleIsUserPopupOpen = () => setIsUserPopupOpen(true)
-    const handleIsUserPopupClose = () => setIsUserPopupOpen(false)
+    const handleIsUserPopupOpen = (event: MouseEvent<HTMLButtonElement>) => {
+        if (isLoggedIn) {
+            setAnchorEl(event.currentTarget);
+        } else {
+            setIsUserPopupOpen(true)
+        }
 
-    // const handleIsCartPopupOpen = () => setIsCartPopupOpen(true)
-    // const handleIsCartPopupClose = () => setIsCartPopupOpen(false)
+    }
+
+    const handleIsUserPopupClose = () => {
+        if (isLoggedIn) {
+            setAnchorEl(null);
+        } else {
+            setIsUserPopupOpen(false)
+        }
+    }
 
     const cartIconOnclick = () => {
         if (!isCartPage) {
-            console.log('navigate');           
+            console.log('navigate');
             navigate(CartRoutes.Cart)
         }
 
@@ -37,11 +71,34 @@ export const UserMenu = () => {
 
     const onLogOut = () => {
         dispatch(logOut())
+        console.log('loggout');
+        handleIsUserPopupClose()
+    }
+
+    const dropdownMenuData: DropdownMenuItem[] = [
+        {
+            name: 'Profile',
+            handleClick: handleIsUserPopupClose
+        },
+        {
+            name: 'SignOut',
+            handleClick: onLogOut
+        },
+
+    ]
+
+
+    const renderItem = ({ name, handleClick }: DropdownMenuItem) => {
+        return (<DropdownMenuItem onClick={handleClick}>{name}</DropdownMenuItem>)
+    }
+
+    const dropdownPlacement: PopoverPlacement = {
+        vertical: 'bottom',
+        horizontal: 'right'
     }
 
     return (
         <>
-            <MainButton color={ButtonColors.text} onClick={onLogOut}>LogOut</MainButton>
             <div>
                 <IconButton
                     width={25}
@@ -51,12 +108,22 @@ export const UserMenu = () => {
                 >
                     <img src={userIcon} alt="user-icon" />
                 </IconButton>
-                <MainPopup
-                    isOpened={isUserPopupOpen}
-                    onClose={handleIsUserPopupClose}
-                >
-                    <FormToogle />
-                </MainPopup>
+                {isLoggedIn
+                    ?
+                    <DropdownMenu
+                        data={dropdownMenuData}
+                        renderItem={renderItem}
+                        anchorEl={anchorEl}
+                        isOpened={isOpened}
+                        onClose={handleIsUserPopupClose}
+                        placement={dropdownPlacement}
+                    />
+                    :
+                    <ModalFormToggle
+                        isOpened={isUserPopupOpen}
+                        onClose={handleIsUserPopupClose}
+                    />
+                }
             </div>
             <IconButton
                 width={25}

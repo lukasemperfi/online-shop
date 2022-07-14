@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components'
 
 import { calcAdaptiveValue } from '../../styles/helpers';
-import { screenWidth, spacing } from '../../styles/styles';
+import { Colors, screenWidth, spacing } from '../../styles/styles';
 
 interface ResponsiveAppBarProps {
     isMobile: boolean;
@@ -11,7 +12,8 @@ export const ResponsiveAppBar = styled.header`
     position: sticky;
     top: 0;
     background-color: #FFFFFF;
-    z-index: 1000;
+    /* z-index: 1000; */
+    z-index: 1;
     box-shadow: 0 6px 4px -4px rgb(0 0 0 / 20%);
 `
 export const Top = styled.div<ResponsiveAppBarProps>`
@@ -25,6 +27,35 @@ export const Col = styled.div`
     flex: 0 1 33.333%;
     display: flex;
 `
+
+export const MenuLink = styled(Link)`
+    display: inline-flex;
+    padding: ${spacing.tiny} 0;
+    color: ${Colors.primary};
+    position: relative;
+    width: 100%;
+    &:active {
+        color: inherit;
+    }
+    &:after {
+        position: absolute;
+        content: "";
+        width: 0px;
+        height: 1.5px;
+        bottom: 0px;
+        left: 50%;
+        right: 0;
+        background: #000;
+        transition: all 0.4s;
+        transform: translateX(-50%);
+        overflow: hidden;
+    }
+    &:hover::after {
+        width: 100%;
+    }
+`
+
+
 export const Col1 = styled(Col)`
     justify-content: flex-start;
 `

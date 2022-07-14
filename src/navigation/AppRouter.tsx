@@ -9,7 +9,7 @@ import { ProductsPage } from '../pages/ProductsPage';
 import { HomePage } from '../pages/HomePage';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth } from '../firebase/firebase';
 
 export const AppRouter = () => {
 

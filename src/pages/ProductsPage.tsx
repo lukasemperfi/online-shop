@@ -6,7 +6,7 @@ import { ItemsList } from "../components/ItemsList/ItemsList"
 import { productsData } from '../productsData'
 import { ProductCardProps } from "../models/ProductCardProps"
 import { Card } from "../components/Card/Card"
-import { auth, db } from "../firebase"
+import { auth, db } from "../firebase/firebase"
 
 const data = [
     {

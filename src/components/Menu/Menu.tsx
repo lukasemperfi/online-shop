@@ -1,39 +1,35 @@
-import React, { ComponentPropsWithoutRef, FC, ReactNode } from 'react'
-import styled, { FlattenSimpleInterpolation } from 'styled-components'
+import { ReactNode } from 'react'
+
 import { useLockedBody } from '../../hooks/useLockedBody';
-import { screenWidth } from '../../styles/styles';
+import { MenuList } from '../MenuList/MenuList';
 import { PageContainer } from '../PageContainer/PageContainer';
-
 import * as Styled from './Menu.styled'
+import * as styles from './styles'
 
-interface Item {
-    name: string;
-    href: string;
-}
-
-interface MenuProps extends ComponentPropsWithoutRef<'ul'> {
-    items: Item[];
-    positionTop?: number;
+interface MenuProps<T> {
+    data: T[];
+    renderItem: (item: T) => ReactNode;
     isMobile: boolean;
-    open: boolean;
+    positionTop: number;
+    isOpen: boolean;
 }
 
-export const Menu: FC<MenuProps> = ({ items, isMobile, positionTop, open }) => {
-    const isBodyLocked = isMobile && open
+export const Menu = <T,>({ data, renderItem, isMobile,  positionTop, isOpen }: MenuProps<T>) => {
+    const isBodyLocked = isMobile && isOpen
 
     useLockedBody(isBodyLocked)
-    
+
     return (
-        <Styled.Menu positionTop={positionTop} open={open} isMobile={isMobile}>
-            <Styled.Nav isMobile={isMobile} open={open}>
-                <Styled.Ul isMobile={isMobile}>
-                    {items?.map((item, index) =>
-                        <li key={index}>
-                            <Styled.Anchor isMobile={isMobile} href={item.href}>{item.name}</Styled.Anchor>
-                        </li>
-                    )}
-                </Styled.Ul>
-            </Styled.Nav>
-        </Styled.Menu>
+        <Styled.Container isMobile={isMobile} positionTop={positionTop} isOpen={isOpen}>
+            <PageContainer containerStyles={!isMobile ? styles.desktopPageContainerStyle : undefined}>
+                <Styled.Nav isMobile={isMobile} isOpen={isOpen}>
+                    <MenuList
+                        data={data}
+                        renderItem={renderItem}
+                        containerStyle={isMobile ? styles.mobileMenuListContainerStyle : styles.desktopMenuListContainerStyle}
+                    />
+                </Styled.Nav>
+            </PageContainer>
+        </Styled.Container>
     )
 }

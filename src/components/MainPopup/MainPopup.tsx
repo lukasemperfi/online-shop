@@ -15,19 +15,18 @@ const StyledContainer = styled.div<StyledContainerProps>`
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); 
 
-    z-index: 1;
-
     ${({containerStyles}) => containerStyles}
 `
 
-interface MainPopupProps {
-    children: ReactNode;
+export interface MainPopupProps  {
+    children?: ReactNode;
     onClose: () => void;
     isOpened: boolean;
     containerStyles?: FlattenSimpleInterpolation;
 }
 
 export const MainPopup: FC<MainPopupProps> = ({ children, onClose, isOpened, containerStyles }) => {
+    
     return (
         <OverlayingPopup isOpened={isOpened} onClose={onClose}>
             <StyledContainer containerStyles={containerStyles}>

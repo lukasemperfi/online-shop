@@ -1,0 +1,41 @@
+import React, { ComponentPropsWithoutRef, FC } from 'react'
+import styled from 'styled-components'
+import { v4 as uuidv4 } from 'uuid';
+
+const StyledItem = styled.li`
+    background-color: transparent;
+    outline: 0px;
+    border-radius: 0px;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    color: inherit;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    min-height: 48px;
+    padding: 6px 16px;
+    white-space: nowrap;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    @media (min-width: 600px) {
+          min-height: auto;  
+    }
+`
+
+
+export const DropdownMenuItem: FC<ComponentPropsWithoutRef<'li'>> = ({children, ...rest}) => {
+  return (
+    <StyledItem {...rest}>{children}</StyledItem>
+  )
+}

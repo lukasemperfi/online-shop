@@ -4,7 +4,6 @@ import * as Styled from './ResponsiveAppBar.styled'
 import { Breakpoints, mediaQuery, screenWidth } from '../../styles/styles'
 import { PageContainer } from '../PageContainer/PageContainer'
 import { Menu } from '../Menu/Menu'
-import { MenuTest } from '../Menu/MenuTest'
 import logo from '../../assets/logo.png'
 import { Image } from '../Image/Image'
 import { BurgerBtn } from '../BurgerBtn/BurgerBtn'
@@ -24,6 +23,8 @@ export const ResponsiveAppBar: FC = () => {
 
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen)
 
+    const renderItem = ({ name, href }: {name: string, href: string}) => (<Styled.MenuLink to={href}>{name}</Styled.MenuLink>)
+
     return (
         <Styled.ResponsiveAppBar ref={responsiveAppBarRef}>
             <PageContainer>
@@ -40,15 +41,9 @@ export const ResponsiveAppBar: FC = () => {
                         <MemoUserMenu />
                     </Styled.Col3>
                 </Styled.Top>
-                {/* <Menu
-                    items={items}
-                    isMobile={isMobile}
-                    open={isMenuOpen}
-                    positionTop={responsiveAppBarHeight}
-                /> */}
-                <MenuTest
+                <Menu
                     data={items}
-                    renderItem={({ name, href }) => (<a href={href}>{name}</a>)}
+                    renderItem={renderItem}
                     isMobile={isMobile}
                     positionTop={responsiveAppBarHeight}
                     isOpen={isMenuOpen}

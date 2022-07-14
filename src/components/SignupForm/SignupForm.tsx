@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Input } from '../Input/Input'
 import { MainButton } from '../MainButton/MainButton'
 import { useAppDispatch } from '../../hooks/redux';
-import { signUp } from '../../store/authSlice';
+import { signUp } from '../../store/userSlice';
 
 const formItemStyle = css`
     margin-bottom: 20px;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { MouseEventHandler, ReactNode } from 'react'
 import styled, { FlattenSimpleInterpolation } from 'styled-components'
 
 
@@ -11,28 +11,31 @@ interface LiProps {
 }
 
 const StyledUl = styled.ul<UlProps>`
-    ${({containerStyle}) => containerStyle}
+    ${({ containerStyle }) => containerStyle}
 `
 
 const StyledLi = styled.li<LiProps>`
-     ${({elementStyle}) => elementStyle}
+     ${({ elementStyle }) => elementStyle}
 `
 
-interface MenuListProps<T> {
+export interface MenuListProps<T> {
     data: T[];
     renderItem: (item: T) => ReactNode;
     containerStyle?: FlattenSimpleInterpolation;
     elementStyle?: FlattenSimpleInterpolation;
 }
 
-export const MenuList = <T,>({ data, renderItem, containerStyle, elementStyle}: MenuListProps<T>) => {
+export const MenuList = <T,>({ data, renderItem, containerStyle, elementStyle }: MenuListProps<T>) => {
+
     return (
-        <StyledUl containerStyle={containerStyle}>
-            {data?.map((item, index) => (
-                <StyledLi key={index} elementStyle={elementStyle}>
-                    {renderItem(item)}
-                </StyledLi>
-            ))}
-        </StyledUl>
+        <>
+            <StyledUl containerStyle={containerStyle}>
+                {data?.map((item, index) => (
+                    <React.Fragment key={index}>
+                         {renderItem(item)}
+                    </React.Fragment>                 
+                ))}
+            </StyledUl>
+        </>
     )
 }
