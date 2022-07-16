@@ -61,7 +61,7 @@ export const MainLayout = () => {
 
   return (
     <Wrapper>
-      <ResponsiveAppBar />
+      {/* <ResponsiveAppBar /> */}
       <Main>
         <Outlet />
       </Main>

@@ -70,7 +70,7 @@ const onSubmit: SubmitHandler<FormData> = (data) => {
                 {...register("password")}
             />
             <MainButton styles={formItemStyle} type='submit'>Log In</MainButton>
-            <MainButton color={ButtonColors.secondary} styles={formItemStyle}>SIGN IN WITH GOOGLE</MainButton>
+            {/* <MainButton color={ButtonColors.secondary} styles={formItemStyle}>SIGN IN WITH GOOGLE</MainButton> */}
         </form>
     )
 }

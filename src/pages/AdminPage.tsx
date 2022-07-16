@@ -11,6 +11,7 @@ import { Image } from '../components/Image/Image'
 import { AdminProductCard } from '../components/AdminProductCard/AdminProductCard'
 import { AddNewProductForm } from '../components/AddNewProductForm/AddNewProductForm'
 import { MainPopup } from '../components/MainPopup/MainPopup'
+import { ModalAddNewProductForm } from '../components/ModalAddNewProductForm/ModalAddNewProductForm'
 const data = [
   {
     image: 'https://i.insider.com/61d1c0e2aa741500193b2d18?width=1136&format=jpeg',
@@ -145,12 +146,16 @@ export const AdminPage = () => {
           data={data}
           renderItem={renderItem}
         />
-        <MainPopup
+        {/* <MainPopup
           isOpened={isAddNewProductPopupOpen}
           onClose={handleAddNewProductPopupOnClose}
         >
           <AddNewProductForm/>
-        </MainPopup>
+        </MainPopup> */}
+        <ModalAddNewProductForm
+          isOpened={isAddNewProductPopupOpen}
+          onClose={handleAddNewProductPopupOnClose}
+        />
       </Products>
     </GridContainer>
   )
