@@ -6,6 +6,7 @@ import { PageContainer } from '../components/PageContainer/PageContainer'
 import { ItemsList } from '../components/ItemsList/ItemsList'
 import { Colors } from '../styles/styles'
 import { ProductCardProps } from '../models/ProductCardProps'
+import { Product } from '../firebase/models/Product'
 
 const Container = styled.div`
     display: flex;
@@ -68,13 +69,19 @@ const data = [
 
 export const CartPage = () => {
 
-    const renderItem = ({image, title, price}: ProductCardProps, index?: number) =>
-        <CartItem
-            key={index}
-            image={image}
-            title={title}
-            price={price}
-        />
+    const removeProduct = () => {
+
+    }
+
+    // const renderItem = (item: Product, index?: number) =>
+    //     <CartItem
+    //         id={item.id}
+    //         key={item.id}
+    //         image={item.image}
+    //         name={item.name}
+    //         price={item.price}
+    //         onDelete={removeProduct}
+    //     />
 
     return (
         <PageContainer>
@@ -82,11 +89,11 @@ export const CartPage = () => {
                 <Header>
                     <CartTitle>Cart</CartTitle>
                 </Header>
-                <ItemsList
+                {/* <ItemsList
                     data={data}
                     renderItem={renderItem}
                     gap='20px'
-                />
+                /> */}
                 <Footer>
                     <Total>Total: 70$</Total>
                     <Checkout>

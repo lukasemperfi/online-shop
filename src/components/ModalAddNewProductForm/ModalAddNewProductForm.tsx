@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAppSelector } from '../../hooks/redux'
-import { selectIsLoading } from '../../store/userSlice'
+import { selectIsProductLoading } from '../../store/productsSlice/productsSlice'
 
 import { Colors } from '../../styles/styles'
 import { AddNewProductForm } from '../AddNewProductForm/AddNewProductForm'
@@ -23,12 +23,19 @@ const StyledOverlay = styled.div`
 `
 
 export const ModalAddNewProductForm = ({ isOpened, onClose }: MainPopupProps) => {
-    const [isLoginForm, setIsLoginForm] = useState(true)
-    const isLoading = useAppSelector(selectIsLoading)
+    const isLoading = useAppSelector(selectIsProductLoading)
+    const [isSubmit, setIsSubmit] = useState(false)
 
-    const handleisLoginForm = () => {
-        setIsLoginForm(!isLoginForm)
+    const onSubmit = () => {
+        setIsSubmit(true)
     }
+
+    useEffect(() => {
+        if (!isLoading && isSubmit) {
+            onClose()
+        }
+    }, [isLoading, isSubmit])
+
 
     return (
         <>
@@ -37,7 +44,9 @@ export const ModalAddNewProductForm = ({ isOpened, onClose }: MainPopupProps) =>
                 isOpened={isOpened}
                 onClose={onClose}
             >
-                <AddNewProductForm/>
+                <AddNewProductForm
+                    onSubmit={onSubmit}
+                />
             </MainPopup>
         </>
     )

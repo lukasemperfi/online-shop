@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { CartItem } from '../components/CartItem/CartItem'
 import { ItemsList } from '../components/ItemsList/ItemsList'
@@ -12,6 +12,12 @@ import { AdminProductCard } from '../components/AdminProductCard/AdminProductCar
 import { AddNewProductForm } from '../components/AddNewProductForm/AddNewProductForm'
 import { MainPopup } from '../components/MainPopup/MainPopup'
 import { ModalAddNewProductForm } from '../components/ModalAddNewProductForm/ModalAddNewProductForm'
+import { OverlayPreloader } from '../components/OverlayPreloader/OverlayPreloader'
+import { useAppDispatch, useAppSelector } from '../hooks/redux'
+import { deleteProduct, getProducts, selectProducts, setProducts } from '../store/productsSlice/productsSlice'
+import { Product } from '../firebase/models/Product'
+import { onSnapshot } from 'firebase/firestore'
+import { productsCollection } from '../firebase/firebase'
 const data = [
   {
     image: 'https://i.insider.com/61d1c0e2aa741500193b2d18?width=1136&format=jpeg',
@@ -102,6 +108,24 @@ const addProductButtonStyles = css`
 
 export const AdminPage = () => {
   const [isAddNewProductPopupOpen, setIsAddNewProductPopupOpen] = useState(false)
+  const dispatch = useAppDispatch()
+  const products = useAppSelector(selectProducts)
+
+  useEffect(() => {
+
+    const unsubscribe = onSnapshot(productsCollection, (snapshot) => {
+      const products: Product[] = []
+
+      snapshot.docs.forEach((doc) => {
+        products.push({ ...doc.data() })
+      })
+      dispatch(setProducts(products))
+      
+    })
+
+    return () => unsubscribe();
+
+  }, [])
 
   const handleAddNewProductPopupOnOpen = () => {
     setIsAddNewProductPopupOpen(true)
@@ -111,12 +135,15 @@ export const AdminPage = () => {
     setIsAddNewProductPopupOpen(false)
   }
 
-  const renderItem = (item: ProductCardProps, index?: number) =>
+  const removeProduct = (id: string) => {
+    dispatch(deleteProduct(id))
+  }
+
+  const renderItem = (item: Product, index?: number) =>
     <CartItem
-      image={item.image}
-      title={item.title}
-      price={545454545454545}
-      key={index}
+      item={item}
+      key={item.id}
+      onDelete={removeProduct}
     />
 
   return (
@@ -143,7 +170,7 @@ export const AdminPage = () => {
         </MainButton>
         <ProductsTitle>MANAGE PRODUCTS</ProductsTitle>
         <ItemsList
-          data={data}
+          data={products}
           renderItem={renderItem}
         />
         {/* <MainPopup

@@ -10,6 +10,7 @@ import { Input } from '../Input/Input'
 import { Breakpoints, Colors } from '../../styles/styles'
 import { ProductCardProps } from '../../models/ProductCardProps'
 import { AdaptiveImage } from '../Image/AdaptivImage'
+import { Product } from '../../firebase/models/Product'
 
 const Container = styled.div`
     display: flex;
@@ -83,23 +84,27 @@ const DeleteItem = styled.div`
     align-items: center;
 `
 
-interface CartItem extends ProductCardProps {
+interface CartItem {
+    item: Product;
     quantity?: boolean;
+    onDelete: (id: string) => void;
 }
 
-const imageShoes = 'https://lukasemperfi.github.io/Dr.Martens/img/cards/product-card/1461%20SMOOTH%20LEATHER%20OXFORD%20SHOES%20green/26226300.80.jpg'
 
-export const CartItem: FC<CartItem> = ({ image, title, price, quantity = false }) => {
+export const CartItem: FC<CartItem> = ({ item, quantity = false, onDelete }) => {
 
+    const handleDelete = () => {
+        onDelete(item.id)
+    }
 
     return (
         <Container>
             <ProductInfo>
                 <ProductInfoImage>
-                    <AdaptiveImage src={image} aspectRatio={0.75} />
+                    <AdaptiveImage src={item.image} aspectRatio={0.75} />
                 </ProductInfoImage>
                 <ProductInfoBody>
-                    <ProductInfoTitle>{title}</ProductInfoTitle>
+                    <ProductInfoTitle>{item.name}</ProductInfoTitle>
                 </ProductInfoBody>
             </ProductInfo>
             {quantity && (
@@ -118,9 +123,9 @@ export const CartItem: FC<CartItem> = ({ image, title, price, quantity = false }
                     </QuantityBody>
                 </Quantity>
             )}
-            <Price quantity={quantity}>${price}</Price>
+            <Price quantity={quantity}>${item.price}</Price>
             <DeleteItem>
-                <IconButton>
+                <IconButton onClick={handleDelete}>
                     <TrashIcon width={25} height={25} />
                 </IconButton>
             </DeleteItem>

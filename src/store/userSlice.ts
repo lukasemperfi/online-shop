@@ -36,7 +36,7 @@ export const signUp = createAsyncThunk<void, SignUpData, { rejectValue: string }
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const docRef = doc(usersCollection, userCredential.user.uid)
-
+            
             await setDoc(docRef, {
                 fullName,
                 email,

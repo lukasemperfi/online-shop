@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { Input } from '../Input/Input'
 import { MainButton } from '../MainButton/MainButton'
@@ -10,6 +10,8 @@ import { InferType } from 'yup';
 import { ref } from 'firebase/storage';
 import { storage } from '../../firebase/firebase';
 import { FileInput } from '../FileInput/FileInput';
+import { useAppDispatch } from '../../hooks/redux';
+import { addProduct } from '../../store/productsSlice/productsSlice';
 
 const Form = styled.form`
     padding: 40px;
@@ -59,7 +61,7 @@ const schema = yup.object({
             (number) => /^\d+(\.\d{1,2})?$/.test(String(number))
         ),
     files: yup.mixed()
-        .test('required', 'Please select a file', (value: FileList): boolean => {                     
+        .test('required', 'Please select a file', (value: FileList): boolean => {
             return Boolean(value && value.length)
         })
         .test('fileSize', 'Too large', (value: FileList): boolean => {
@@ -70,27 +72,32 @@ const schema = yup.object({
         })
 })
 
-export const AddNewProductForm = () => {
+interface AddNewProductFormProps {
+    onSubmit?: () => void;
+}
+
+export const AddNewProductForm: FC<AddNewProductFormProps> = ({ onSubmit }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         mode: 'all',
         resolver: yupResolver(schema)
     });
+    const dispatch = useAppDispatch()
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        console.log(data)
-        uploadImage(data.files[0])
-    }
-
-    const uploadImage = (imageUpload: File) => {
-        if (imageUpload) {
-            console.log(`${imageUpload.name + uuidv4()}`);
-            
-            // const imageRef = ref(storage, `images/${imageUpload.name + uuidv4()}`)
+    const onSubmitForm: SubmitHandler<FormData> = (data) => {
+        const product = {
+            name: data.name,
+            price: data.price,
+            imageFile: data.files[0]
+        }
+        dispatch(addProduct(product))
+        if (onSubmit) {
+            onSubmit()
         }
     }
 
+
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmitForm)}>
             <FormTitle>ADD NEW PRODUCT</FormTitle>
             {/* <Category>
                 <CategoryLabel htmlFor="category">Category</CategoryLabel>

@@ -1,10 +1,11 @@
 import { MouseEvent, RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { ResponsiveAppBar } from '../../components/ResponsiveAppBar/ResponsiveAppBar'
 import { CartPage } from '../../pages/CartPage'
 import { DropdownMenu } from '../DropdownMenu/DropdownMenu'
+import { AdaptiveImage } from '../Image/AdaptivImage'
 import { ItemsList } from '../ItemsList/ItemsList'
 import { MainPopup } from '../MainPopup/MainPopup'
 import { Menu } from '../Menu/Menu'
@@ -56,6 +57,10 @@ interface DropDownProps {
   elementPosition: ElementPositionProps;
 }
 
+const st = css`
+  max-width: 300px;
+  max-height: 300px;
+`
 
 export const MainLayout = () => {
 

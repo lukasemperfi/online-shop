@@ -9,7 +9,7 @@ export const App = () => {
 	const dispatch = useAppDispatch()
 
 	// useEffect(() => {
-	// 	onAuthStateChanged(auth, (user) => {
+	// 	const unsubscribe =	onAuthStateChanged(auth, (user) => {
 
 	// 		// const userInfo = {
 	// 		// 	uid: user?.uid,
@@ -27,6 +27,8 @@ export const App = () => {
 	// 			// console.log('User is signed out');
 	// 		}
 	// 	});
+
+	// 	return () => unsubscribe();
 
 	// }, [])
 

@@ -5,6 +5,7 @@ import { collection, CollectionReference, doc, DocumentData, getDoc, getFirestor
 
 import '@firebase/firestore';
 import { UserInfo } from "./models/UserInfo";
+import { Product } from "./models/Product";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -27,3 +28,4 @@ const createCollection = <T = DocumentData>(collectionName: string) => {
 }
 
 export const usersCollection = createCollection<UserInfo>('users')
+export const productsCollection = createCollection<Product>('products')

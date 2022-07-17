@@ -4,7 +4,7 @@ import { useLockedBody } from '../../hooks/useLockedBody'
 
 interface OverlayWithLockedBodyProps {
     isOpened: boolean;
-    onClick: () => void;
+    onClick?: () => void;
     backgroundColor?: string;
 }
 
