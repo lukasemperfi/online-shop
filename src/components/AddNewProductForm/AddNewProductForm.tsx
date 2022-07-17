@@ -9,6 +9,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { InferType } from 'yup';
 import { ref } from 'firebase/storage';
 import { storage } from '../../firebase/firebase';
+import { FileInput } from '../FileInput/FileInput';
 
 const Form = styled.form`
     padding: 40px;
@@ -108,9 +109,8 @@ export const AddNewProductForm = () => {
                 errorText={errors?.price?.message}
                 {...register("price")}
             />
-            <Input
-                label='Image URL'
-                type='file'
+            <FileInput
+                label='Image'
                 errorText={errors?.files?.message}
                 {...register("files")}
             />

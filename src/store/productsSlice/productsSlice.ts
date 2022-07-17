@@ -50,4 +50,4 @@ const products = createSlice({
 
 export const { } = products.actions;
 
-export const productsproducts = products.reducer;
+export const productsSlice = products.reducer;
