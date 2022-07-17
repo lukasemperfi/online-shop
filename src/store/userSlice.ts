@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db, usersCollection } from "../firebase/firebase";
 import { UserInfo } from "../firebase/models/UserInfo";
+import { RootReducers } from "./rootReducers";
 
 import { RootState } from "./store";
 
@@ -30,7 +31,7 @@ const initialState: userAuthState = {
 }
 
 export const signUp = createAsyncThunk<void, SignUpData, { rejectValue: string }>(
-    'userAuth/signUp',
+    `${RootReducers.userAuth}/signUp`,
     async ({ fullName, email, password }, { rejectWithValue }) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
@@ -49,7 +50,7 @@ export const signUp = createAsyncThunk<void, SignUpData, { rejectValue: string }
 );
 
 export const signIn = createAsyncThunk<void, SignInData, { rejectValue: string }>(
-    `userAuth/signIn`,
+    `${RootReducers.userAuth}/signIn`,
     async ({ email, password }, { rejectWithValue }) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
@@ -61,7 +62,7 @@ export const signIn = createAsyncThunk<void, SignInData, { rejectValue: string }
 );
 
 export const logOut = createAsyncThunk<void, void, { rejectValue: string }>(
-    `userAuth/logOut`,
+    `${RootReducers.userAuth}/logOut`,
     async (_, { rejectWithValue }) => {
         try {
             await signOut(auth)
@@ -73,7 +74,7 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: string }>(
 );
 
 export const userStateChanged = createAsyncThunk(
-    `userAuth/userStateChanged`,
+    `${RootReducers.userAuth}/userStateChanged`,
     async (uid: string | null, { rejectWithValue }) => {
         if (uid === null) {
             return null
@@ -103,7 +104,7 @@ export const userStateChanged = createAsyncThunk(
 
 
 const authentication = createSlice({
-    name: 'userAuth',
+    name: RootReducers.userAuth,
     initialState,
     reducers: {
     },
