@@ -54,7 +54,7 @@ export const HomePage = () => {
             aspectRatio={imageAspectRatio}
           />
           <Title>
-            <StyledLink to={ProductsRoutes.ProductsPage}>woman</StyledLink>
+            <StyledLink to='products/womens'>woman</StyledLink>
           </Title>
         </Col>
         <Col>
@@ -64,7 +64,7 @@ export const HomePage = () => {
             aspectRatio={imageAspectRatio}
           />
           <Title>
-            <StyledLink to={ProductsRoutes.ProductsPage}>man</StyledLink>
+            <StyledLink to='products/mens'>man</StyledLink>
           </Title>
         </Col>
       </Container>

@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { ReactElement, useState } from "react"
 import styled, { css } from "styled-components"
 import { PageContainer } from "../components/PageContainer/PageContainer"
 import { ProductCard } from "../components/ProductCard/ProductCard"
@@ -7,31 +7,49 @@ import { productsData } from '../productsData'
 import { ProductCardProps } from "../models/ProductCardProps"
 import { Card } from "../components/Card/Card"
 import { auth, db } from "../firebase/firebase"
+import { Product } from "../firebase/models/Product"
+import { MainButton } from "../components/MainButton/MainButton"
+import { useAppSelector } from "../hooks/redux"
+import { fetchMore, fetchProductsByCategoryAndOrder, selectProducts, updateState } from '../store/productsSlice/productsSlice';
+import { AdaptiveImage } from "../components/Image/AdaptivImage"
+import notProductsFoundImage from '../assets/no-product-found.jpg'
+
 
 const data = [
     {
         image: 'https://i.insider.com/61d1c0e2aa741500193b2d18?width=1136&format=jpeg',
-        title: 'Крутой кот в очках. Босс всех котов на районе ', price: 3500
+        id: '1',
+        name: 'Крутой кот в очках. Босс всех котов на районе ',
+        price: 3500
     },
     {
         image: 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg',
-        title: 'Кот на чиле', price: 45
+        id: '2',
+        name: 'Кот на чиле',
+        price: 45
     },
     {
         image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        title: 'Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня', price: 77
+        id: '3',
+        name: 'Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня',
+        price: 77
     },
     {
         image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        title: 'Кот после рабочего дня 2222', price: 56
+        id: '4',
+        name: 'Кот после рабочего дня 2222',
+        price: 56
     },
     {
         image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        title: 'Кот после рабочего дня 333', price: 56
+        id: '5',
+        name: 'Кот после рабочего дня 333',
+        price: 56
     },
     {
         image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        title: 'Кот после рабочего дня 4444', price: 444444
+        id: '6',
+        name: 'Кот после рабочего дня 4444', price: 444444
     },
 ]
 
@@ -70,26 +88,52 @@ const Skeleton = styled.span`
 }
 `
 
+const StyledBtnContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    min-height: 50px;
+    /* background-color: antiquewhite; */
+`
+const StyledNoMoreData = styled.p`
+    font-weight: 600;
+    font-size: 20px;
+`
 
 export const ProductsPage = () => {
+    const [isLoading, setIsloading] = useState(false)
+    const [isEmpty, setIsEmpty] = useState(true)
+    const products = useAppSelector(selectProducts)
 
-    const renderItem = (item: any, index?: number) => (
+    const renderItem = (item: Product, index?: number) => (
         <ProductCard
-            image={item.image}
-            title={item.title}
-            price={item.price}
+            item={item}
             key={index}
         />)
 
     return (
         <PageContainer>
-            <ItemsList
+            {products.length 
+            ?
+             <ItemsList
                 data={data}
                 renderItem={renderItem}
                 columns
                 gap="20px"
             />
-            {/* <Skeleton></Skeleton> */}
+            :
+            <StyledNoMoreData>No products found</StyledNoMoreData>
+            }
+           
+            <StyledBtnContainer>
+                {isLoading && <p>Loading...</p>}
+
+                {!isLoading && !isEmpty && <MainButton width="auto">LOAD MORE</MainButton>}
+
+                {isEmpty && <StyledNoMoreData>No more products</StyledNoMoreData>}
+
+            </StyledBtnContainer>
         </PageContainer>
     )
 }

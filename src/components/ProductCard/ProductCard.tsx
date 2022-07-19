@@ -5,26 +5,32 @@ import { ReactComponent as AddCartIcon } from '../../assets/add-cart.svg'
 import { IconButton } from '../IconButton/IconButton'
 import * as Styled from './ProductCard.styled'
 import { FlattenSimpleInterpolation } from 'styled-components'
-import { ProductCardProps } from '../../models/ProductCardProps'
 import { AdaptiveImage } from '../Image/AdaptivImage'
 import { MainButton } from '../MainButton/MainButton'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { ProductsRoutes } from '../../navigation/routeNames'
+import { Product } from '../../firebase/models/Product'
 
-interface Props extends ProductCardProps{
+interface ProductCardProps {
+    item: Product;
     containerStyles?: FlattenSimpleInterpolation;
 }
 
-export const ProductCard: FC<Props> = ({ image, title, price}) => {
-    const cardId = 5
-        
+type ParamsProps = {
+    gender?: string,
+}
+
+export const ProductCard: FC<ProductCardProps> = ({ item }) => {
+    const { name, price, image, id } = item
+    const { gender } = useParams<ParamsProps>()
+
     return (
         <Styled.Card>
-            <Link to={`${ProductsRoutes.ProductsPage}/${cardId}`}>
+            <Link to={`${ProductsRoutes.ProductsPage}/${gender}/${id}`}>
                 <AdaptiveImage src={image} aspectRatio={0.75} />
             </Link>
-            <Styled.LinkTitle to={`${ProductsRoutes.ProductsPage}/${cardId}`}>
-                <Styled.CardTitle >{title}</Styled.CardTitle>
+            <Styled.LinkTitle to={`${ProductsRoutes.ProductsPage}/${gender}/${id}`}>
+                <Styled.CardTitle >{name}</Styled.CardTitle>
             </Styled.LinkTitle>
             <Styled.CardFooter>
                 <Styled.CardPrice>{price} грн</Styled.CardPrice>

@@ -28,4 +28,6 @@ const createCollection = <T = DocumentData>(collectionName: string) => {
 }
 
 export const usersCollection = createCollection<UserInfo>('users')
-export const productsCollection = createCollection<Product>('products')
+export const productsCollection =  createCollection<Product>('products')
+
+export const getProductsCollection = (name: string) => createCollection<Product>(`${name}-products`)
