@@ -41,11 +41,15 @@ const StyledLink = styled(Link)`
   text-transform: uppercase;
 `
 
+const containerStyle = css`
+  height: 100vh;
+`
+
 const imageAspectRatio = 4/5
 
 export const HomePage = () => {
   return (
-    <PageContainer>
+    <PageContainer containerStyles={containerStyle}>
       <Container>
         <Col>
           <AdaptiveImage

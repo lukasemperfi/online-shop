@@ -16,6 +16,7 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
     max-width: ${({ maxWidth }) => maxWidth ? maxWidth : '1200px'};
     margin: 0 auto;
+    overflow: hidden;
     ${calcAdaptiveValue('padding', spacing.mobile, spacing.desktop, screenWidth.min, screenWidth.max)}
     ${({ containerStyles }) => containerStyles}
 `

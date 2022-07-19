@@ -25,8 +25,8 @@ export const AppRouter = () => {
 
 	return (
 		<Routes>
-			<Route path='/' element={<MainLayout />}>
-				<Route index element={<HomePage />} />
+			<Route index element={<HomePage />} />
+			<Route path='/' element={<MainLayout />}>		
 				{/* <Route path='products' element={<ProductsPage />} /> */}
 				<Route path='products/:gender' element={<ProductsPage />}/>
 				<Route path='products/:gender/:id' element={<ProductDetails />} />

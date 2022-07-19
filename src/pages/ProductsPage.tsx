@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react"
+import { ReactElement, useEffect, useState } from "react"
 import styled, { css } from "styled-components"
 import { PageContainer } from "../components/PageContainer/PageContainer"
 import { ProductCard } from "../components/ProductCard/ProductCard"
@@ -9,10 +9,12 @@ import { Card } from "../components/Card/Card"
 import { auth, db } from "../firebase/firebase"
 import { Product } from "../firebase/models/Product"
 import { MainButton } from "../components/MainButton/MainButton"
-import { useAppSelector } from "../hooks/redux"
-import { fetchMore, fetchProductsByCategoryAndOrder, selectProducts, updateState } from '../store/productsSlice/productsSlice';
+import { useAppDispatch, useAppSelector } from "../hooks/redux"
+import { fetchMore, fetchProductsByCategoryAndOrder, selectProducts, selectProductsState, updateState } from '../store/productsSlice/productsSlice';
 import { AdaptiveImage } from "../components/Image/AdaptivImage"
-import notProductsFoundImage from '../assets/no-product-found.jpg'
+
+import { NoDataFound } from "../components/NoDataFound/NoDataFound"
+import { useParams } from "react-router-dom"
 
 
 const data = [
@@ -102,9 +104,21 @@ const StyledNoMoreData = styled.p`
 `
 
 export const ProductsPage = () => {
-    const [isLoading, setIsloading] = useState(false)
-    const [isEmpty, setIsEmpty] = useState(true)
+    // const [isLoading, setIsloading] = useState(false)
+    // const [isEmpty, setIsEmpty] = useState(true)
+    const { pagination: {isEmptyData, isFetchingMore}} = useAppSelector(selectProductsState)
+    const { gender } = useParams()
+    const dispatch = useAppDispatch()
     const products = useAppSelector(selectProducts)
+
+    useEffect(() => {
+        // dispatch(fetchProductsByCategoryAndOrder({gender}))
+    }, [])
+
+    const loadMore = () => {
+        // dispatch(fetchMore({gender}))
+    }
+
 
     const renderItem = (item: Product, index?: number) => (
         <ProductCard
@@ -112,27 +126,19 @@ export const ProductsPage = () => {
             key={index}
         />)
 
+
     return (
         <PageContainer>
-            {products.length 
-            ?
-             <ItemsList
-                data={data}
-                renderItem={renderItem}
-                columns
-                gap="20px"
-            />
-            :
-            <StyledNoMoreData>No products found</StyledNoMoreData>
-            }
-           
+                <ItemsList
+                    data={products}
+                    renderItem={renderItem}
+                    columns
+                    gap="20px"
+                />
             <StyledBtnContainer>
-                {isLoading && <p>Loading...</p>}
-
-                {!isLoading && !isEmpty && <MainButton width="auto">LOAD MORE</MainButton>}
-
-                {isEmpty && <StyledNoMoreData>No more products</StyledNoMoreData>}
-
+                {!isFetchingMore && !isEmptyData && <MainButton width="auto" onClick={loadMore}>LOAD MORE</MainButton>}
+                {isFetchingMore && <p>Loading...</p>}
+                {isEmptyData && <StyledNoMoreData>No more products</StyledNoMoreData>}
             </StyledBtnContainer>
         </PageContainer>
     )

@@ -13,6 +13,7 @@ interface initialStateProps {
     pagination: {
         lastDoc: QueryDocumentSnapshot | null ;
         isEmptyData: boolean;
+        isFetchingMore: boolean;
     }
 }
 
@@ -23,6 +24,7 @@ const initialState: initialStateProps = {
     pagination: {
         lastDoc: null,
         isEmptyData: false,
+        isFetchingMore: false,
     }
 }
 
@@ -176,18 +178,17 @@ const products = createSlice({
     },
     extraReducers: (builder) => {
 
-        // builder.addCase(getProducts.pending, (state) => {
-        //     state.isLoading = true
-        // })
+        builder.addCase(fetchMore.pending, (state) => {
+            state.pagination.isFetchingMore = true
+        })
 
-        // builder.addCase(getProducts.fulfilled, (state, { payload }) => {
-        //     state.isLoading = false
-        //     state.products = payload
-        // })
+        builder.addCase(fetchMore.fulfilled, (state, { payload }) => {
+            state.pagination.isFetchingMore = false
+        })
 
-        // builder.addCase(getProducts.rejected, (state, { payload }) => {
-        //     state.errorMessage = payload
-        // })
+        builder.addCase(fetchMore.rejected, (state, { payload }) => {
+            state.errorMessage = payload
+        })
 
 
         builder.addCase(addProduct.pending, (state) => {
@@ -208,6 +209,7 @@ const products = createSlice({
 
 export const { setProducts, updateState } = products.actions;
 
+export const selectProductsState = (state: RootState) => state?.products
 export const selectIsProductLoading = (state: RootState) => state?.products?.isLoading
 export const selectProducts = (state: RootState) => state?.products?.products
 
