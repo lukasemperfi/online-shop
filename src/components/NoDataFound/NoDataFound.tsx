@@ -1,35 +1,53 @@
 import React, { FC } from 'react'
 import styled, { css } from 'styled-components'
 import notProductsFoundImage from '../../assets/no-product-found.jpg'
+import { AdaptiveImage } from '../Image/AdaptivImage'
+import { PageContainer } from '../PageContainer/PageContainer'
+import { calcAdaptiveValue } from "../../styles/helpers";
+import { screenWidth } from '../../styles/styles'
 
-const StyledContainer = styled.div`
+
+
+const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    gap: 20px;
+    width: 50%;
+    margin-top: 50px;
 `
 
 const StyledTitle = styled.h1`
     font-weight: 600;
-    font-size: 25px;
+    ${calcAdaptiveValue('font-size', '12px', '25px', screenWidth.min, screenWidth.max )}
 `
 
-const StyledImg = styled.img`
-    max-width: 100%;
+const pageContainerStyle = css`
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
 `
 
 interface NoDataFoundProps {
     title?: string;
 }
 
-export const NoDataFound: FC<NoDataFoundProps> = ({title = 'No Data Found'}) => {
+export const NoDataFound: FC<NoDataFoundProps> = ({ title = 'No Data Found' }) => {
     return (
-        <StyledContainer>
-            <StyledImg src={notProductsFoundImage} alt="" />
-            <StyledTitle>{title}</StyledTitle>
-        </StyledContainer>
+        <PageContainer containerStyles={pageContainerStyle}>
+            <StyledWrapper>
+                <AdaptiveImage
+                    src={notProductsFoundImage}
+                    aspectRatio={2.34}
+                />
+                <StyledTitle>{title}</StyledTitle>
+            </StyledWrapper>
+        </PageContainer>
+
+
+
+
+
     )
 }

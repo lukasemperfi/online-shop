@@ -1,59 +1,82 @@
-import React, { FC, FunctionComponent } from 'react'
-import styled, { css } from 'styled-components'
-import { IconButton } from '../IconButton/IconButton.styled'
-import { ReactComponent as TrashIcon } from '../../assets/trash.svg'
+import { AdaptiveImage } from '../Image/AdaptivImage';
+import { PageContainer } from '../PageContainer/PageContainer';
+import { maxTextLines } from '../../styles/mixins.styled'
+
+import styled, { css } from 'styled-components';
+import { IconButton } from '../IconButton/IconButton';
 import { ReactComponent as PlusIcon } from '../../assets/plus.svg'
 import { ReactComponent as MinusIcon } from '../../assets/minus.svg'
-import { Image } from '../Image/Image'
-import { maxTextLines } from '../../styles/mixins.styled'
-import { Input } from '../Input/Input'
-import { Breakpoints, Colors } from '../../styles/styles'
-import { ProductCardProps } from '../../models/ProductCardProps'
-import { AdaptiveImage } from '../Image/AdaptivImage'
-import { Product } from '../../firebase/models/Product'
+import { ReactComponent as TrashIcon } from '../../assets/trash.svg'
+import { Breakpoints, Colors } from '../../styles/styles';
+import { textCut } from '../../styles/helpers';
+import { Product } from '../../firebase/models/Product';
+import { FC } from 'react';
 
-const Container = styled.div`
+
+
+const StyledCartItem = styled.div`
     display: flex;
+    gap: 20px;
     padding: 10px 0px;
     border-bottom: 1px solid ${Colors.primaryLight};
 
     @media (max-width: ${Breakpoints.md}) {
         flex-wrap: wrap;
         justify-content: space-between;
-        row-gap: 20px;
+        column-gap: 10px;
+    }
+    
+`
+
+const StyledCartBody = styled.div`
+    display: flex;
+    gap: 20px;
+    flex: 0 0 50%;
+
+    @media (max-width: ${Breakpoints.md}) {
+        flex: 0 0 75%;
+        gap: 10px;
     }
 `
 
-const ProductInfo = styled.div`
-    display: flex; 
+const StyledCartImage = styled.div`
+    flex: 0 0 25%;
 `
-const ProductInfoBody = styled.div`
-    padding: 0px 20px;
-`
-const ProductInfoImage = styled.div`
-    flex: 0 0 15%;
-
-`
-const ProductInfoTitle = styled.div`
-    margin-bottom: 10px;
-    font-weight: 500;
-    line-height: 1.1;
-    ${maxTextLines(2)}
-`
-
-interface PriceProps {
-    quantity: boolean;
-}
-
-
-const Quantity = styled.div`
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-`
-const QuantityBody = styled.div`
+const StyledCartTitle = styled.p`
     display: flex;
-    gap: 10px;
+    justify-content: center;
+    align-items: center; 
+    font-weight: 600;
+    line-height: 1.25;
+`
+
+const StyledCartCount = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1 0 13%;
+    @media (max-width: ${Breakpoints.md}) {
+
+    }
+`
+const StyledCartPrice = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 33%;  */
+    flex: 0 1 33%;
+    @media (max-width: ${Breakpoints.md}) {
+        justify-content: flex-start;
+    }
+`
+const StyledCartRemove = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 4%;
+`
+const pagecontainerStyle = css`
+    width: 800px;
 `
 
 const inputStyles = css`
@@ -69,20 +92,7 @@ const inputStyles = css`
     }
 `
 
-const Price = styled.div<PriceProps>`
-    font-weight: 500;
-    display: flex; 
-    justify-content: ${({quantity}) => quantity ? 'center' : 'flex-start'};
-    align-items: center;
-    flex: 1 1 15%;
-    padding: 10px;
 
-`
-const DeleteItem = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-`
 
 interface CartItem {
     item: Product;
@@ -91,44 +101,44 @@ interface CartItem {
 }
 
 
-export const CartItem: FC<CartItem> = ({ item, quantity = false, onDelete }) => {
+export const CartItem: FC<CartItem> = ({ item, quantity = true, onDelete }) => {
 
     const handleDelete = () => {
         onDelete(item.id)
     }
 
     return (
-        <Container>
-            <ProductInfo>
-                <ProductInfoImage>
-                    <AdaptiveImage src={item.image} aspectRatio={0.75} />
-                </ProductInfoImage>
-                <ProductInfoBody>
-                    <ProductInfoTitle>{item.name}</ProductInfoTitle>
-                </ProductInfoBody>
-            </ProductInfo>
+        <StyledCartItem>
+
+            <StyledCartBody>
+                <StyledCartImage>
+                    <AdaptiveImage
+                        src={item.image}
+                        aspectRatio={0.75}
+                    />
+                </StyledCartImage>
+                <StyledCartTitle >{item.name}</StyledCartTitle>
+            </StyledCartBody>
             {quantity && (
-                <Quantity>
-                    <QuantityBody>
-                        <IconButton>
-                            <MinusIcon width={15} height={15} />
-                        </IconButton>
-                        <Input
-                            defaultValue={1}
-                            inputStyle={inputStyles}
-                        />
-                        <IconButton>
-                            <PlusIcon width={15} height={15} />
-                        </IconButton>
-                    </QuantityBody>
-                </Quantity>
+                <StyledCartCount>
+                    <IconButton>
+                        <MinusIcon width={15} height={15} />
+                    </IconButton>
+                    <b>{10}</b>
+                    <IconButton>
+                        <PlusIcon width={15} height={15} />
+                    </IconButton>
+                </StyledCartCount>
             )}
-            <Price quantity={quantity}>${item.price}</Price>
-            <DeleteItem>
-                <IconButton onClick={handleDelete}>
+            <StyledCartPrice className="cart__item-price">
+                <b>${item.price}</b>
+            </StyledCartPrice>
+            <StyledCartRemove >
+                <IconButton >
                     <TrashIcon width={25} height={25} />
                 </IconButton>
-            </DeleteItem>
-        </Container>
+            </StyledCartRemove>
+        </StyledCartItem>
     )
 }
+

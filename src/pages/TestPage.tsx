@@ -5,101 +5,65 @@ import { useMatch, useParams } from 'react-router-dom';
 import { Product } from '../firebase/models/Product';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { fetchMore, fetchProductsByCategoryAndOrder, selectProducts, updateState } from '../store/productsSlice/productsSlice';
+import { AdaptiveImage } from '../components/Image/AdaptivImage';
+import { NoDataFound } from '../components/NoDataFound/NoDataFound';
+import { PageContainer } from '../components/PageContainer/PageContainer';
+import iamgeNot from '../assets/no-product-found.jpg';
+import { maxTextLines } from '../styles/mixins.styled'
 
-type Test = {
-    gender: string,
-    category: string,
+import styled, { css } from 'styled-components';
+import { CartItem } from '../components/CartItem/CartItem';
+import { IconButton } from '../components/IconButton/IconButton';
+import { Input } from '../components/Input/Input';
+import { ReactComponent as PlusIcon } from '../assets/plus.svg'
+import { ReactComponent as MinusIcon } from '../assets/minus.svg'
+import { ReactComponent as TrashIcon } from '../assets/trash.svg'
+import { Breakpoints, Colors } from '../styles/styles';
+import { textCut } from '../styles/helpers';
+
+
+const product = {
+    name: 'test',
+    // image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/1200px-Cat_November_2010-1a.jpg',
+    image: '',
+    price: 2434,
+    id: 'dgsfgdfghdfh'
 }
+
+const StyledWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    /* background-color: azure; */
+`
+
+
+
+const pagecontainerStyle = css`
+    width: 800px;
+`
 
 export const TestPage = () => {
-    const { gender, category } = useParams<Test>()
-    // const [lastDoc, setLastDoc] = useState<QueryDocumentSnapshot>()
-    // const [products, setProducts] = useState<DocumentData[]>([])
-    // const [isEmpty, setIsEmpty] = useState(false)
-    const products = useAppSelector(selectProducts)
-    const dispatch = useAppDispatch()
-
-    console.log(products);
-
-    // const queryFilter = (gender?: string, category?: string) => {
-    //     let q = query(productsCollection, orderBy('price', 'desc'), limit(2))
-
-    //     if (gender) {
-    //         q = query(q, where('gender', '==', gender));
-    //     }
-
-    //     if (category) {
-    //         q = query(q, where('category', '==', category));
-    //     }
-
-    //     return q
-
-    // }
-
-    // const updateState = (documentSnapshots: QuerySnapshot) => {
-    //     const isDocumentSnapshotsEmpty = documentSnapshots.size === 0;
-        
-    //     if (!isDocumentSnapshotsEmpty) {
-    //         const products = documentSnapshots.docs.map(product => product.data())
-    //         const lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1];
-    //         console.log('in update');
-            
-    //         setProducts(listOfProducts => [...listOfProducts, ...products])
-    //         setLastDoc(lastDoc)
-    //     } 
-
-    // }
-
-    // const getOrderByName = async (gender?: string, category?: string) => {
-    //     try {
-
-    //         const first = queryFilter(gender, category)
-    //         const documentSnapshots = await getDocs(first);
-
-    //         updateState(documentSnapshots)
 
 
-    //     } catch (error) {
-
-    //         console.log(error);
-
-    //     }
-
-    // }
-
-    // const fetchMore = async (gender?: string, category?: string) => {
-
-    //     try {
-
-    //         const q = queryFilter(gender, category)
-    //         const next = query(q, startAfter(lastDoc))
-    //         const documentSnapshots = await getDocs(next);
-
-    //         updateState(documentSnapshots)
-           
-
-    //     } catch (error) {
-
-    //         console.log(error);
-
-    //     }
-
-    // }
-
-
-    const loadMore = () => {
-        // dispatch(fetchMore({gender, category}))
-    }
-
-    useEffect(() => {
-        // console.log(gender, category);
-        // getOrderByName(gender, category)
-        // dispatch(fetchProductsByCategoryAndOrder({gender, category}))
-    }, [])
 
     return (
-        <div>TestPage
-            <button onClick={loadMore}>load more</button>
-        </div>
+        <PageContainer maxWidth='800px' containerStyles={pagecontainerStyle}>
+            <StyledWrapper>
+
+                <CartItem
+                    item={product}
+                    onDelete={() => { }}    
+                />
+                <CartItem
+                    item={product}
+                    onDelete={() => { }}
+                />
+                <CartItem
+                    item={product}
+                    onDelete={() => { }}
+                />
+            </StyledWrapper>
+        </PageContainer>
     )
 }
+

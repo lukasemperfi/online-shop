@@ -23,3 +23,13 @@ export const calcAdaptiveValue: CalcAdaptiveValueFunction = (
         }
     `
 }
+
+export const  textCut = (text: string, limit: number) => {
+    if( text.length <= limit) { 
+        return text 
+    }
+  
+    text = text.slice(0, limit).trim()
+  
+    return text + "...";
+  }

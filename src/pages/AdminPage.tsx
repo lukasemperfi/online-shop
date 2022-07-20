@@ -48,6 +48,7 @@ const data = [
 
 const GridContainer = styled.div`
   display: grid;
+  width: 100%;
   border-bottom: 3px solid rgb(0 0 0 / 20%);
 
   @media (min-width: ${Breakpoints.xs}) {
@@ -144,6 +145,7 @@ export const AdminPage = () => {
       item={item}
       key={item.id}
       onDelete={removeProduct}
+      quantity={false}
     />
 
   return (

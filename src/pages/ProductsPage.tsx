@@ -15,6 +15,7 @@ import { AdaptiveImage } from "../components/Image/AdaptivImage"
 
 import { NoDataFound } from "../components/NoDataFound/NoDataFound"
 import { useParams } from "react-router-dom"
+import { Loader, LoaderSize } from "../components/Loaders/Loader"
 
 
 const data = [
@@ -104,19 +105,24 @@ const StyledNoMoreData = styled.p`
 `
 
 export const ProductsPage = () => {
-    // const [isLoading, setIsloading] = useState(false)
-    // const [isEmpty, setIsEmpty] = useState(true)
-    const { pagination: {isEmptyData, isFetchingMore}} = useAppSelector(selectProductsState)
+    const { isLoading, pagination: { isEmptyData, isFetchingMore } } = useAppSelector(selectProductsState)
     const { gender } = useParams()
     const dispatch = useAppDispatch()
     const products = useAppSelector(selectProducts)
+    const isLoadMoreBtnShow = !isFetchingMore && !isEmptyData && !isLoading
+
+    console.log('products on render', products);
 
     useEffect(() => {
-        // dispatch(fetchProductsByCategoryAndOrder({gender}))
+        if (products.length === 0) {
+            dispatch(fetchProductsByCategoryAndOrder({ gender }))
+            console.log('fetch data', products);
+        }
+
     }, [])
 
     const loadMore = () => {
-        // dispatch(fetchMore({gender}))
+        dispatch(fetchMore({ gender }))
     }
 
 
@@ -129,15 +135,20 @@ export const ProductsPage = () => {
 
     return (
         <PageContainer>
+            {isLoading
+                ?
+                <Loader size="10px" marginVertical="60px" />
+                :
                 <ItemsList
                     data={products}
                     renderItem={renderItem}
                     columns
                     gap="20px"
                 />
+            }
             <StyledBtnContainer>
-                {!isFetchingMore && !isEmptyData && <MainButton width="auto" onClick={loadMore}>LOAD MORE</MainButton>}
-                {isFetchingMore && <p>Loading...</p>}
+                {isLoadMoreBtnShow && <MainButton width="auto" onClick={loadMore}>LOAD MORE</MainButton>}
+                {isFetchingMore && <Loader size="5px" />}
                 {isEmptyData && <StyledNoMoreData>No more products</StyledNoMoreData>}
             </StyledBtnContainer>
         </PageContainer>

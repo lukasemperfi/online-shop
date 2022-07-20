@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addDoc, collection, deleteDoc, doc, getDocs, limit, orderBy, query, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, query, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { productsCollection, storage } from "../../firebase/firebase";
 import { Product } from "../../firebase/models/Product";
@@ -8,10 +8,11 @@ import { AppDispatch, RootState } from "../store";
 
 interface initialStateProps {
     products: Product[];
+    product?: Product | null,
     errorMessage?: string,
     isLoading?: boolean,
     pagination: {
-        lastDoc: QueryDocumentSnapshot | null ;
+        lastDoc: QueryDocumentSnapshot | null;
         isEmptyData: boolean;
         isFetchingMore: boolean;
     }
@@ -19,6 +20,7 @@ interface initialStateProps {
 
 const initialState: initialStateProps = {
     products: [],
+    product: null,
     errorMessage: '',
     isLoading: false,
     pagination: {
@@ -73,6 +75,21 @@ interface CategoryData {
     category?: string;
 }
 
+export const fetchProductById = createAsyncThunk<Product | undefined, string | undefined, { rejectValue: string }>(
+    `${RootReducers.products}/fetchProductById`,
+    async (id, { rejectWithValue }) => {
+        try {
+            const docRef = doc(productsCollection, id)
+            const document = await getDoc(docRef)
+            
+            return document.data()
+
+        } catch (error: any) {
+            return rejectWithValue(error.message as string);
+        }
+    }
+);
+
 export const fetchProductsByCategoryAndOrder = createAsyncThunk<void, CategoryData, { rejectValue: string, dispatch: AppDispatch }>(
     `${RootReducers.products}/fetchProductsByCategoryAndOrder`,
     async ({ gender, category }, { rejectWithValue, dispatch }) => {
@@ -81,7 +98,7 @@ export const fetchProductsByCategoryAndOrder = createAsyncThunk<void, CategoryDa
             const first = queryFilter(gender, category)
             const documentSnapshots = await getDocs(first);
 
-           dispatch(updateState(documentSnapshots))
+            dispatch(updateState(documentSnapshots))
 
 
         } catch (error: any) {
@@ -95,14 +112,14 @@ export const fetchMore = createAsyncThunk<void, CategoryData, { rejectValue: str
     async ({ gender, category }, { rejectWithValue, dispatch, getState }) => {
         const state = getState()
         const lastDoc = state.products.pagination.lastDoc
-        
+
         try {
-            
+
             const q = queryFilter(gender, category)
             const next = query(q, startAfter(lastDoc))
             const documentSnapshots = await getDocs(next);
 
-           dispatch(updateState(documentSnapshots))
+            dispatch(updateState(documentSnapshots))
 
 
         } catch (error: any) {
@@ -159,14 +176,14 @@ const products = createSlice({
 
             state.products = action.payload
         },
-        updateState: (state, {payload: documentSnapshots}: {payload: QuerySnapshot<Product>}) => {
+        updateState: (state, { payload: documentSnapshots }: { payload: QuerySnapshot<Product> }) => {
             const isDocumentSnapshotsEmpty = documentSnapshots.size === 0;
-        
+
             if (!isDocumentSnapshotsEmpty) {
                 const products = documentSnapshots.docs.map(product => product.data())
                 const lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1];
                 console.log('in update');
-                
+
                 state.products.push(...products)
                 state.pagination.lastDoc = lastDoc
             } else {
@@ -178,6 +195,17 @@ const products = createSlice({
     },
     extraReducers: (builder) => {
 
+        builder.addCase(fetchProductsByCategoryAndOrder.pending, (state) => {
+            state.isLoading = true
+        })
+
+        builder.addCase(fetchProductsByCategoryAndOrder.fulfilled, (state, { payload }) => {
+            state.isLoading = false
+        })
+
+        builder.addCase(fetchProductsByCategoryAndOrder.rejected, (state, { payload }) => {
+            state.errorMessage = payload
+        })
         builder.addCase(fetchMore.pending, (state) => {
             state.pagination.isFetchingMore = true
         })
@@ -203,6 +231,19 @@ const products = createSlice({
             state.errorMessage = payload
         })
 
+        builder.addCase(fetchProductById.pending, (state) => {
+            state.isLoading = true
+        })
+
+        builder.addCase(fetchProductById.fulfilled, (state, { payload }) => {
+            state.isLoading = false
+            state.product = payload
+        })
+
+        builder.addCase(fetchProductById.rejected, (state, { payload }) => {
+            state.errorMessage = payload
+        })
+
 
     },
 });
@@ -212,5 +253,7 @@ export const { setProducts, updateState } = products.actions;
 export const selectProductsState = (state: RootState) => state?.products
 export const selectIsProductLoading = (state: RootState) => state?.products?.isLoading
 export const selectProducts = (state: RootState) => state?.products?.products
+export const selectProduct = (state: RootState) => state?.products?.product
+
 
 export const productsSlice = products.reducer;

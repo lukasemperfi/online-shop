@@ -7,7 +7,7 @@ export const maxTextLines = (numberOfLines: number) => css`
     display: -webkit-box;
     line-clamp: ${numberOfLines};
     -webkit-line-clamp: ${numberOfLines};
-    box-orient: vertical;    
+    box-orient: vertical;     
     -moz-box-orient: vertical;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical; 
 `

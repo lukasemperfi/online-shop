@@ -45,7 +45,7 @@ const skeleton = css`
 
 const StyledAdaptiveImage = styled.img<StyledAdaptiveImageProps>`
     width: 100%;
-    height: 100%;
+    height: auto;
     aspect-ratio: ${({ aspectRatio }) => aspectRatio ? aspectRatio : 1};
     object-fit: cover;
 
