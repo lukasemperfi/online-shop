@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, MouseEvent, MouseEventHandler, ChangeEventHandler, ChangeEvent } from 'react'
 import { collection, query, orderBy, where, startAfter, limit, getDocs, doc, getDoc, QueryDocumentSnapshot, QuerySnapshot, DocumentData } from "firebase/firestore";
 import { db, getProductsCollection, productsCollection } from '../firebase/firebase';
 import { useMatch, useParams } from 'react-router-dom';
@@ -18,8 +18,15 @@ import { Input } from '../components/Input/Input';
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as MinusIcon } from '../assets/minus.svg'
 import { ReactComponent as TrashIcon } from '../assets/trash.svg'
+import arrowIcon from '../assets/down-arrow.png'
+
 import { Breakpoints, Colors } from '../styles/styles';
 import { textCut } from '../styles/helpers';
+import { DropdownMenu } from '../components/DropdownMenu/DropdownMenu';
+import { DropdownMenuItem } from '../components/DropdownMenu/DropdownMenuItem';
+import { DropdownMenuItemProps } from '../components/UserMenu/UserMenu';
+import { PopoverPlacement } from '../hooks/usePopoverPosition/models/PopoverPlacement';
+import { Select } from '../components/Select/Select';
 
 
 const product = {
@@ -30,39 +37,28 @@ const product = {
     id: 'dgsfgdfghdfh'
 }
 
-const StyledWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    /* background-color: azure; */
-`
+const options = [
+    {value: 'one', name: 'Price (Low to High)'},
+    {value: 'two', name: 'Price (High to Low)'},
+    {value: 'three', name: 'Three'},
+]
 
 
-
-const pagecontainerStyle = css`
-    width: 800px;
-`
 
 export const TestPage = () => {
+    const [value, setValue] = useState('one')
 
-
+    const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        setValue(event.target.value)
+    }
 
     return (
-        <PageContainer maxWidth='800px' containerStyles={pagecontainerStyle}>
-            <StyledWrapper>
-
-                <CartItem
-                    item={product}
-                    onDelete={() => { }}    
-                />
-                <CartItem
-                    item={product}
-                    onDelete={() => { }}
-                />
-                <CartItem
-                    item={product}
-                    onDelete={() => { }}
-                />
-            </StyledWrapper>
+        <PageContainer maxWidth='800px'>
+            <Select 
+                options={options}
+                value={value}
+                onChange={handleChange}
+            />
         </PageContainer>
     )
 }

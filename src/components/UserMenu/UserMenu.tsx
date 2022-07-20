@@ -20,7 +20,7 @@ import { DropdownMenuItem } from '../DropdownMenu/DropdownMenuItem'
 import { db, usersCollection } from '../../firebase/firebase'
 import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
 
-interface DropdownMenuItem {
+export interface DropdownMenuItemProps {
     name: string,
     handleClick?: MouseEventHandler
 }
@@ -75,7 +75,7 @@ export const UserMenu = () => {
         handleIsUserPopupClose()
     }
 
-    const dropdownMenuData: DropdownMenuItem[] = [
+    const dropdownMenuData: DropdownMenuItemProps[] = [
         {
             name: 'Profile',
             handleClick: handleIsUserPopupClose
@@ -88,7 +88,7 @@ export const UserMenu = () => {
     ]
 
 
-    const renderItem = ({ name, handleClick }: DropdownMenuItem) => {
+    const renderItem = ({ name, handleClick }: DropdownMenuItemProps) => {
         return (<DropdownMenuItem onClick={handleClick}>{name}</DropdownMenuItem>)
     }
 
