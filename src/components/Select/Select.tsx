@@ -8,6 +8,7 @@ interface StyledWrapperProps {
 
 const StyledWrapper = styled.div<StyledWrapperProps>`
     position: relative;
+    display: inline-flex;
 
     &::after {
         content: '';
@@ -50,11 +51,6 @@ export const Select: FC<SelectProps> = ({ options, value, onChange }) => {
     const [arrowRotate, setArrowRotate] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
 
-    const toogleArrow = () => {
-        // setArrowRotate(!arrowRotate)
-        setIsOpen(true)
-    }
-
     const handleOnClick = () => {
         if (isOpen) {
             setIsOpen(false)
@@ -66,10 +62,8 @@ export const Select: FC<SelectProps> = ({ options, value, onChange }) => {
     const handleOnBlur = () => setIsOpen(false)
 
     useEffect(() => {
-        console.log(isOpen);
         setArrowRotate(isOpen)
     }, [isOpen])
-
 
     return (
         <StyledWrapper rotateArrow={arrowRotate}>

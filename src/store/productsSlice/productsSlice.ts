@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, query, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, OrderByDirection, query, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { productsCollection, storage } from "../../firebase/firebase";
 import { Product } from "../../firebase/models/Product";
@@ -55,8 +55,8 @@ interface ProductData {
 //     }
 // );
 
-const queryFilter = (gender?: string, category?: string) => {
-    let q = query(productsCollection, orderBy('price', 'desc'), limit(2))
+const queryFilter = (gender?: string, category?: string, order?: OrderByDirection) => {
+    let q = query(productsCollection, orderBy('price', order), limit(2))
 
     if (gender) {
         q = query(q, where('gender', '==', gender));
@@ -73,6 +73,7 @@ const queryFilter = (gender?: string, category?: string) => {
 interface CategoryData {
     gender?: string;
     category?: string;
+    order: OrderByDirection;
 }
 
 export const fetchProductById = createAsyncThunk<Product | undefined, string | undefined, { rejectValue: string }>(
@@ -90,16 +91,21 @@ export const fetchProductById = createAsyncThunk<Product | undefined, string | u
     }
 );
 
-export const fetchProductsByCategoryAndOrder = createAsyncThunk<void, CategoryData, { rejectValue: string, dispatch: AppDispatch }>(
+export const fetchProductsByCategoryAndOrder = createAsyncThunk<Product[], CategoryData, { rejectValue: string, dispatch: AppDispatch }>(
     `${RootReducers.products}/fetchProductsByCategoryAndOrder`,
-    async ({ gender, category }, { rejectWithValue, dispatch }) => {
+    async ({ gender, category, order }, { rejectWithValue, dispatch }) => {
 
         try {
-            const first = queryFilter(gender, category)
+            const first = queryFilter(gender, category, order)
             const documentSnapshots = await getDocs(first);
 
             dispatch(updateState(documentSnapshots))
 
+            console.log('afterdispatch updateState');
+
+            const products = documentSnapshots.docs.map(product => product.data())
+
+            return products
 
         } catch (error: any) {
             return rejectWithValue(error.message as string);
@@ -107,20 +113,23 @@ export const fetchProductsByCategoryAndOrder = createAsyncThunk<void, CategoryDa
     }
 );
 
-export const fetchMore = createAsyncThunk<void, CategoryData, { rejectValue: string, dispatch: AppDispatch, state: RootState }>(
+export const fetchMore = createAsyncThunk<Product[], CategoryData, { rejectValue: string, dispatch: AppDispatch, state: RootState }>(
     `${RootReducers.products}/fetchMore`,
-    async ({ gender, category }, { rejectWithValue, dispatch, getState }) => {
+    async ({ gender, category, order }, { rejectWithValue, dispatch, getState }) => {
         const state = getState()
         const lastDoc = state.products.pagination.lastDoc
 
         try {
 
-            const q = queryFilter(gender, category)
+            const q = queryFilter(gender, category, order)
             const next = query(q, startAfter(lastDoc))
             const documentSnapshots = await getDocs(next);
 
             dispatch(updateState(documentSnapshots))
 
+            const products = documentSnapshots.docs.map(product => product.data())
+
+            return products
 
         } catch (error: any) {
             return rejectWithValue(error.message as string);
@@ -179,12 +188,9 @@ const products = createSlice({
         updateState: (state, { payload: documentSnapshots }: { payload: QuerySnapshot<Product> }) => {
             const isDocumentSnapshotsEmpty = documentSnapshots.size === 0;
 
-            if (!isDocumentSnapshotsEmpty) {
-                const products = documentSnapshots.docs.map(product => product.data())
+            if (!isDocumentSnapshotsEmpty) {    
                 const lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1];
                 console.log('in update');
-
-                state.products.push(...products)
                 state.pagination.lastDoc = lastDoc
             } else {
                 state.pagination.isEmptyData = true
@@ -201,6 +207,7 @@ const products = createSlice({
 
         builder.addCase(fetchProductsByCategoryAndOrder.fulfilled, (state, { payload }) => {
             state.isLoading = false
+            state.products = payload      
         })
 
         builder.addCase(fetchProductsByCategoryAndOrder.rejected, (state, { payload }) => {
@@ -212,6 +219,7 @@ const products = createSlice({
 
         builder.addCase(fetchMore.fulfilled, (state, { payload }) => {
             state.pagination.isFetchingMore = false
+            state.products.push(...payload)
         })
 
         builder.addCase(fetchMore.rejected, (state, { payload }) => {

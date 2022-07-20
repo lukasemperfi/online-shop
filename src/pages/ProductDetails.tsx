@@ -22,9 +22,6 @@ export const ProductDetails = () => {
 
   const isPoductNotExist = (product === undefined)
 
-  console.log('render id details', product);
-
-
   useEffect(() => {
     if (!product || !!id) {
           console.log('fetch id');  
@@ -34,10 +31,6 @@ export const ProductDetails = () => {
     
   }, [id])
 
-if (product) {
-  console.log('product true');
-  
-}
 
   return (
     <PageContainer>

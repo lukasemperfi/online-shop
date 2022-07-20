@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react"
+import { ChangeEvent, ReactElement, useEffect, useState } from "react"
 import styled, { css } from "styled-components"
 import { PageContainer } from "../components/PageContainer/PageContainer"
 import { ProductCard } from "../components/ProductCard/ProductCard"
@@ -16,6 +16,8 @@ import { AdaptiveImage } from "../components/Image/AdaptivImage"
 import { NoDataFound } from "../components/NoDataFound/NoDataFound"
 import { useParams } from "react-router-dom"
 import { Loader, LoaderSize } from "../components/Loaders/Loader"
+import { Select } from "../components/Select/Select"
+import { OrderByDirection } from "firebase/firestore"
 
 
 const data = [
@@ -104,25 +106,43 @@ const StyledNoMoreData = styled.p`
     font-size: 20px;
 `
 
+const StyledSort = styled.div`
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+`
+const pageContainerStyle = css`
+   width: 100%;
+`
+
+
+const options = [
+    { value: 'asc', name: 'Price (Low to High)' },
+    { value: 'desc', name: 'Price (High to Low)' },
+]
+
+
 export const ProductsPage = () => {
     const { isLoading, pagination: { isEmptyData, isFetchingMore } } = useAppSelector(selectProductsState)
     const { gender } = useParams()
     const dispatch = useAppDispatch()
     const products = useAppSelector(selectProducts)
+    const [sortValue, setSortValue] = useState<OrderByDirection>('desc')
+
     const isLoadMoreBtnShow = !isFetchingMore && !isEmptyData && !isLoading
 
     console.log('products on render', products);
 
     useEffect(() => {
-        if (products.length === 0) {
-            dispatch(fetchProductsByCategoryAndOrder({ gender }))
-            console.log('fetch data', products);
-        }
-
-    }, [])
+        dispatch(fetchProductsByCategoryAndOrder({ gender, order: sortValue }))
+    }, [sortValue])
 
     const loadMore = () => {
-        dispatch(fetchMore({ gender }))
+        dispatch(fetchMore({ gender, order: sortValue }))
+    }
+
+    const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        setSortValue(event.target.value as OrderByDirection)
     }
 
 
@@ -134,7 +154,14 @@ export const ProductsPage = () => {
 
 
     return (
-        <PageContainer>
+        <PageContainer containerStyles={pageContainerStyle}>
+            <StyledSort>
+                <Select
+                    options={options}
+                    value={sortValue}
+                    onChange={handleChange}
+                />
+            </StyledSort>
             {isLoading
                 ?
                 <Loader size="10px" marginVertical="60px" />
