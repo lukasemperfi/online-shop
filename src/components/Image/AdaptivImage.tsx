@@ -3,18 +3,26 @@ import React, { ComponentPropsWithoutRef, FC, useState } from 'react'
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
 interface AdaptiveImageProps extends ComponentPropsWithoutRef<'img'> {
-    aspectRatio?: number;
     imageStyles?: FlattenSimpleInterpolation;
     maxWidth?: string;
+    skeleton?: boolean;
+    dimensions?: {
+        width: number;
+        height: number;
+    }
 }
 
-interface StyledAdaptiveImageProps {
-    aspectRatio?: number;
-    imageStyles?: FlattenSimpleInterpolation;
-    maxWidth?: string;
+interface StyledAdaptiveImageProps extends AdaptiveImageProps {
     isImageLoaded?: boolean;
 }
 
+
+const skeletonStyle = css<StyledAdaptiveImageProps>`
+    display: ${({ maxWidth }) => maxWidth ? 'inline-block' : 'block'} ;
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.11);
+`
 
 const skeletonActiveStyle = css`
     &::before {
@@ -40,37 +48,48 @@ const skeletonActiveStyle = css`
     }
 `
 const StyledSkeleton = styled.div<StyledAdaptiveImageProps>`
-    position: relative;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.11);
 
-    ${({isImageLoaded}) => !isImageLoaded && skeletonActiveStyle}
+    ${({ skeleton }) => skeleton && skeletonStyle}
+
+    ${({ skeleton, isImageLoaded }) => (skeleton && !isImageLoaded) && skeletonActiveStyle}
 
 `
 
 const StyledAdaptiveImage = styled.img<StyledAdaptiveImageProps>`
-    width:${({ maxWidth }) => maxWidth ? maxWidth : '100%'};
+    width: ${({ width, maxWidth }) => {
+        if (maxWidth) {
+            return maxWidth
+        }
+        if (width && !maxWidth) {
+            return width
+        }
+        return '100%'
+    }};
+
     max-width: 100%;
-    height: auto;
-    aspect-ratio: ${({ aspectRatio }) => aspectRatio ? aspectRatio : 1};
+    height: ${({ height, maxWidth }) => (height && !maxWidth) ? height : 'auto'};
+    aspect-ratio: ${({ dimensions }) => dimensions ? (dimensions.width / dimensions.height) : 1};
     object-fit: cover;
-    opacity: ${({isImageLoaded}) => isImageLoaded ? 1 : 0 };
+    opacity: ${({ isImageLoaded }) => isImageLoaded ? 1 : 0};
 
     ${({ imageStyles }) => imageStyles}
 `
 
-export const AdaptiveImage: FC<AdaptiveImageProps> = ({ aspectRatio, imageStyles, maxWidth, ...imageProperies }) => {
+export const AdaptiveImage: FC<AdaptiveImageProps> = ({ imageStyles, maxWidth, dimensions, skeleton = false, ...imageProperies }) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false)
+
+
+
 
     const handleOnLoad = () => {
         setIsImageLoaded(true)
     };
 
     return (
-        <StyledSkeleton isImageLoaded={isImageLoaded}>
+        <StyledSkeleton isImageLoaded={isImageLoaded} skeleton={skeleton}>
             <StyledAdaptiveImage
-                aspectRatio={aspectRatio}
                 imageStyles={imageStyles}
+                dimensions={dimensions}
                 maxWidth={maxWidth}
                 onLoad={handleOnLoad}
                 isImageLoaded={isImageLoaded}

@@ -11,11 +11,11 @@ import { PageContainer } from '../components/PageContainer/PageContainer'
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 `
 const Col = styled.div`
-  flex: 0 0 50%;
   position: relative;
 `
 
@@ -26,7 +26,7 @@ const manImageStyle = css`
   object-position: bottom;
 `
 
-const Title = styled.div`
+const StyledTitle = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -41,38 +41,31 @@ const StyledLink = styled(Link)`
   text-transform: uppercase;
 `
 
-const containerStyle = css`
-  height: 100vh;
-`
-
-const imageAspectRatio = 4/5
-
 export const HomePage = () => {
   return (
-    // <PageContainer containerStyles={containerStyle}>
       <Container>
         <Col>
           <AdaptiveImage
             src={womanImage}
-            imageStyles={womanImageStyle}
-            aspectRatio={imageAspectRatio}
+            width='50vw'
+            height='100vh'
+            imageStyles={womanImageStyle}          
           />
-          <Title>
+          <StyledTitle>
             <StyledLink to='products/womens'>woman</StyledLink>
-          </Title>
+          </StyledTitle>
         </Col>
         <Col>
           <AdaptiveImage
             src={manImage}
+            width='50vw'
+            height='100vh'
             imageStyles={manImageStyle}
-            aspectRatio={imageAspectRatio}
           />
-          <Title>
+          <StyledTitle>
             <StyledLink to='products/mens'>man</StyledLink>
-          </Title>
+          </StyledTitle>
         </Col>
       </Container>
-    // </PageContainer>
-
   )
 }

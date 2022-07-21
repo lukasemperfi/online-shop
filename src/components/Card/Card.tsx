@@ -25,7 +25,7 @@ export const Card: FC<Props> = ({ image, title, price, variant = CardVariant.pri
     return (
         <Styled.Card>
             <Link to={ProductsRoutes.ProductDetails}>
-                <AdaptiveImage src={image} aspectRatio={0.75} />
+                <AdaptiveImage src={image} />
             </Link>
             <Styled.LinkTitle href="#">
                 <Styled.CardTitle >{title}</Styled.CardTitle>

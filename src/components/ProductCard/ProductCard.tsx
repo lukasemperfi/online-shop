@@ -27,7 +27,14 @@ export const ProductCard: FC<ProductCardProps> = ({ item }) => {
     return (
         <Styled.Card>
             <Link to={`${ProductsRoutes.ProductsPage}/${gender}/${id}`}>
-                <AdaptiveImage src={image} aspectRatio={0.75} />
+                <AdaptiveImage
+                    src={image}
+                    dimensions={{
+                        width: 888,
+                        height: 1110,
+                    }}
+                    skeleton
+                />
             </Link>
             <Styled.LinkTitle to={`${ProductsRoutes.ProductsPage}/${gender}/${id}`}>
                 <Styled.CardTitle >{name}</Styled.CardTitle>

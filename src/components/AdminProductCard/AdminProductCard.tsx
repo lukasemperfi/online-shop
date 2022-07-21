@@ -67,7 +67,7 @@ export const AdminProductCard: FC<AdminProductCard> = ({ image, title, price }) 
         <Container>
             <ProductInfo>
                 <ProductInfoImage>
-                <AdaptiveImage src={image} aspectRatio={0.75} />
+                <AdaptiveImage src={image} />
                 </ProductInfoImage>
                 <ProductInfoBody>
                     <ProductInfoTitle>{title}</ProductInfoTitle>

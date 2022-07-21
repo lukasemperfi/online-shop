@@ -114,7 +114,11 @@ export const CartItem: FC<CartItem> = ({ item, quantity = true, onDelete }) => {
                 <StyledCartImage>
                     <AdaptiveImage
                         src={item.image}
-                        aspectRatio={0.75}
+                        dimensions={{
+                            width: 888,
+                            height: 1110,
+                          }}
+                          skeleton
                     />
                 </StyledCartImage>
                 <StyledCartTitle >{item.name}</StyledCartTitle>

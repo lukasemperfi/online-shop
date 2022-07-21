@@ -43,38 +43,38 @@ const Checkout = styled.div`
 const data = [
     {
         id: '1',
-        // image: 'https://i.insider.com/61d1c0e2aa741500193b2d18?width=1136&format=jpeg',
-        image: '',
+        image: 'https://i.insider.com/61d1c0e2aa741500193b2d18?width=1136&format=jpeg',
+        // image: '',
         name: 'Крутой кот в очках. Босс всех котов на районе ', price: 3500
     },
     {
         id: '2',
-        // image: 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg',
-        image: '',
+        image: 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg',
+        // image: '',
         name: 'Кот на чиле', price: 45
     },
     {
         id: '3',
-        // image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        image: '',
+        image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
+        // image: '',
         name: 'Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня', price: 77
     },
     {
         id: '4',
-        // image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        image: '',
+        image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
+        // image: '',
         name: 'Кот после рабочего дня 2222', price: 56
     },
     {
         id: '5',
-        // image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        image: '',
+        image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
+        // image: '',
         name: 'Кот после рабочего дня 333', price: 56
     },
     {
         id: '6',
-        // image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        image: '',
+        image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
+        // image: '',
         name: 'Кот после рабочего дня 4444', price: 444444
     },
 ]

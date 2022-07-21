@@ -34,7 +34,6 @@ export const NoDataFound: FC<NoDataFoundProps> = ({ title = 'No Data Found' }) =
                 <AdaptiveImage
                     src={bigImg}
                     // src={notProductsFoundImage}
-                    aspectRatio={2.34}
                     maxWidth='500px'
                 />
                 <StyledTitle>{title}</StyledTitle>

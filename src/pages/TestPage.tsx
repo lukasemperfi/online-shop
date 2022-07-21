@@ -60,7 +60,6 @@ export const TestPage = () => {
 
             <AdaptiveImage
                 src={bigImg}
-                aspectRatio={2.34}
                 maxWidth='500px'
             />
         </PageContainer>
