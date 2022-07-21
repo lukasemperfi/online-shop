@@ -14,7 +14,6 @@ import { ProductCard } from '../components/ProductCard/ProductCard'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { fetchProductById, selectProduct, selectProductsState } from '../store/productsSlice/productsSlice'
 
-
 export const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch()
@@ -24,22 +23,20 @@ export const ProductDetails = () => {
 
   useEffect(() => {
     if (!product || !!id) {
-          console.log('fetch id');  
-      dispatch(fetchProductById(id))
+      // dispatch(fetchProductById(id))
     }
-    console.log('in eff',  !!id);
-    
+
   }, [id])
 
 
   return (
     <PageContainer>
+
       {isLoading && <Loader />}
 
       {(!isLoading && product) && <Details item={product} />}
 
       {(isPoductNotExist && !isLoading) && <NoDataFound title='Product does not exist' />}
-
     </PageContainer>
   )
 }

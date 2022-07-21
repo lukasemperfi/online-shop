@@ -19,6 +19,7 @@ import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as MinusIcon } from '../assets/minus.svg'
 import { ReactComponent as TrashIcon } from '../assets/trash.svg'
 import arrowIcon from '../assets/down-arrow.png'
+import bigImg from '../assets/bigImg.jpg'
 
 import { Breakpoints, Colors } from '../styles/styles';
 import { textCut } from '../styles/helpers';
@@ -27,20 +28,21 @@ import { DropdownMenuItem } from '../components/DropdownMenu/DropdownMenuItem';
 import { DropdownMenuItemProps } from '../components/UserMenu/UserMenu';
 import { PopoverPlacement } from '../hooks/usePopoverPosition/models/PopoverPlacement';
 import { Select } from '../components/Select/Select';
+import { ProductCard } from '../components/ProductCard/ProductCard';
 
 
 const product = {
     name: 'test',
-    // image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/1200px-Cat_November_2010-1a.jpg',
-    image: '',
+    image: bigImg,
+    // image: '',
     price: 2434,
     id: 'dgsfgdfghdfh'
 }
 
 const options = [
-    {value: 'one', name: 'Price (Low to High)'},
-    {value: 'two', name: 'Price (High to Low)'},
-    {value: 'three', name: 'Three'},
+    { value: 'one', name: 'Price (Low to High)' },
+    { value: 'two', name: 'Price (High to Low)' },
+    { value: 'three', name: 'Three' },
 ]
 
 
@@ -53,11 +55,13 @@ export const TestPage = () => {
     }
 
     return (
-        <PageContainer maxWidth='800px'>
-            <Select 
-                options={options}
-                value={value}
-                onChange={handleChange}
+
+        <PageContainer>
+
+            <AdaptiveImage
+                src={bigImg}
+                aspectRatio={2.34}
+                maxWidth='500px'
             />
         </PageContainer>
     )

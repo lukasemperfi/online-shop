@@ -49,7 +49,7 @@ const imageAspectRatio = 4/5
 
 export const HomePage = () => {
   return (
-    <PageContainer containerStyles={containerStyle}>
+    // <PageContainer containerStyles={containerStyle}>
       <Container>
         <Col>
           <AdaptiveImage
@@ -72,7 +72,7 @@ export const HomePage = () => {
           </Title>
         </Col>
       </Container>
-    </PageContainer>
+    // </PageContainer>
 
   )
 }
