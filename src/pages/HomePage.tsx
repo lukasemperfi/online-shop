@@ -7,6 +7,7 @@ import { calcAdaptiveValue } from '../styles/helpers'
 import { Link } from 'react-router-dom'
 import { ProductsRoutes } from '../navigation/routeNames'
 import { PageContainer } from '../components/PageContainer/PageContainer'
+import { ResponsiveAppBar } from '../components/ResponsiveAppBar/ResponsiveAppBar'
 
 
 const Container = styled.div`
@@ -43,13 +44,15 @@ const StyledLink = styled(Link)`
 
 export const HomePage = () => {
   return (
+    <>
+      <ResponsiveAppBar />
       <Container>
         <Col>
           <AdaptiveImage
             src={womanImage}
             width='50vw'
             height='100vh'
-            imageStyles={womanImageStyle}          
+            imageStyles={womanImageStyle}
           />
           <StyledTitle>
             <StyledLink to='products/womens'>woman</StyledLink>
@@ -67,5 +70,7 @@ export const HomePage = () => {
           </StyledTitle>
         </Col>
       </Container>
+    </>
+
   )
 }

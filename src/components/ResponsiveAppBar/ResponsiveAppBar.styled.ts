@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+import { behaviorPlugin } from '@testing-library/user-event/dist/keyboard/types';
+import { NavLink } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router-dom';
 import styled, { css } from 'styled-components'
 
 import { calcAdaptiveValue } from '../../styles/helpers';
@@ -26,33 +28,6 @@ export const Top = styled.div<ResponsiveAppBarProps>`
 export const Col = styled.div`
     flex: 0 1 33.333%;
     display: flex;
-`
-
-export const MenuLink = styled(Link)`
-    display: inline-flex;
-    padding: ${spacing.tiny} 0;
-    color: ${Colors.primary};
-    position: relative;
-    width: 100%;
-    &:active {
-        color: inherit;
-    }
-    &:after {
-        position: absolute;
-        content: "";
-        width: 0px;
-        height: 1.5px;
-        bottom: 0px;
-        left: 50%;
-        right: 0;
-        background: #000;
-        transition: all 0.4s;
-        transform: translateX(-50%);
-        overflow: hidden;
-    }
-    &:hover::after {
-        width: 100%;
-    }
 `
 
 

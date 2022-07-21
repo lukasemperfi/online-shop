@@ -63,7 +63,7 @@ const queryFilter = (gender?: string, category?: string, order?: OrderByDirectio
     }
 
     if (category) {
-        q = query(q, where('category', '==', category));
+        q = query(q, where('type', '==', category));
     }
 
     return q

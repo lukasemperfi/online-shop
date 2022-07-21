@@ -1,10 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { filtersSlice } from './filtersSlice';
 import { productsSlice } from './productsSlice/productsSlice';
+import { RootReducers } from './rootReducers';
 import { userSlice } from './userSlice';
 
 const rootReducer = combineReducers({
-  userAuth: userSlice,
-  products: productsSlice,
+  [RootReducers.userAuth]: userSlice,
+  [RootReducers.products]: productsSlice,
+  [RootReducers.filters]: filtersSlice,
 });
 
 export const store = configureStore({

@@ -31,15 +31,11 @@ export const UserMenu = () => {
     const match = useMatch(CartRoutes.Cart)
     const isCartPage = match !== null
 
-    const user = useAppSelector(selectUser)
+    // const user = useAppSelector(selectUser)
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
-    const isLoading = useAppSelector(selectIsLoading)
+    // const isLoading = useAppSelector(selectIsLoading)
 
-    console.log(user);
-    // console.log('isLoading', isLoading);
-    // const isLoggedIn = true
-
-
+ 
     const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const isOpened = Boolean(anchorEl);
