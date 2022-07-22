@@ -106,8 +106,7 @@ export const userStateChanged = createAsyncThunk(
 const authentication = createSlice({
     name: RootReducers.userAuth,
     initialState,
-    reducers: {
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(userStateChanged.pending, (state) => {
             state.isLoading = true

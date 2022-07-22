@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { cartSlice } from './cartSlice/cartSlice';
 import { filtersSlice } from './filtersSlice';
 import { productsSlice } from './productsSlice/productsSlice';
 import { RootReducers } from './rootReducers';
@@ -8,6 +9,7 @@ const rootReducer = combineReducers({
   [RootReducers.userAuth]: userSlice,
   [RootReducers.products]: productsSlice,
   [RootReducers.filters]: filtersSlice,
+  [RootReducers.cart]: cartSlice,
 });
 
 export const store = configureStore({

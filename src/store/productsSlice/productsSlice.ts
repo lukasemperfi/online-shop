@@ -145,12 +145,12 @@ export const addProduct = createAsyncThunk<void, ProductData, { rejectValue: str
 
             const docRef = doc(productsCollection)
 
-            await setDoc(docRef, {
-                id: docRef.id,
-                name: name,
-                price: price,
-                image: url,
-            });
+            // await setDoc(docRef, {
+            //     id: docRef.id,
+            //     name: name,
+            //     price: price,
+            //     image: url,
+            // });
 
         } catch (error: any) {
             return rejectWithValue(error.message as string);
