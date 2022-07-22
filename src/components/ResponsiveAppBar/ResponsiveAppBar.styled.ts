@@ -4,7 +4,7 @@ import { Link, LinkProps } from 'react-router-dom';
 import styled, { css } from 'styled-components'
 
 import { calcAdaptiveValue } from '../../styles/helpers';
-import { Colors, screenWidth, spacing } from '../../styles/styles';
+import { Breakpoints, Colors, screenWidth, spacing } from '../../styles/styles';
 
 interface ResponsiveAppBarProps {
     isMobile: boolean;
@@ -18,6 +18,31 @@ export const ResponsiveAppBar = styled.header`
     z-index: 1;
     box-shadow: 0 6px 4px -4px rgb(0 0 0 / 20%);
 `
+
+export const AdminPanel = styled.div`
+    background-color: ${Colors.primary};
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+
+    @media (min-width: ${Breakpoints.lg}) {
+        padding: 0 calc(50% - 600px);
+    }
+
+`
+
+export const AdminPanelContainer = styled.div`
+    @media (min-width: ${Breakpoints.xs}) {
+        padding: 0 10px;
+    }
+
+    @media (min-width: ${Breakpoints.lg}) {
+        padding: 0 20px;
+    }
+`
+
+
 export const Top = styled.div<ResponsiveAppBarProps>`
     display: flex;
     align-items: center;

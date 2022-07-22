@@ -1,23 +1,24 @@
 import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 import { screenWidth, spacing } from "../../styles/styles";
 import { Colors } from '../../styles/styles';
 import { calcAdaptiveValue } from "../../styles/helpers";
 import { NavLink } from "react-router-dom";
 
+interface LinkProps {
+    color?: string;
+}
 
-const linkStyle = css`
+const linkStyle = css<LinkProps>`
     display: inline-flex;
     padding: ${spacing.tiny} 0;
-    color: ${Colors.primary};
+    color: ${({color}) => color ? color : '#ffffff'};
     position: relative;
     /* width: 100%; */
     font-weight: 500;
+`
 
-    &:active {
-        color: inherit;
-    }
-
+const linkActiveStyle = css`
     &:after {
         position: absolute;
         content: "";
@@ -37,13 +38,22 @@ const linkStyle = css`
     }
 `
 
+export const StyledLink = styled(Link)<LinkProps>`
+    ${linkStyle}
 
+    ${calcAdaptiveValue('font-size', '12px', '16px', screenWidth.min, screenWidth.max)}
 
+    &:active {
+        opacity: 0.5;
+    }
+`
 export const StyledTabsLink = styled(Link)`
     ${linkStyle}
+    ${linkActiveStyle}
     font-weight: 600;
     ${calcAdaptiveValue('font-size', '16px', '18px', screenWidth.min, screenWidth.max)}
 `
 export const StyledMenuLink = styled(NavLink)`
     ${linkStyle}
+    ${linkActiveStyle}
 `

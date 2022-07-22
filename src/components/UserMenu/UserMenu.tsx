@@ -1,8 +1,9 @@
-import { MouseEvent, MouseEventHandler, useState } from 'react'
+import { memo, MouseEvent, MouseEventHandler, useState } from 'react'
 
 import { IconButton } from '../IconButton/IconButton'
 import * as Styled from './UserMenu.styled'
 import userIcon from '../../assets/user.png'
+import { ReactComponent as UserIcon } from '../../assets/user.svg'
 import cartIcon from '../../assets/cart.png'
 import { useMatch, useNavigate } from 'react-router-dom'
 import { CartRoutes } from '../../navigation/routeNames'
@@ -25,7 +26,7 @@ export interface DropdownMenuItemProps {
     handleClick?: MouseEventHandler
 }
 
-export const UserMenu = () => {
+export const UserMenu = memo(() => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const match = useMatch(CartRoutes.Cart)
@@ -35,7 +36,7 @@ export const UserMenu = () => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     // const isLoading = useAppSelector(selectIsLoading)
 
- 
+
     const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const isOpened = Boolean(anchorEl);
@@ -95,34 +96,36 @@ export const UserMenu = () => {
 
     return (
         <>
-            <div>
-                <IconButton
-                    width={25}
-                    height={25}
-                    styles={Styled.iconsStyle}
-                    onClick={handleIsUserPopupOpen}
-                >
-                    <img src={userIcon} alt="user-icon" />
-                </IconButton>
-                {isLoggedIn
-                    ?
-                    <DropdownMenu
-                        data={dropdownMenuData}
-                        renderItem={renderItem}
-                        anchorEl={anchorEl}
-                        isOpened={isOpened}
-                        onClose={handleIsUserPopupClose}
-                        placement={dropdownPlacement}
-                    />
-                    :
-                    <ModalFormToggle
-                        isOpened={isUserPopupOpen}
-                        onClose={handleIsUserPopupClose}
-                    />
-                }
-            </div>
             <IconButton
-                width={25}
+                styles={Styled.iconsStyle}
+                onClick={handleIsUserPopupOpen}
+                   width={22}
+                    height={26}
+            >
+                <img src={userIcon} alt="user-icon" />
+                {/* <UserIcon
+                    width={26}
+                    height={27}
+                /> */}
+            </IconButton>
+            {isLoggedIn
+                ?
+                <DropdownMenu
+                    data={dropdownMenuData}
+                    renderItem={renderItem}
+                    anchorEl={anchorEl}
+                    isOpened={isOpened}
+                    onClose={handleIsUserPopupClose}
+                    placement={dropdownPlacement}
+                />
+                :
+                <ModalFormToggle
+                    isOpened={isUserPopupOpen}
+                    onClose={handleIsUserPopupClose}
+                />
+            }
+            <IconButton
+                width={23}
                 height={25}
                 styles={Styled.cartStyle}
                 onClick={cartIconOnclick}
@@ -132,4 +135,4 @@ export const UserMenu = () => {
             </IconButton>
         </>
     )
-}
+})

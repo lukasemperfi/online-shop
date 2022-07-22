@@ -17,7 +17,7 @@ export const cartStyle = css`
 
 export const CartCountStyle = styled.span`
     position: absolute;
-    left: 10px;
+    right: -3px;
     top: 16px;
     display: flex;
     align-items: center;
