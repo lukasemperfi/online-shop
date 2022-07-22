@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { count } from "console";
-import { calcTotalPrice } from "../../utils/calcTotalPrice";
+import { getItemExist, calcTotalPrice } from "../../utils/redux";
 import { RootReducers } from "../rootReducers";
 import { CartItem } from "./models/CartItem";
 
@@ -14,13 +13,14 @@ const initialState: CartState = {
     totalPrice: 0,
 }
 
+
 const cart = createSlice({
     name: RootReducers.cart,
     initialState,
     reducers: {
         addItem: (state, action: PayloadAction<CartItem>) => {
             const { payload: item } = action
-            const itemExists = state.items.find(obj => obj.id === item.id)
+            const itemExists = getItemExist(state.items, item.id)
 
             if (itemExists) {
                 itemExists.count++
@@ -30,10 +30,40 @@ const cart = createSlice({
 
             state.totalPrice = calcTotalPrice(state.items)
 
-        }
+        },
+        minusItem: (state, action: PayloadAction<string>) => {
+            const { payload: id } = action
+            const itemExists = getItemExist(state.items, id)
+
+            if (itemExists) {
+                itemExists.count--
+            }
+
+            state.totalPrice = calcTotalPrice(state.items);
+
+        },
+
+        plusItem: (state, action: PayloadAction<string>) => {
+            const { payload: id } = action
+            const itemExists = getItemExist(state.items, id)
+
+            if (itemExists) {
+                itemExists.count++
+            }
+
+            state.totalPrice = calcTotalPrice(state.items)
+
+        },
+        deleteItem(state, action: PayloadAction<string>) {
+            const { payload: id } = action       
+
+            state.items = state.items.filter((obj) => obj.id !== id);
+            
+            state.totalPrice = calcTotalPrice(state.items);
+        },
     },
 })
 
-export const { addItem } = cart.actions
+export const { addItem, minusItem, plusItem, deleteItem } = cart.actions
 
 export const cartSlice = cart.reducer;

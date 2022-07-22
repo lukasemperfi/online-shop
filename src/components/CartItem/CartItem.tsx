@@ -11,6 +11,9 @@ import { Breakpoints, Colors } from '../../styles/styles';
 import { textCut } from '../../styles/helpers';
 import { Product } from '../../firebase/models/Product';
 import { FC } from 'react';
+import { count } from 'console';
+import { useAppDispatch } from '../../hooks/redux';
+import { deleteItem, minusItem, plusItem } from '../../store/cartSlice/cartSlice';
 
 
 
@@ -101,14 +104,22 @@ interface CartItem {
     id: string,
     count: number;
     quantity?: boolean;
-    onDelete: (id: string) => void;
 }
 
 
-export const CartItem: FC<CartItem> = ({  name, price, image, id, quantity = true, onDelete }) => {
+export const CartItem: FC<CartItem> = ({ name, price, image, id, count, quantity = true }) => {
+    const dispatch = useAppDispatch()
 
-    const handleDelete = () => {
-        onDelete(id)
+    const onClickMinus = () => {
+        dispatch(minusItem(id));
+    };
+
+    const onClickPlus = () => {
+        dispatch(plusItem(id));
+    };
+
+    const onClickDelete = () => {
+        dispatch(deleteItem(id))
     }
 
     return (
@@ -121,19 +132,19 @@ export const CartItem: FC<CartItem> = ({  name, price, image, id, quantity = tru
                         dimensions={{
                             width: 888,
                             height: 1110,
-                          }}
-                          skeleton
+                        }}
+                        skeleton
                     />
                 </StyledCartImage>
                 <StyledCartTitle >{name}</StyledCartTitle>
             </StyledCartBody>
             {quantity && (
                 <StyledCartCount>
-                    <IconButton>
+                    <IconButton disabled={count === 1} onClick={onClickMinus}>
                         <MinusIcon width={15} height={15} />
                     </IconButton>
-                    <b>{10}</b>
-                    <IconButton>
+                    <b>{count}</b>
+                    <IconButton disabled={count === 99} onClick={onClickPlus}>
                         <PlusIcon width={15} height={15} />
                     </IconButton>
                 </StyledCartCount>
@@ -142,7 +153,7 @@ export const CartItem: FC<CartItem> = ({  name, price, image, id, quantity = tru
                 <b>${price}</b>
             </StyledCartPrice>
             <StyledCartRemove >
-                <IconButton >
+                <IconButton onClick={onClickDelete}>
                     <TrashIcon width={25} height={25} />
                 </IconButton>
             </StyledCartRemove>

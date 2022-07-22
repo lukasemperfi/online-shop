@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { CartItem } from '../components/CartItem/CartItem'
 import { ButtonColors, MainButton } from '../components/MainButton/MainButton'
 import { PageContainer } from '../components/PageContainer/PageContainer'
@@ -10,6 +10,9 @@ import { Product } from '../firebase/models/Product'
 import { useAppSelector } from '../hooks/redux'
 import { selectCart } from '../store/cartSlice/selectors'
 import { CartItem as CartItemType } from '../store/cartSlice/models/CartItem'
+import { NoDataFound } from '../components/NoDataFound/NoDataFound'
+
+import emptyCartImage from '../assets/empty-cart.png'
 
 const Container = styled.div`
     display: flex;
@@ -43,13 +46,13 @@ const Checkout = styled.div`
     gap: 20px;
 `
 
+const pageContainerStyle = css`
+    width: 100%;
+`
+
 
 export const CartPage = () => {
-    const { items, totalPrice } = useAppSelector(selectCart)
-
-    const removeProduct = () => {
-
-    }
+    const { items, totalPrice} = useAppSelector(selectCart)
 
     const renderItem = (item: CartItemType) =>
         <CartItem
@@ -59,28 +62,41 @@ export const CartPage = () => {
             image={item.image}
             count={item.count}
             key={item.id}
-            onDelete={removeProduct}
         />
 
     return (
-        <PageContainer>
-            <Container>
-                <Header>
-                    <CartTitle>Cart</CartTitle>
-                </Header>
-                <ItemsList
-                    data={items}
-                    renderItem={renderItem}
-                    gap='20px'
+        <PageContainer containerStyles={pageContainerStyle}>
+            {totalPrice
+                ?
+                < Container >
+                    <Header>
+                        <CartTitle>Cart</CartTitle>
+                    </Header>
+                    <ItemsList
+                        data={items}
+                        renderItem={renderItem}
+                        gap='20px'
+                    />
+                    <Footer>
+                        <Total>Total: ${totalPrice}</Total>
+                        <Checkout>
+                            <MainButton>Continue shipping</MainButton>
+                            <MainButton>Checkout</MainButton>
+                        </Checkout>
+                    </Footer>
+                </Container>
+                :
+                <NoDataFound
+                    title='Cart Is Empty!'
+                    src={emptyCartImage}
+                    dimensions={{
+                        width: 600,
+                        height: 510,
+                    }}
+                    maxWidth='500px'
+                    skeleton
                 />
-                <Footer>
-                    <Total>Total: ${totalPrice}</Total>
-                    <Checkout>
-                        <MainButton>Continue shipping</MainButton>
-                        <MainButton>Checkout</MainButton>
-                    </Checkout>
-                </Footer>
-            </Container>
-        </PageContainer>
+            }
+        </PageContainer >
     )
 }

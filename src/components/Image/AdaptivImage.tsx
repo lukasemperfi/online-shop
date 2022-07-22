@@ -2,7 +2,7 @@ import React, { ComponentPropsWithoutRef, FC, useState } from 'react'
 
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
-interface AdaptiveImageProps extends ComponentPropsWithoutRef<'img'> {
+export interface AdaptiveImageProps extends ComponentPropsWithoutRef<'img'> {
     imageStyles?: FlattenSimpleInterpolation;
     maxWidth?: string;
     skeleton?: boolean;
@@ -21,10 +21,11 @@ const skeletonStyle = css<StyledAdaptiveImageProps>`
     display: ${({ maxWidth }) => maxWidth ? 'inline-block' : 'block'} ;
     position: relative;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.11);
 `
 
 const skeletonActiveStyle = css`
+    background-color: rgba(0, 0, 0, 0.11);
+    
     &::before {
         content: '';
         display: block;
