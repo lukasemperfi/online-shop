@@ -20,6 +20,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { DropdownMenuItem } from '../DropdownMenu/DropdownMenuItem'
 import { db, usersCollection } from '../../firebase/firebase'
 import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
+import { selectCartItemsAmount } from '../../store/cartSlice/selectors'
 
 export interface DropdownMenuItemProps {
     name: string,
@@ -36,6 +37,7 @@ export const UserMenu = memo(() => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     // const isLoading = useAppSelector(selectIsLoading)
 
+    const cartItemsAmount = useAppSelector(selectCartItemsAmount)
 
     const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -131,7 +133,7 @@ export const UserMenu = memo(() => {
                 onClick={cartIconOnclick}
             >
                 <img src={cartIcon} alt="cart-icon" />
-                <Styled.CartCountStyle>2</Styled.CartCountStyle>
+                <Styled.CartItemsAmountStyle>{cartItemsAmount}</Styled.CartItemsAmountStyle>
             </IconButton>
         </>
     )

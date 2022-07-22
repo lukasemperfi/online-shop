@@ -95,16 +95,20 @@ const inputStyles = css`
 
 
 interface CartItem {
-    item: Product;
+    name: string,
+    price: number,
+    image: string,
+    id: string,
+    count: number;
     quantity?: boolean;
     onDelete: (id: string) => void;
 }
 
 
-export const CartItem: FC<CartItem> = ({ item, quantity = true, onDelete }) => {
+export const CartItem: FC<CartItem> = ({  name, price, image, id, quantity = true, onDelete }) => {
 
     const handleDelete = () => {
-        onDelete(item.id)
+        onDelete(id)
     }
 
     return (
@@ -113,7 +117,7 @@ export const CartItem: FC<CartItem> = ({ item, quantity = true, onDelete }) => {
             <StyledCartBody>
                 <StyledCartImage>
                     <AdaptiveImage
-                        src={item.image}
+                        src={image}
                         dimensions={{
                             width: 888,
                             height: 1110,
@@ -121,7 +125,7 @@ export const CartItem: FC<CartItem> = ({ item, quantity = true, onDelete }) => {
                           skeleton
                     />
                 </StyledCartImage>
-                <StyledCartTitle >{item.name}</StyledCartTitle>
+                <StyledCartTitle >{name}</StyledCartTitle>
             </StyledCartBody>
             {quantity && (
                 <StyledCartCount>
@@ -135,7 +139,7 @@ export const CartItem: FC<CartItem> = ({ item, quantity = true, onDelete }) => {
                 </StyledCartCount>
             )}
             <StyledCartPrice className="cart__item-price">
-                <b>${item.price}</b>
+                <b>${price}</b>
             </StyledCartPrice>
             <StyledCartRemove >
                 <IconButton >

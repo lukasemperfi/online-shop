@@ -10,19 +10,37 @@ import { MainButton } from '../MainButton/MainButton'
 import { Link, useParams } from 'react-router-dom'
 import { ProductsRoutes } from '../../navigation/routeNames'
 import { Product } from '../../firebase/models/Product'
+import { CartItem } from '../../store/cartSlice/models/CartItem'
+import { useAppDispatch } from '../../hooks/redux'
+import { addItem } from '../../store/cartSlice/cartSlice'
 
 interface ProductCardProps {
-    item: Product;
-    containerStyles?: FlattenSimpleInterpolation;
+    name: string,
+    price: number,
+    image: string,
+    id: string,
+    containerStyles?: FlattenSimpleInterpolation,
 }
 
 type ParamsProps = {
     gender?: string,
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ item }) => {
-    const { name, price, image, id } = item
+export const ProductCard: FC<ProductCardProps> = ({ name, price, image, id }) => {
     const { gender } = useParams<ParamsProps>()
+    const dispatch = useAppDispatch()
+
+    const onClickAdd = () => {
+        const item: CartItem = {
+            id,
+            name,
+            price,
+            image,
+            count: 0,
+          }
+
+          dispatch(addItem(item))
+    }
 
     return (
         <Styled.Card>
@@ -43,6 +61,7 @@ export const ProductCard: FC<ProductCardProps> = ({ item }) => {
                 <Styled.CardPrice>{price} грн</Styled.CardPrice>
                 <IconButton
                     styles={Styled.addCartButtonStyles}
+                    onClick={onClickAdd}
                 >
                     <AddCartIcon width='25px' height='25px' fill='#ffd800' />
                 </IconButton>

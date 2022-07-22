@@ -140,13 +140,13 @@ export const AdminPage = () => {
     dispatch(deleteProduct(id))
   }
 
-  const renderItem = (item: Product, index?: number) =>
-    <CartItem
-      item={item}
-      key={item.id}
-      onDelete={removeProduct}
-      quantity={false}
-    />
+  // const renderItem = (item: Product, index?: number) =>
+  //   <CartItem
+  //     item={item}
+  //     key={item.id}
+  //     onDelete={removeProduct}
+  //     quantity={false}
+  //   />
 
   return (
     <GridContainer>
@@ -171,10 +171,10 @@ export const AdminPage = () => {
         >ADD NEW PRODUCT
         </MainButton>
         <ProductsTitle>MANAGE PRODUCTS</ProductsTitle>
-        <ItemsList
+        {/* <ItemsList
           data={products}
           renderItem={renderItem}
-        />
+        /> */}
         {/* <MainPopup
           isOpened={isAddNewProductPopupOpen}
           onClose={handleAddNewProductPopupOnClose}

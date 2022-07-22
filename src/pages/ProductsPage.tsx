@@ -132,7 +132,7 @@ export const ProductsPage = () => {
     const isLoadMoreBtnShow = !isFetchingMore && !isEmptyData && !isLoading
 
     useEffect(() => {
-        // dispatch(fetchProductsByCategoryAndOrder({ gender, category: productType, order: sortValue }))
+        dispatch(fetchProductsByCategoryAndOrder({ gender, category: productType, order: sortValue }))
     }, [sortValue, gender, productType])
 
     const loadMore = () => {
@@ -144,10 +144,13 @@ export const ProductsPage = () => {
     }
 
 
-    const renderItem = (item: Product, index?: number) => (
+    const renderItem = (item: Product) => (
         <ProductCard
-            item={item}
-            key={index}
+            name={item.name}
+            price={item.price}
+            image={item.image}
+            id={item.id}
+            key={item.id}
         />)
 
 

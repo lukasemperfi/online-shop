@@ -7,6 +7,9 @@ import { ItemsList } from '../components/ItemsList/ItemsList'
 import { Colors } from '../styles/styles'
 import { ProductCardProps } from '../models/ProductCardProps'
 import { Product } from '../firebase/models/Product'
+import { useAppSelector } from '../hooks/redux'
+import { selectCart } from '../store/cartSlice/selectors'
+import { CartItem as CartItemType } from '../store/cartSlice/models/CartItem'
 
 const Container = styled.div`
     display: flex;
@@ -40,54 +43,21 @@ const Checkout = styled.div`
     gap: 20px;
 `
 
-const data = [
-    {
-        id: '1',
-        image: 'https://i.insider.com/61d1c0e2aa741500193b2d18?width=1136&format=jpeg',
-        // image: '',
-        name: 'Крутой кот в очках. Босс всех котов на районе ', price: 3500
-    },
-    {
-        id: '2',
-        image: 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg',
-        // image: '',
-        name: 'Кот на чиле', price: 45
-    },
-    {
-        id: '3',
-        image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        // image: '',
-        name: 'Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня', price: 77
-    },
-    {
-        id: '4',
-        image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        // image: '',
-        name: 'Кот после рабочего дня 2222', price: 56
-    },
-    {
-        id: '5',
-        image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        // image: '',
-        name: 'Кот после рабочего дня 333', price: 56
-    },
-    {
-        id: '6',
-        image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-        // image: '',
-        name: 'Кот после рабочего дня 4444', price: 444444
-    },
-]
 
 export const CartPage = () => {
+    const { items, totalPrice } = useAppSelector(selectCart)
 
     const removeProduct = () => {
 
     }
 
-    const renderItem = (item: Product, index?: number) =>
+    const renderItem = (item: CartItemType) =>
         <CartItem
-            item={item}
+            id={item.id}
+            name={item.name}
+            price={item.price}
+            image={item.image}
+            count={item.count}
             key={item.id}
             onDelete={removeProduct}
         />
@@ -99,12 +69,12 @@ export const CartPage = () => {
                     <CartTitle>Cart</CartTitle>
                 </Header>
                 <ItemsList
-                    data={data}
+                    data={items}
                     renderItem={renderItem}
                     gap='20px'
                 />
                 <Footer>
-                    <Total>Total: 70$</Total>
+                    <Total>Total: ${totalPrice}</Total>
                     <Checkout>
                         <MainButton>Continue shipping</MainButton>
                         <MainButton>Checkout</MainButton>

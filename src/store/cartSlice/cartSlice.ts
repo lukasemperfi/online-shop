@@ -27,11 +27,13 @@ const cart = createSlice({
             } else {
                 state.items.push({ ...item, count: 1 })
             }
-            
+
             state.totalPrice = calcTotalPrice(state.items)
-            
+
         }
     },
 })
+
+export const { addItem } = cart.actions
 
 export const cartSlice = cart.reducer;

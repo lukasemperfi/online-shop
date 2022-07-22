@@ -15,7 +15,7 @@ export const cartStyle = css`
     position: relative;
 `
 
-export const CartCountStyle = styled.span`
+export const CartItemsAmountStyle = styled.span`
     position: absolute;
     right: -3px;
     top: 16px;
