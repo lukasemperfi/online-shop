@@ -55,7 +55,7 @@ export const HomePage = () => {
             imageStyles={womanImageStyle}
           />
           <StyledTitle>
-            <StyledLink to='products/womens'>woman</StyledLink>
+            <StyledLink to='/womens'>woman</StyledLink>
           </StyledTitle>
         </Col>
         <Col>
@@ -66,7 +66,7 @@ export const HomePage = () => {
             imageStyles={manImageStyle}
           />
           <StyledTitle>
-            <StyledLink to='products/mens'>man</StyledLink>
+            <StyledLink to='/mens'>man</StyledLink>
           </StyledTitle>
         </Col>
       </Container>

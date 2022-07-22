@@ -11,11 +11,12 @@ const StyledTabs = styled.div`
 interface TabsProps<T> {
     categories: T[],
     renderItem: (item: T, index: number, active: boolean) => ReactNode,
-    value: number,
+    value?: number,
 }
 
 export const Tabs = <T,>({ categories, renderItem, value }: TabsProps<T>) => {
     const [activeTab, setActiveTab] = useState(value)
+
 
     useEffect(() => {
         setActiveTab(value)

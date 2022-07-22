@@ -134,11 +134,11 @@ export const ProductsPage = () => {
     console.log('products on render', products);
 
     useEffect(() => {
-        dispatch(fetchProductsByCategoryAndOrder({ gender, order: sortValue }))
+        // dispatch(fetchProductsByCategoryAndOrder({ gender, order: sortValue }))
     }, [sortValue])
 
     const loadMore = () => {
-        dispatch(fetchMore({ gender, order: sortValue }))
+        // dispatch(fetchMore({ gender, order: sortValue }))
     }
 
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
