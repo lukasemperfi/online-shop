@@ -53,10 +53,10 @@ interface ProductData {
 //             return rejectWithValue(error.message as string);
 //         }
 //     }
-// );
+// );,
 
 const queryFilter = (gender?: string, category?: string, order?: OrderByDirection) => {
-    let q = query(productsCollection, orderBy('price', order), limit(2))
+    let q = query(productsCollection, orderBy('price', order),  limit(2))
 
     if (gender) {
         q = query(q, where('gender', '==', gender));
@@ -73,7 +73,7 @@ const queryFilter = (gender?: string, category?: string, order?: OrderByDirectio
 interface CategoryData {
     gender?: string;
     category?: string;
-    order: OrderByDirection;
+    order?: OrderByDirection;
 }
 
 export const fetchProductById = createAsyncThunk<Product | undefined, string | undefined, { rejectValue: string }>(
@@ -100,8 +100,6 @@ export const fetchProductsByCategoryAndOrder = createAsyncThunk<Product[], Categ
             const documentSnapshots = await getDocs(first);
 
             dispatch(updateState(documentSnapshots))
-
-            console.log('afterdispatch updateState');
 
             const products = documentSnapshots.docs.map(product => product.data())
 
@@ -190,7 +188,7 @@ const products = createSlice({
 
             if (!isDocumentSnapshotsEmpty) {    
                 const lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1];
-                console.log('in update');
+                // console.log('in update');
                 state.pagination.lastDoc = lastDoc
             } else {
                 state.pagination.isEmptyData = true

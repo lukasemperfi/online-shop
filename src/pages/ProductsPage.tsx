@@ -6,7 +6,7 @@ import { ItemsList } from "../components/ItemsList/ItemsList"
 import { productsData } from '../productsData'
 import { ProductCardProps } from "../models/ProductCardProps"
 import { Card } from "../components/Card/Card"
-import { auth, db } from "../firebase/firebase"
+import { auth, db, productsCollection } from "../firebase/firebase"
 import { Product } from "../firebase/models/Product"
 import { MainButton } from "../components/MainButton/MainButton"
 import { useAppDispatch, useAppSelector } from "../hooks/redux"
@@ -17,7 +17,7 @@ import { NoDataFound } from "../components/NoDataFound/NoDataFound"
 import { useParams } from "react-router-dom"
 import { Loader, LoaderSize } from "../components/Loaders/Loader"
 import { Select } from "../components/Select/Select"
-import { OrderByDirection } from "firebase/firestore"
+import { getDocs, limit, orderBy, OrderByDirection, query, where } from "firebase/firestore"
 
 
 const data = [
@@ -124,21 +124,19 @@ const options = [
 
 export const ProductsPage = () => {
     const { isLoading, pagination: { isEmptyData, isFetchingMore } } = useAppSelector(selectProductsState)
-    const { gender } = useParams()
+    const { gender, productType } = useParams()
     const dispatch = useAppDispatch()
     const products = useAppSelector(selectProducts)
     const [sortValue, setSortValue] = useState<OrderByDirection>('desc')
 
     const isLoadMoreBtnShow = !isFetchingMore && !isEmptyData && !isLoading
 
-    console.log('products on render', products);
-
     useEffect(() => {
-        // dispatch(fetchProductsByCategoryAndOrder({ gender, order: sortValue }))
-    }, [sortValue])
+        // dispatch(fetchProductsByCategoryAndOrder({ gender, category: productType, order: sortValue }))
+    }, [sortValue, gender, productType])
 
     const loadMore = () => {
-        // dispatch(fetchMore({ gender, order: sortValue }))
+        dispatch(fetchMore({ gender,category: productType, order: sortValue }))
     }
 
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -176,7 +174,6 @@ export const ProductsPage = () => {
             <StyledBtnContainer>
                 {isLoadMoreBtnShow && <MainButton width="auto" onClick={loadMore}>LOAD MORE</MainButton>}
                 {isFetchingMore && <Loader size="5px" />}
-                {isEmptyData && <StyledNoMoreData>No more products</StyledNoMoreData>}
             </StyledBtnContainer>
         </PageContainer>
     )

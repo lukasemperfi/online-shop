@@ -17,15 +17,15 @@ interface MenuProps<T> {
 
 export const Menu = <T,>({ data, renderItem, isMobile, positionTop, isOpen }: MenuProps<T>) => {
     const isBodyLocked = isMobile && isOpen
-
+    
     useLockedBody(isBodyLocked)
 
     return (
         <Styled.Container isMobile={isMobile} positionTop={positionTop} isOpen={isOpen}>
             <PageContainer containerStyles={!isMobile ? styles.desktopPageContainerStyle : undefined}>
-                <Styled.Wrapper>
-                    {(isMobile && isOpen ) && <TabsPanel />}
-                    <Styled.Nav isMobile={isMobile} isOpen={isOpen}>
+                <Styled.Wrapper isMobile={isMobile} isOpen={isOpen}>
+                    {(isMobile) && <TabsPanel />}
+                    <Styled.Nav>
                         <MenuList
                             data={data}
                             renderItem={renderItem}

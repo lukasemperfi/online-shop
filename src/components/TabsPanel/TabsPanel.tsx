@@ -1,13 +1,15 @@
 import React, { memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { css } from 'styled-components'
 import { GenderCategory } from '../../firebase/models/GenderCategory'
-import { StyledMenuLink } from '../StyledLink/StyledLink.styled'
+import { StyledMenuLink, StyledTabsLink } from '../StyledLink/StyledLink.styled'
 import { Tabs } from '../Tabs/Tabs'
 
 const tabsCategories = [
     { id: 'fdhher', name: 'Woman', searchQuery: 'womens' },
     { id: 'fdgjhjktyhher', name: 'Man', searchQuery: 'mens' }
 ]
+
 
 export const TabsPanel = memo(() => {
     const [activeTab, setActiveTab] = useState<number | undefined>()
@@ -26,13 +28,13 @@ export const TabsPanel = memo(() => {
     }, [])
 
     const renderItemTabs = (item: GenderCategory, index: number, active: boolean) =>
-        <StyledMenuLink
+        <StyledTabsLink
             to={`/${item.searchQuery}`}
             onClick={() => handleLinkClick(index)}
             className={active ? 'active' : ''}
         >
             {item.name}
-        </StyledMenuLink>
+        </StyledTabsLink>
 
     return (
         <Tabs
