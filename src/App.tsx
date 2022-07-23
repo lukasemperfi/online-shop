@@ -8,29 +8,20 @@ import { userStateChanged } from './store/userSlice';
 export const App = () => {
 	const dispatch = useAppDispatch()
 
-	// useEffect(() => {
-	// 	const unsubscribe =	onAuthStateChanged(auth, (user) => {
+	useEffect(() => {
+		const unsubscribe =	onAuthStateChanged(auth, (user) => {
+			if (user) {
+				const uid = user.uid
+				dispatch(userStateChanged(user))
 
-	// 		// const userInfo = {
-	// 		// 	uid: user?.uid,
-	// 		// 	email: user?.email,
-	// 		// 	userRoles: ['user']
-	// 		// }
+			} else {
+				dispatch(userStateChanged(null))
+			}
+		});
 
-	// 		if (user) {
-	// 			const uid = user.uid
-	// 			dispatch(userStateChanged(uid))
-	// 			// console.log('User loggin');
+		return () => unsubscribe();
 
-	// 		} else {
-	// 			dispatch(userStateChanged(null))
-	// 			// console.log('User is signed out');
-	// 		}
-	// 	});
-
-	// 	return () => unsubscribe();
-
-	// }, [])
+	}, [])
 
 	return (
 		<AppRouter />

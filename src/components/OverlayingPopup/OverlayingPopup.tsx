@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from 'react'
 import styled from 'styled-components';
 import { useLockedBody } from '../../hooks/useLockedBody';
+import { Breakpoints } from '../../styles/styles';
 import { OverlayWithLockedBody } from '../OverlayWithLockedBody/OverlayWithLockedBody';
 import { Portal } from '../Portal/Portal';
 
@@ -12,19 +13,15 @@ const StyledContainer = styled.div`
     right: 0;
     bottom: 0;
     z-index: 1;
-    padding: 5vw;
+    padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
 
-    @media (max-width: 600px) {
-       padding: 0;
+    @media (min-width: ${Breakpoints.lg}) {
+       padding: 5vw;
     }
 
-`
-
-const StyledContent = styled.div`
-    z-index: 1;
 `
 
 interface OverlayingPopupProps {
@@ -43,9 +40,7 @@ export const OverlayingPopup: FC<OverlayingPopupProps> = ({ children, onClose, i
         <Portal>
             <StyledContainer>
                 <OverlayWithLockedBody isOpened={isOpened} onClick={onClose} backgroundColor={'rgba(0, 0, 0, 0.6)'}/>
-                <StyledContent>
                     {children}
-                </StyledContent>
             </StyledContainer>
         </Portal>
     )

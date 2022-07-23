@@ -1,5 +1,6 @@
 export interface UserInfo {
-    fullName: string | null,
+    firstName: string | null,
+    lastName: string | null,
     email: string | null,
-    userRoles: String[] | null
+    userRoles: String[] | null,
 }

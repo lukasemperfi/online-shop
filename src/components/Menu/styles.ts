@@ -18,7 +18,7 @@ export const mobileContainerStyle = css<StyledProps>`
     position: fixed;
     top: 0;
     left: 0;
-    padding-top: ${({positionTop}) => positionTop + 'px' };
+    padding-top: ${({positionTop, isMobile, isOpen}) => (isMobile && isOpen) ? `${positionTop}px` : '0px'  };
     display: block;
     background-color: #FFFFFF;
     height: ${({isOpen, isMobile}) => (isMobile && isOpen) ? '100vh' : '0'};

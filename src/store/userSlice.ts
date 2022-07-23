@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db, usersCollection } from "../firebase/firebase";
 import { UserInfo } from "../firebase/models/UserInfo";
@@ -14,7 +14,8 @@ interface userAuthState {
 }
 
 interface SignUpData {
-    fullName: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
 }
@@ -32,13 +33,14 @@ const initialState: userAuthState = {
 
 export const signUp = createAsyncThunk<void, SignUpData, { rejectValue: string }>(
     `${RootReducers.userAuth}/signUp`,
-    async ({ fullName, email, password }, { rejectWithValue }) => {
+    async ({ firstName, lastName, email, password }, { rejectWithValue }) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const docRef = doc(usersCollection, userCredential.user.uid)
-            
+
             await setDoc(docRef, {
-                fullName,
+                firstName,
+                lastName,
                 email,
                 userRoles: ['user']
             });
@@ -75,7 +77,9 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: string }>(
 
 export const userStateChanged = createAsyncThunk(
     `${RootReducers.userAuth}/userStateChanged`,
-    async (uid: string | null, { rejectWithValue }) => {
+    async (user: User | null, { rejectWithValue }) => {
+        const uid = user?.uid
+
         if (uid === null) {
             return null
         }
@@ -85,7 +89,6 @@ export const userStateChanged = createAsyncThunk(
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                // console.log("Document data:", docSnap.data());
                 return docSnap.data()
             } else {
                 // doc.data() will be undefined in this case
@@ -131,7 +134,7 @@ const authentication = createSlice({
         })
 
         builder.addCase(signUp.fulfilled, (state, { payload }) => {
-            
+
         })
 
         builder.addCase(signUp.rejected, (state, { payload }) => {

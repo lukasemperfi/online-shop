@@ -17,14 +17,16 @@ const inputStyle = css`
 `
 
 interface FormData {
-    fullName: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
     passwordConfirmation: string;
 };
 
 const schema = yup.object({
-    fullName: yup.string().required('Full name is a required field').matches(/^\s*[\S]+(\s[\S]+)+\s*$/gms,'Please enter correct full name'),
+    firstName: yup.string().required('First name is a required field').matches(/^[A-Za-z\s]+$/, 'Please enter correct first name'),
+    lastName: yup.string().required('Last name is a required field').matches(/^[A-Za-z\s]+$/, 'Please enter correct last name'),
     email: yup.string().email('Please enter correct email').required('Email is a required field'),
     password: yup.string().min(6, 'Password must be at least 6 characters').required(),
     passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords does not match')
@@ -33,24 +35,32 @@ const schema = yup.object({
 export const SignUpForm = () => {
     const dispatch = useAppDispatch()
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
-            mode: 'all',
-            resolver: yupResolver(schema)
-        });
+        mode: 'all',
+        resolver: yupResolver(schema)
+    });
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
         // console.log(data)
         dispatch(signUp(data))
     }
-    
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Input
-                label='Full name'
-                placeholder='Full name'
+                label='First name'
+                placeholder='First name'
                 containerStyle={formItemStyle}
                 inputStyle={inputStyle}
-                errorText={errors?.fullName?.message}
-                {...register("fullName")}
+                errorText={errors?.firstName?.message}
+                {...register("firstName")}
+            />
+            <Input
+                label='Last name'
+                placeholder='Last name'
+                containerStyle={formItemStyle}
+                inputStyle={inputStyle}
+                errorText={errors?.lastName?.message}
+                {...register("lastName")}
             />
             <Input
                 label='Email'

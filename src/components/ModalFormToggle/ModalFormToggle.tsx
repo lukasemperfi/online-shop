@@ -8,10 +8,17 @@ import { LoginForm } from '../LoginForm/LoginForm'
 import { ButtonColors, MainButton } from '../MainButton/MainButton'
 import { MainPopup, MainPopupProps } from '../MainPopup/MainPopup'
 import { SignUpForm } from '../SignUpForm/SignUpForm'
+import {ReactComponent as CloseIcon} from '../../assets/close.svg'
 
 
 const Container = styled.div`
-    padding: 40px; 
+    padding: 40px;
+    position: relative ;
+`
+const StyledPlusIcon = styled(CloseIcon)`
+    position: absolute;
+    top: 15px;
+    right: 15px;
 `
 
 const Title = styled.h2`
@@ -57,6 +64,7 @@ export const ModalFormToggle = ({ isOpened, onClose }: MainPopupProps) => {
                 onClose={onClose}
             >
                 <Container>
+                    <StyledPlusIcon width={30} height={30} onClick={onClose}/>
                     <Title>
                         {isLoginForm ? 'LOGIN' : 'REGISTRATION'}
                     </Title>
