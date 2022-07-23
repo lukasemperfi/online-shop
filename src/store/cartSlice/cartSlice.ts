@@ -55,15 +55,19 @@ const cart = createSlice({
 
         },
         deleteItem(state, action: PayloadAction<string>) {
-            const { payload: id } = action       
+            const { payload: id } = action
 
             state.items = state.items.filter((obj) => obj.id !== id);
-            
+
             state.totalPrice = calcTotalPrice(state.items);
+        },
+        clearCart(state) {
+            state.items = [];
+            state.totalPrice = 0;
         },
     },
 })
 
-export const { addItem, minusItem, plusItem, deleteItem } = cart.actions
+export const { addItem, minusItem, plusItem, deleteItem, clearCart } = cart.actions
 
 export const cartSlice = cart.reducer;

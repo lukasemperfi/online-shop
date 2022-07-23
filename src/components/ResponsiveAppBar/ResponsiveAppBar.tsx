@@ -76,6 +76,7 @@ export const ResponsiveAppBar: FC = () => {
                 <Menu
                     data={menuCategories}
                     renderItem={renderMenuItem}
+                    keyExtractor={({id}) => id}
                     isMobile={isMobile}
                     positionTop={responsiveAppBarHeight}
                     isOpen={isMenuOpen}

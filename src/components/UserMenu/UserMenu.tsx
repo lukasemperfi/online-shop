@@ -23,6 +23,7 @@ import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
 import { selectCartItemsAmount } from '../../store/cartSlice/selectors'
 
 export interface DropdownMenuItemProps {
+    id: string,
     name: string,
     handleClick?: MouseEventHandler
 }
@@ -75,11 +76,13 @@ export const UserMenu = memo(() => {
     }
 
     const dropdownMenuData: DropdownMenuItemProps[] = [
-        {
+        {   
+            id: 'dgfg',
             name: 'Profile',
             handleClick: handleIsUserPopupClose
         },
-        {
+        {   
+            id: 'ghjhj',
             name: 'SignOut',
             handleClick: onLogOut
         },
@@ -115,6 +118,7 @@ export const UserMenu = memo(() => {
                 <DropdownMenu
                     data={dropdownMenuData}
                     renderItem={renderItem}
+                    keyExtractor={({id}) => id}
                     anchorEl={anchorEl}
                     isOpened={isOpened}
                     onClose={handleIsUserPopupClose}

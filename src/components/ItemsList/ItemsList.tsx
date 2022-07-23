@@ -5,6 +5,7 @@ import { Breakpoints } from '../../styles/styles';
 interface ItemsListProps<T> {
   data: T[];
   renderItem: (item: T, index?: number) => ReactNode;
+  keyExtractor: (item: T) => string;
   containerStyles?: FlattenSimpleInterpolation;
   columns?: boolean;
   gap?: string;
@@ -43,11 +44,15 @@ const Container = styled.div<ContainerProps>`
     ${({ containerStyles }) => containerStyles}
 `
 
-export const ItemsList = <T,>({ data, renderItem, containerStyles, gap, columns }: ItemsListProps<T>) => {
+export const ItemsList = <T,>({ data, renderItem, keyExtractor, containerStyles, gap, columns }: ItemsListProps<T>) => {
 
   return (
     <Container containerStyles={containerStyles} gap={gap} columns={columns}>
-      {data?.map(renderItem)}
+       {data?.map((item, index) => (
+                    <React.Fragment key={keyExtractor(item)}>
+                         {renderItem(item, index)}
+                    </React.Fragment>                 
+                ))}
     </Container>
   )
 }

@@ -22,29 +22,30 @@ interface StyledButtonProps {
 
 const buttonButtonColors = {
     primary: css`
-    background-color: #292a2f;
-    color: #FFFFFF;
+        background-color: #292a2f;
+        color: #FFFFFF;
 `,
     secondary: css`
-    background-color: #FFFFFF;
-    color: #292a2f;
+        background-color: #FFFFFF;
+        color: #292a2f;
 `,
     text: css`
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    width: auto;
-    height: auto;
-    min-height: auto;
-    padding: 0;
-
-    &:focus {
+        align-items: flex-end;
+        background-color: transparent;
+        border: none;
         box-shadow: none;
-    }
+        width: auto;
+        height: auto;
+        min-height: auto;
+        padding: 0;
 
-    &:active {
-        opacity: 1;
-    }
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:active {
+            opacity: 1;
+        }
 `
 }
 

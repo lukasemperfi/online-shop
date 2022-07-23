@@ -10,12 +10,13 @@ import * as styles from './styles'
 interface MenuProps<T> {
     data: T[];
     renderItem: (item: T) => ReactNode;
+    keyExtractor: (item: T) => string;
     isMobile: boolean;
     positionTop: number;
     isOpen: boolean;
 }
 
-export const Menu = <T,>({ data, renderItem, isMobile, positionTop, isOpen }: MenuProps<T>) => {
+export const Menu = <T,>({ data, renderItem, keyExtractor, isMobile, positionTop, isOpen }: MenuProps<T>) => {
     const isBodyLocked = isMobile && isOpen
     
     useLockedBody(isBodyLocked)
@@ -29,6 +30,7 @@ export const Menu = <T,>({ data, renderItem, isMobile, positionTop, isOpen }: Me
                         <MenuList
                             data={data}
                             renderItem={renderItem}
+                            keyExtractor={keyExtractor}
                             containerStyle={isMobile ? styles.mobileMenuListContainerStyle : styles.desktopMenuListContainerStyle}
                         />
                     </Styled.Nav>

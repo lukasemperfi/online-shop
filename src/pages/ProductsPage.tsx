@@ -143,7 +143,6 @@ export const ProductsPage = () => {
         setSortValue(event.target.value as OrderByDirection)
     }
 
-
     const renderItem = (item: Product) => (
         <ProductCard
             name={item.name}
@@ -170,6 +169,7 @@ export const ProductsPage = () => {
                 <ItemsList
                     data={products}
                     renderItem={renderItem}
+                    keyExtractor={({id}) => id}
                     columns
                     gap="20px"
                 />

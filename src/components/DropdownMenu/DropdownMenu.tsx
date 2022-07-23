@@ -25,6 +25,7 @@ type DropdownMenuProps<T> = PopoverProps & MenuListProps<T>
 export const DropdownMenu = <T,>({
     data,
     renderItem,
+    keyExtractor,
     anchorEl,
     onClose,
     isOpened,
@@ -46,6 +47,7 @@ export const DropdownMenu = <T,>({
                 <MenuList
                     data={data}
                     renderItem={renderItem}
+                    keyExtractor={keyExtractor}
                     containerStyle={ulStyle}
                 />
             </StyledDropdowMenu>

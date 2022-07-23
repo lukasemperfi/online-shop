@@ -10,10 +10,11 @@ import { ReactComponent as TrashIcon } from '../../assets/trash.svg'
 import { Breakpoints, Colors } from '../../styles/styles';
 import { textCut } from '../../styles/helpers';
 import { Product } from '../../firebase/models/Product';
-import { FC } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { count } from 'console';
 import { useAppDispatch } from '../../hooks/redux';
 import { deleteItem, minusItem, plusItem } from '../../store/cartSlice/cartSlice';
+import { formatPrice } from '../../utils/redux';
 
 
 
@@ -78,6 +79,7 @@ const StyledCartRemove = styled.div`
     justify-content: flex-end;
     flex: 0 0 4%;
 `
+
 const pagecontainerStyle = css`
     width: 800px;
 `
@@ -150,7 +152,7 @@ export const CartItem: FC<CartItem> = ({ name, price, image, id, count, quantity
                 </StyledCartCount>
             )}
             <StyledCartPrice className="cart__item-price">
-                <b>${price}</b>
+                <b>{formatPrice(price * count)}</b>
             </StyledCartPrice>
             <StyledCartRemove >
                 <IconButton onClick={onClickDelete}>
