@@ -5,6 +5,7 @@ export enum Colors {
     white= '#FFFFFF',
     black= '#000000',
     error= '#FB1111',
+    errorMessage = '#EF5350',
     focus= '#4285F4'
 }
 

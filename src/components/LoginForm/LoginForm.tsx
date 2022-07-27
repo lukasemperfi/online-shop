@@ -2,31 +2,49 @@ import { ChangeEvent, useState } from 'react'
 import styled, { css } from 'styled-components'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { Input } from '../Input/Input'
 import { ButtonColors, MainButton } from '../MainButton/MainButton'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { selectIsLoading, signIn } from '../../store/userSlice';
+import { selectIsLoading, selectUserState, signIn } from '../../store/userSlice';
+import { Loader } from '../Loaders/Loader';
+import { Colors } from '../../styles/styles';
+import { getMessageFromErrorCode } from '../../firebase/utils/getMessageFromErrorCode';
+import { useNavigate } from 'react-router-dom';
 
 
-const formItemStyle = css`
-    margin-bottom: 20px;
+interface StyledLogginProps {
+    showMessage?: boolean,
+}
+
+const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 `
-const inputStyle = css`
-    /* padding: 12px 48px 12px 20px; */
+const showMessageActive = css`
+    background-color: ${Colors.errorMessage};
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+    padding: 5px 0;
+    transition: 0.3s;
 `
 
-// const StyledOverlay = styled.div`
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     right: 0;
-//     bottom: 0;
-//     z-index: 1000000;
-//     background-color: black;
-//     opacity: 0.5;
-// `
+const StyledShowMessage = styled.div<StyledLogginProps>`
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+    padding: 0;
+    transition: 0.3s;
+    overflow: hidden;
+
+    ${({showMessage}) => showMessage && showMessageActive }
+`
+const StyledInput = styled(Input)<StyledLogginProps>`
+    background-color: red;
+`
 
 interface FormData {
     email: string;
@@ -40,37 +58,37 @@ const schema = yup.object({
 
 export const LoginForm = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const { errorCode, isLoading } = useAppSelector(selectUserState)
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         mode: 'all',
         resolver: yupResolver(schema)
     });
-    // const isLoading = useAppSelector(selectIsLoading)
 
-const onSubmit: SubmitHandler<FormData> = (data) => {
-    // console.log(data)
-    dispatch(signIn(data))
-}
+    const isError = !!errorCode
+    // console.log(errorCode);
+    
+    const onSubmit: SubmitHandler<FormData> = (data) => {
+        dispatch(signIn(data))
+    }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+            <StyledShowMessage showMessage={isError}>{getMessageFromErrorCode(errorCode)}</StyledShowMessage>
             <Input
                 label='Email'
-                placeholder='Email'
-                containerStyle={formItemStyle}
-                inputStyle={inputStyle}
                 errorText={errors?.email?.message}
+                placeholder='admin@gmail.com'
                 {...register("email")}
             />
             <Input
                 label='Password'
-                placeholder='Password'
-                containerStyle={formItemStyle}
-                inputStyle={inputStyle}
+                type='Password'
+                placeholder='adminadmin'
                 errorText={errors?.password?.message}
                 {...register("password")}
             />
-            <MainButton styles={formItemStyle} type='submit'>Log In</MainButton>
-            {/* <MainButton color={ButtonColors.secondary} styles={formItemStyle}>SIGN IN WITH GOOGLE</MainButton> */}
-        </form>
+            <MainButton type='submit' isLoading={isLoading}>Log In</MainButton>
+        </StyledForm>
     )
 }

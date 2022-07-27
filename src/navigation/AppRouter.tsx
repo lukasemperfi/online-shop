@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
 import { TestPage } from '../pages/TestPage';
+import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
 
 export const AppRouter = () => {
 
@@ -26,13 +27,12 @@ export const AppRouter = () => {
 	return (
 		<Routes>
 			<Route index element={<HomePage />} />
-			<Route path='/' element={<MainLayout />}>		
-				{/* <Route index element={<TestPage />} /> */}
-				<Route path=':gender' element={<ProductsPage />}/>
+			<Route path='/' element={<MainLayout />}>
+				<Route path=':gender' element={<ProductsPage />} />
 				<Route path=':gender/:id' element={<ProductDetails />} />
-				<Route path=':gender/catalog/:productType' element={<ProductsPage />}/>
+				<Route path=':gender/catalog/:productType' element={<ProductsPage />} />
 				<Route path='cart' element={<CartPage />} />
-				<Route path='admin' element={<AdminPage />} />
+				<Route path='admin' element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
 		</Routes>)

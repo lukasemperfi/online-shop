@@ -9,16 +9,18 @@ import { ButtonColors, MainButton } from '../MainButton/MainButton'
 import { MainPopup, MainPopupProps } from '../MainPopup/MainPopup'
 import { SignUpForm } from '../SignUpForm/SignUpForm'
 import {ReactComponent as CloseIcon} from '../../assets/close.svg'
+import { OverlayWithLockedBody } from '../OverlayWithLockedBody/OverlayWithLockedBody'
 
 
 const Container = styled.div`
     padding: 40px;
     position: relative ;
 `
-const StyledPlusIcon = styled(CloseIcon)`
+const StyledCloseIcon = styled(CloseIcon)`
     position: absolute;
     top: 15px;
     right: 15px;
+    cursor: pointer;
 `
 
 const Title = styled.h2`
@@ -38,14 +40,19 @@ const Links = styled.div`
     }
 `
 const StyledOverlay = styled.div`
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 1000000;
-    background-color: red;
+    background-color: transparent;
     opacity: 0.5;
+`
+
+const StyledRegButton = styled(MainButton)`
+    margin-top: 20px;
+    padding: 5px;
 `
 
 export const ModalFormToggle = ({ isOpened, onClose }: MainPopupProps) => {
@@ -58,26 +65,25 @@ export const ModalFormToggle = ({ isOpened, onClose }: MainPopupProps) => {
 
     return (
         <>
-            {isLoading && isOpened ? <StyledOverlay /> : null}
+           
             <MainPopup
                 isOpened={isOpened}
                 onClose={onClose}
             >
                 <Container>
-                    <StyledPlusIcon width={30} height={30} onClick={onClose}/>
+                     {(isLoading && isOpened) && <StyledOverlay /> }
+                    {/* <StyledCloseIcon width={30} height={30} onClick={onClose}/> */}
                     <Title>
                         {isLoginForm ? 'LOGIN' : 'REGISTRATION'}
                     </Title>
                     {isLoginForm ? <LoginForm /> : <SignUpForm />}
                     <Links>
-                        <a href="#">Reset Password</a>
-                        <span>|</span>
-                        <MainButton
+                        <StyledRegButton
                             color={ButtonColors.text}
                             onClick={handleisLoginForm}
                         >
-                            {isLoginForm ? 'signUp' : 'Login'}
-                        </MainButton>
+                            {isLoginForm ? 'Registration' : 'Login'}
+                        </StyledRegButton>
                     </Links>
                 </Container>
             </MainPopup>

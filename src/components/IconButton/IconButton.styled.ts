@@ -7,6 +7,7 @@ interface IconButtonProps {
 }
 
 export const IconButton = styled.button<IconButtonProps>`
+    position: relative;
     background-color: transparent;
     display: inline-flex;
     justify-content: center;

@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db, usersCollection } from "../firebase/firebase";
 import { UserInfo } from "../firebase/models/UserInfo";
+import { ErrorCode, getMessageFromErrorCode } from "../firebase/utils/getMessageFromErrorCode";
 import { RootReducers } from "./rootReducers";
 
 import { RootState } from "./store";
@@ -11,6 +12,8 @@ interface userAuthState {
     user?: UserInfo | null;
     isLoggedIn: boolean;
     isLoading: boolean;
+    errorCode?: ErrorCode;
+    isAuthChecked: boolean;
 }
 
 interface SignUpData {
@@ -29,6 +32,8 @@ const initialState: userAuthState = {
     user: null,
     isLoggedIn: false,
     isLoading: false,
+    errorCode: '',
+    isAuthChecked: false,
 }
 
 export const signUp = createAsyncThunk<void, SignUpData, { rejectValue: string }>(
@@ -42,11 +47,13 @@ export const signUp = createAsyncThunk<void, SignUpData, { rejectValue: string }
                 firstName,
                 lastName,
                 email,
-                userRoles: ['user']
+                roles: ['user']
             });
 
         } catch (error: any) {
-            return rejectWithValue(error.message as string);
+            console.log(error.code);
+            
+            return rejectWithValue(error.code);
         }
     }
 );
@@ -55,10 +62,11 @@ export const signIn = createAsyncThunk<void, SignInData, { rejectValue: string }
     `${RootReducers.userAuth}/signIn`,
     async ({ email, password }, { rejectWithValue }) => {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            await signInWithEmailAndPassword(auth, email, password)
 
         } catch (error: any) {
-            return rejectWithValue(error.message as string);
+            console.log(error.code);
+            return rejectWithValue(error.code);
         }
     }
 );
@@ -78,11 +86,12 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: string }>(
 export const userStateChanged = createAsyncThunk(
     `${RootReducers.userAuth}/userStateChanged`,
     async (user: User | null, { rejectWithValue }) => {
-        const uid = user?.uid
 
-        if (uid === null) {
+        if (user === null) {
             return null
         }
+
+        const uid = user?.uid
 
         try {
             const docRef = doc(usersCollection, uid);
@@ -91,8 +100,7 @@ export const userStateChanged = createAsyncThunk(
             if (docSnap.exists()) {
                 return docSnap.data()
             } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
+                return undefined
             }
 
         } catch (error: any) {
@@ -123,6 +131,9 @@ const authentication = createSlice({
             }
             state.user = payload
             state.isLoading = false
+            state.isAuthChecked = true
+            console.log('in dispatch');
+            
         })
 
         builder.addCase(userStateChanged.rejected, (state, { payload }) => {
@@ -134,11 +145,39 @@ const authentication = createSlice({
         })
 
         builder.addCase(signUp.fulfilled, (state, { payload }) => {
-
+            state.isLoading = false
         })
 
         builder.addCase(signUp.rejected, (state, { payload }) => {
+            state.isLoading = false
+            state.errorCode = payload as ErrorCode
+        })
 
+
+        builder.addCase(signIn.pending, (state) => {
+            state.isLoading = true
+        })
+
+        builder.addCase(signIn.fulfilled, (state, { payload }) => {
+            state.isLoading = false
+        })
+
+        builder.addCase(signIn.rejected, (state, {payload}) => {
+            state.isLoading = false
+            state.errorCode = payload as ErrorCode
+        })
+
+        builder.addCase(logOut.pending, (state) => {
+            state.isLoading = true
+        })
+
+        builder.addCase(logOut.fulfilled, (state, { payload }) => {
+            state.isLoading = false
+        })
+
+        builder.addCase(logOut.rejected, (state, {payload}) => {
+            state.isLoading = false
+            state.errorCode = payload as ErrorCode
         })
 
     },
@@ -146,6 +185,7 @@ const authentication = createSlice({
 
 export const { } = authentication.actions;
 
+export const selectUserState = (state: RootState) => state?.userAuth;
 export const selectUser = (state: RootState) => state?.userAuth?.user;
 export const selectIsLoggedIn = (state: RootState) => state?.userAuth?.isLoggedIn;
 export const selectIsLoading = (state: RootState) => state?.userAuth?.isLoading;

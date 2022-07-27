@@ -10,13 +10,14 @@ export enum LoaderSize {
 
 interface StyledLoaderProps {
   size?: string;
-  marginVertical?: string;
+  margin?: string;
 }
 
 const StyledLoader = styled.div<StyledLoaderProps>`
-  margin: ${({ marginVertical }) => marginVertical ? `${marginVertical} auto` : '0px auto'};
+  margin: ${({ margin }) => margin ? `${margin}` : '0'};
   font-size: ${({ size }) => size ? size : '10px'};
   position: relative;
+  /* top: 50%; */
   text-indent: -9999em;
   border-top: 1em solid rgba(115, 134, 226, 0.2);
   border-right: 1em solid rgba(115, 134, 226, 0.2);
@@ -44,13 +45,13 @@ const StyledLoader = styled.div<StyledLoaderProps>`
 
 interface LoaderProps {
   size?: string,
-  marginVertical?: string,
+  margin?: string,
 }
 
 
-export const Loader: FC<LoaderProps> = ({ size, marginVertical}) => {
+export const Loader: FC<LoaderProps> = ({ size, margin}) => {
   return (
-      <StyledLoader size={size} marginVertical={marginVertical}>Loader</StyledLoader>
+      <StyledLoader size={size} margin={margin}></StyledLoader>
   )
 }
 

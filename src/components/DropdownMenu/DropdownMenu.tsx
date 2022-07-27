@@ -30,6 +30,7 @@ export const DropdownMenu = <T,>({
     onClose,
     isOpened,
     placement,
+    onClick
 }: DropdownMenuProps<T>) => {
     
     if (!isOpened) {
@@ -47,6 +48,7 @@ export const DropdownMenu = <T,>({
                 <MenuList
                     data={data}
                     renderItem={renderItem}
+                    onClick={onClick}
                     keyExtractor={keyExtractor}
                     containerStyle={ulStyle}
                 />

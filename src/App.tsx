@@ -1,20 +1,32 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { AdminBar } from './components/AdminBar';
+import { Loader } from './components/Loaders/Loader';
+import { LoaderCenterFullScreen } from './components/Loaders/LoaderCenterFullScreen';
 import { auth } from './firebase/firebase';
-import { useAppDispatch } from './hooks/redux';
+import { useAppDispatch, useAppSelector } from './hooks/redux';
+import { useAdminAuth } from './hooks/useAdminAuth';
 import { AppRouter } from './navigation/AppRouter'
-import { userStateChanged } from './store/userSlice';
+import { selectUser, selectUserState, userStateChanged } from './store/userSlice';
+
+
 
 export const App = () => {
 	const dispatch = useAppDispatch()
 
+	const { isAuthChecked } = useAppSelector(selectUserState)
+
 	useEffect(() => {
-		const unsubscribe =	onAuthStateChanged(auth, (user) => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			if (user) {
-				const uid = user.uid
+				console.log('islogged');
+
 				dispatch(userStateChanged(user))
 
 			} else {
+				console.log('not logged');
 				dispatch(userStateChanged(null))
 			}
 		});
@@ -24,7 +36,10 @@ export const App = () => {
 	}, [])
 
 	return (
-		<AppRouter />
+		<>
+			{isAuthChecked ? <AppRouter /> : <LoaderCenterFullScreen/>}
+		</>
+
 	)
 }
 

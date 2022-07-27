@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithoutRef, FC } from 'react'
 import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid';
+import { Breakpoints } from '../../styles/styles';
 
 const StyledItem = styled.li`
     background-color: transparent;
@@ -20,9 +21,15 @@ const StyledItem = styled.li`
     justify-content: flex-start;
     align-items: center;
     position: relative;
-    min-height: 48px;
-    padding: 6px 16px;
     white-space: nowrap;
+
+    @media (min-width: ${Breakpoints.xs}) {
+        padding: 0px 6px; 
+    }
+
+    @media (min-width: ${Breakpoints.md}) {
+      padding: 6px 16px;
+    }
 
     &:hover {
         background-color: rgba(0, 0, 0, 0.04);

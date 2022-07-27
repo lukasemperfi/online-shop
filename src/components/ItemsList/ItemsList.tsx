@@ -1,6 +1,9 @@
-import React, { FC, ReactNode } from 'react'
+import React, { Component, FC, ReactNode } from 'react'
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import { Breakpoints } from '../../styles/styles';
+import noProductImage from "../../assets/no-product-found.jpg"
+import { NoDataFound } from '../NoDataFound/NoDataFound';
+
 
 interface ItemsListProps<T> {
   data: T[];
@@ -9,6 +12,7 @@ interface ItemsListProps<T> {
   containerStyles?: FlattenSimpleInterpolation;
   columns?: boolean;
   gap?: string;
+  listEmptyComponent?: ReactNode;
 }
 
 interface ContainerProps {
@@ -44,15 +48,31 @@ const Container = styled.div<ContainerProps>`
     ${({ containerStyles }) => containerStyles}
 `
 
-export const ItemsList = <T,>({ data, renderItem, keyExtractor, containerStyles, gap, columns }: ItemsListProps<T>) => {
+export const ItemsList = <T,>({
+  data,
+  renderItem,
+  keyExtractor,
+  containerStyles,
+  gap,
+  columns,
+  listEmptyComponent
+}: ItemsListProps<T>) => {
 
   return (
-    <Container containerStyles={containerStyles} gap={gap} columns={columns}>
-       {data?.map((item, index) => (
-                    <React.Fragment key={keyExtractor(item)}>
-                         {renderItem(item, index)}
-                    </React.Fragment>                 
-                ))}
-    </Container>
+    <>
+      {data.length
+        ?
+        <Container containerStyles={containerStyles} gap={gap} columns={columns}>
+          {data?.map((item, index) => (
+            <React.Fragment key={keyExtractor(item)}>
+              {renderItem(item, index)}
+            </React.Fragment>
+          ))}
+        </Container>
+        :
+        listEmptyComponent
+      }
+    </>
+
   )
 }

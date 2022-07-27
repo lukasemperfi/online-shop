@@ -12,6 +12,7 @@ import { MainButton } from "../components/MainButton/MainButton"
 import { useAppDispatch, useAppSelector } from "../hooks/redux"
 import { fetchMore, fetchProductsByCategoryAndOrder, selectProducts, selectProductsState, updateState } from '../store/productsSlice/productsSlice';
 import { AdaptiveImage } from "../components/Image/AdaptivImage"
+import noProductImage from "../assets/no-product-found.jpg"
 
 import { NoDataFound } from "../components/NoDataFound/NoDataFound"
 import { useParams } from "react-router-dom"
@@ -136,7 +137,7 @@ export const ProductsPage = () => {
     }, [sortValue, gender, productType])
 
     const loadMore = () => {
-        dispatch(fetchMore({ gender,category: productType, order: sortValue }))
+        dispatch(fetchMore({ gender, category: productType, order: sortValue }))
     }
 
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -164,19 +165,30 @@ export const ProductsPage = () => {
             </StyledSort>
             {isLoading
                 ?
-                <Loader size="10px" marginVertical="60px" />
+                <Loader size="10px" margin="60px auto" />
                 :
                 <ItemsList
                     data={products}
                     renderItem={renderItem}
-                    keyExtractor={({id}) => id}
+                    keyExtractor={({ id }) => id}
                     columns
                     gap="20px"
+                    listEmptyComponent={
+                        <NoDataFound
+                            title='Products Is Empty!'
+                            src={noProductImage}
+                            dimensions={{
+                                width: 592,
+                                height: 253,
+                            }}
+                            maxWidth='800px'
+                        />
+                    }
                 />
             }
             <StyledBtnContainer>
                 {isLoadMoreBtnShow && <MainButton width="auto" onClick={loadMore}>LOAD MORE</MainButton>}
-                {isFetchingMore && <Loader size="5px" />}
+                {isFetchingMore && <Loader size="5px" margin="0 auto" />}
             </StyledBtnContainer>
         </PageContainer>
     )

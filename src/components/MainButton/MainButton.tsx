@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import { Loader } from '../Loaders/Loader';
 
 export enum ButtonColors {
     primary = 'primary',
@@ -12,6 +13,7 @@ interface MainButtonProps extends ComponentPropsWithoutRef<'button'> {
     color?: ButtonColors,
     styles?: FlattenSimpleInterpolation;
     width?: string;
+    isLoading?: boolean;
 }
 
 interface StyledButtonProps {
@@ -54,7 +56,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     justify-content: center;
     align-items: center;
     outline: none;
-    width: ${({width}) => width ? width : '100%' };
+    width: ${({ width }) => width ? width : '100%'};
     min-height: 42px;
     border: 0;
     border-radius: 4px;
@@ -66,6 +68,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     box-shadow: 0 1px 5px 0 rgb(0 0 0 / 20%);
     transition: all 0.3s ease;
     padding: 10px;
+    overflow: hidden;
 
     &:focus {
         box-shadow: 0 0 15px #4285f4;
@@ -92,6 +95,7 @@ export const MainButton: FC<MainButtonProps> = (
         styles,
         onClick,
         width,
+        isLoading = false,
         ...buttonProperties
     }) => (
     <StyledButton
@@ -102,5 +106,6 @@ export const MainButton: FC<MainButtonProps> = (
         {...buttonProperties}
     >
         {children}
+        {isLoading && <Loader size='2px' margin='0 0 0 10px' />}
     </StyledButton>
 )

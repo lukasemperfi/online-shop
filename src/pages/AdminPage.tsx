@@ -112,21 +112,21 @@ export const AdminPage = () => {
   const dispatch = useAppDispatch()
   const products = useAppSelector(selectProducts)
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const unsubscribe = onSnapshot(productsCollection, (snapshot) => {
-      const products: Product[] = []
+  //   const unsubscribe = onSnapshot(productsCollection, (snapshot) => {
+  //     const products: Product[] = []
 
-      snapshot.docs.forEach((doc) => {
-        products.push({ ...doc.data() })
-      })
-      dispatch(setProducts(products))
+  //     snapshot.docs.forEach((doc) => {
+  //       products.push({ ...doc.data() })
+  //     })
+  //     dispatch(setProducts(products))
       
-    })
+  //   })
 
-    return () => unsubscribe();
+  //   return () => unsubscribe();
 
-  }, [])
+  // }, [])
 
   const handleAddNewProductPopupOnOpen = () => {
     setIsAddNewProductPopupOpen(true)
@@ -171,16 +171,6 @@ export const AdminPage = () => {
         >ADD NEW PRODUCT
         </MainButton>
         <ProductsTitle>MANAGE PRODUCTS</ProductsTitle>
-        {/* <ItemsList
-          data={products}
-          renderItem={renderItem}
-        /> */}
-        {/* <MainPopup
-          isOpened={isAddNewProductPopupOpen}
-          onClose={handleAddNewProductPopupOnClose}
-        >
-          <AddNewProductForm/>
-        </MainPopup> */}
         <ModalAddNewProductForm
           isOpened={isAddNewProductPopupOpen}
           onClose={handleAddNewProductPopupOnClose}

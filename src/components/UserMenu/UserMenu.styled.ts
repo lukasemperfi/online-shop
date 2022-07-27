@@ -1,18 +1,27 @@
 import styled, { css } from 'styled-components'
+import { Breakpoints } from '../../styles/styles'
+import { StyledLink } from '../StyledLink/StyledLink.styled'
 
-export const iconsStyle = css`
-    margin-left: 15px;
-    /* position: fixed;
-    left: 0; */
-`
 
 export const contentContainerStyles = css`
     width: 500px;
 `
 
-export const cartStyle = css`
-    ${iconsStyle}
-    position: relative;
+export const Wrapper = styled.div`
+    display: flex;
+    align-items: center;
+
+    @media (min-width: ${Breakpoints.xs}) {
+        gap: 10px;
+    }
+
+    @media (min-width: ${Breakpoints.sm}) {
+        gap: 15px;
+    }
+`
+export const Link = styled(StyledLink)`
+    padding: 2px;
+    align-self: flex-end;
 `
 
 export const CartItemsAmountStyle = styled.span`

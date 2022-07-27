@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { FC, memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { css } from 'styled-components'
 import { GenderCategory } from '../../firebase/models/GenderCategory'
@@ -11,13 +11,19 @@ const tabsCategories = [
     { id: 'fdgjhjktyhher', name: 'Man', searchQuery: 'mens' }
 ]
 
+interface TabsPanelProps {
+    onClick?: () => void,
+}
 
-export const TabsPanel = memo(() => {
+export const TabsPanel: FC<TabsPanelProps> = memo(({onClick}) => {
     const [activeTab, setActiveTab] = useState<number | undefined>()
     const { gender } = useParams()
 
     const handleLinkClick = (tabPosition: number) => {
         setActiveTab(tabPosition)
+        if (onClick) {
+            onClick()
+        }
     }
 
     useEffect(() => {

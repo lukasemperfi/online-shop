@@ -1,19 +1,50 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { css } from 'styled-components'
+import styled, { css } from 'styled-components'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Input } from '../Input/Input'
 import { MainButton } from '../MainButton/MainButton'
-import { useAppDispatch } from '../../hooks/redux';
-import { signUp } from '../../store/userSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { selectUserState, signUp } from '../../store/userSlice';
+import { Colors } from '../../styles/styles';
+import { getMessageFromErrorCode } from '../../firebase/utils/getMessageFromErrorCode';
 
 const formItemStyle = css`
     margin-bottom: 20px;
 `
 const inputStyle = css`
     /* padding: 12px 48px 12px 20px; */
+`
+
+interface StyledSignupProps {
+    showMessage?: boolean,
+}
+
+const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+`
+const showMessageActive = css`
+    background-color: ${Colors.errorMessage};
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+    padding: 5px 0;
+    transition: 0.3s;
+`
+
+const StyledShowMessage = styled.div<StyledSignupProps>`
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+    padding: 0;
+    transition: 0.3s;
+    overflow: hidden;
+
+    ${({showMessage}) => showMessage && showMessageActive }
 `
 
 interface FormData {
@@ -34,21 +65,21 @@ const schema = yup.object({
 
 export const SignUpForm = () => {
     const dispatch = useAppDispatch()
+    const { errorCode, isLoading } = useAppSelector(selectUserState)
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         mode: 'all',
         resolver: yupResolver(schema)
     });
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
-        // console.log(data)
         dispatch(signUp(data))
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+            <StyledShowMessage showMessage={!!errorCode}>{getMessageFromErrorCode(errorCode)}</StyledShowMessage>
             <Input
                 label='First name'
-                placeholder='First name'
                 containerStyle={formItemStyle}
                 inputStyle={inputStyle}
                 errorText={errors?.firstName?.message}
@@ -56,7 +87,6 @@ export const SignUpForm = () => {
             />
             <Input
                 label='Last name'
-                placeholder='Last name'
                 containerStyle={formItemStyle}
                 inputStyle={inputStyle}
                 errorText={errors?.lastName?.message}
@@ -64,7 +94,6 @@ export const SignUpForm = () => {
             />
             <Input
                 label='Email'
-                placeholder='Email'
                 containerStyle={formItemStyle}
                 inputStyle={inputStyle}
                 errorText={errors?.email?.message}
@@ -72,7 +101,6 @@ export const SignUpForm = () => {
             />
             <Input
                 label='Password'
-                placeholder='Password'
                 containerStyle={formItemStyle}
                 inputStyle={inputStyle}
                 errorText={errors?.password?.message}
@@ -80,13 +108,12 @@ export const SignUpForm = () => {
             />
             <Input
                 label='Confirm Password'
-                placeholder='Confirm Password'
                 containerStyle={formItemStyle}
                 inputStyle={inputStyle}
                 errorText={errors?.passwordConfirmation?.message}
                 {...register("passwordConfirmation")}
             />
-            <MainButton styles={formItemStyle} type='submit'>Sign Up</MainButton>
-        </form>
+            <MainButton styles={formItemStyle} isLoading={isLoading} type='submit'>Sign Up</MainButton>
+        </StyledForm>
     )
 }

@@ -21,6 +21,8 @@ import { DropdownMenuItem } from '../DropdownMenu/DropdownMenuItem'
 import { db, usersCollection } from '../../firebase/firebase'
 import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
 import { selectCartItemsAmount } from '../../store/cartSlice/selectors'
+import { useAdminAuth } from '../../hooks/useAdminAuth'
+import { StyledLink } from '../StyledLink/StyledLink.styled'
 
 export interface DropdownMenuItemProps {
     id: string,
@@ -33,6 +35,7 @@ export const UserMenu = memo(() => {
     const navigate = useNavigate()
     const match = useMatch(CartRoutes.Cart)
     const isCartPage = match !== null
+    const isAdmin = useAdminAuth()
 
     // const user = useAppSelector(selectUser)
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
@@ -40,24 +43,22 @@ export const UserMenu = memo(() => {
 
     const cartItemsAmount = useAppSelector(selectCartItemsAmount)
 
-    const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
+    const [isModalFormOpen, setIsModalFormOpen] = useState(false)
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const isOpened = Boolean(anchorEl);
 
-    const handleIsUserPopupOpen = (event: MouseEvent<HTMLButtonElement>) => {
-        if (isLoggedIn) {
-            setAnchorEl(event.currentTarget);
-        } else {
-            setIsUserPopupOpen(true)
-        }
 
-    }
+    const openModalForm = () => setIsModalFormOpen(true)
+    const closeModalForm = () =>  setIsModalFormOpen(false)
 
-    const handleIsUserPopupClose = () => {
+    const openDropdownMenu = (event: MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
+    const closeDropdownMenu = () =>  setAnchorEl(null);
+
+    const openModalFormOrDropdownMenu = (event: MouseEvent<HTMLButtonElement>) => {
         if (isLoggedIn) {
-            setAnchorEl(null);
+            openDropdownMenu(event)
         } else {
-            setIsUserPopupOpen(false)
+            openModalForm()
         }
     }
 
@@ -71,18 +72,14 @@ export const UserMenu = memo(() => {
 
     const onLogOut = () => {
         dispatch(logOut())
+        closeDropdownMenu()
+        closeModalForm()
         console.log('loggout');
-        handleIsUserPopupClose()
     }
 
     const dropdownMenuData: DropdownMenuItemProps[] = [
         {   
-            id: 'dgfg',
-            name: 'Profile',
-            handleClick: handleIsUserPopupClose
-        },
-        {   
-            id: 'ghjhj',
+            id: '1',
             name: 'SignOut',
             handleClick: onLogOut
         },
@@ -100,18 +97,21 @@ export const UserMenu = memo(() => {
     }
 
     return (
-        <>
+        <Styled.Wrapper>
             <IconButton
-                styles={Styled.iconsStyle}
-                onClick={handleIsUserPopupOpen}
+                onClick={openModalFormOrDropdownMenu}
                    width={22}
-                    height={26}
+                    height={28}
             >
                 <img src={userIcon} alt="user-icon" />
-                {/* <UserIcon
-                    width={26}
-                    height={27}
-                /> */}
+            </IconButton>
+            <IconButton
+                width={23}
+                height={25}
+                onClick={cartIconOnclick}
+            >
+                <img src={cartIcon} alt="cart-icon" />
+                <Styled.CartItemsAmountStyle>{cartItemsAmount}</Styled.CartItemsAmountStyle>
             </IconButton>
             {isLoggedIn
                 ?
@@ -121,24 +121,15 @@ export const UserMenu = memo(() => {
                     keyExtractor={({id}) => id}
                     anchorEl={anchorEl}
                     isOpened={isOpened}
-                    onClose={handleIsUserPopupClose}
+                    onClose={closeDropdownMenu}
                     placement={dropdownPlacement}
                 />
                 :
                 <ModalFormToggle
-                    isOpened={isUserPopupOpen}
-                    onClose={handleIsUserPopupClose}
+                    isOpened={isModalFormOpen}
+                    onClose={closeModalForm}
                 />
             }
-            <IconButton
-                width={23}
-                height={25}
-                styles={Styled.cartStyle}
-                onClick={cartIconOnclick}
-            >
-                <img src={cartIcon} alt="cart-icon" />
-                <Styled.CartItemsAmountStyle>{cartItemsAmount}</Styled.CartItemsAmountStyle>
-            </IconButton>
-        </>
+        </Styled.Wrapper>
     )
 })

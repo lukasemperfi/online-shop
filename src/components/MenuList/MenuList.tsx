@@ -20,20 +20,21 @@ const StyledLi = styled.li<LiProps>`
 
 export interface MenuListProps<T> {
     data: T[];
-    renderItem: (item: T) => ReactNode;
+    renderItem: (item: T, onClick?: () => void, index?: number ) => ReactNode;
     keyExtractor: (item: T) => string;
     containerStyle?: FlattenSimpleInterpolation;
     elementStyle?: FlattenSimpleInterpolation;
+    onClick?: () => void;
 }
 
-export const MenuList = <T,>({ data, renderItem, keyExtractor, containerStyle, elementStyle }: MenuListProps<T>) => {
+export const MenuList = <T,>({ data, renderItem, keyExtractor, containerStyle, onClick }: MenuListProps<T>) => {
 
     return (
         <>
             <StyledUl containerStyle={containerStyle}>
                 {data?.map((item, index) => (
                     <React.Fragment key={keyExtractor(item)}>
-                         {renderItem(item)}
+                         {renderItem(item, onClick, index)}
                     </React.Fragment>                 
                 ))}
             </StyledUl>

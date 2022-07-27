@@ -2,6 +2,7 @@ import React, { FC, ReactNode } from 'react'
 import styled, { FlattenSimpleInterpolation } from 'styled-components'
 import { Breakpoints } from '../../styles/styles';
 import { OverlayingPopup } from '../OverlayingPopup/OverlayingPopup';
+import {ReactComponent as CloseIcon} from '../../assets/close.svg'
 
 interface StyledContainerProps {
     containerStyles?: FlattenSimpleInterpolation;
@@ -28,6 +29,15 @@ const StyledContainer = styled.div<StyledContainerProps>`
     ${({ containerStyles }) => containerStyles}
 `
 
+const StyledCloseIcon = styled(CloseIcon)`
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    z-index: 1;
+`
+
+
 export interface MainPopupProps {
     children?: ReactNode;
     onClose: () => void;
@@ -37,9 +47,15 @@ export interface MainPopupProps {
 
 export const MainPopup: FC<MainPopupProps> = ({ children, onClose, isOpened, containerStyles }) => {
 
+    const close = () => {
+        console.log('close');
+        
+    }
+
     return (
         <OverlayingPopup isOpened={isOpened} onClose={onClose}>
             <StyledContainer containerStyles={containerStyles}>
+            <StyledCloseIcon width={30} height={30} onClick={onClose}/>
                 {children}
             </StyledContainer>
         </OverlayingPopup>

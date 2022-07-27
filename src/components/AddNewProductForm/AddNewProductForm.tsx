@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { Input } from '../Input/Input'
 import { MainButton } from '../MainButton/MainButton'
@@ -12,6 +12,7 @@ import { storage } from '../../firebase/firebase';
 import { FileInput } from '../FileInput/FileInput';
 import { useAppDispatch } from '../../hooks/redux';
 import { addProduct } from '../../store/productsSlice/productsSlice';
+import { Select } from '../Select/Select';
 
 const Form = styled.form`
     padding: 40px;
@@ -52,7 +53,7 @@ const schema = yup.object({
     name: yup.string()
         .required('Name is a required field')
         .max(70, 'Max length 70 characters'),
-    price: yup.number()
+        price: yup.number()
         .required()
         .typeError('You must specify a number')
         .test(
@@ -76,18 +77,33 @@ interface AddNewProductFormProps {
     onSubmit?: () => void;
 }
 
+const genderOptions = [
+    { value: 'mens', name: 'Mens' },
+    { value: 'womens', name: 'Womens' },
+]
+
+const typeOptions = [
+    { value: 'boots', name: 'Boots' },
+    { value: 'shoes', name: 'Shoes' },
+    { value: 'sandals', name: 'Sandals' },
+]
+
 export const AddNewProductForm: FC<AddNewProductFormProps> = ({ onSubmit }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         mode: 'all',
         resolver: yupResolver(schema)
     });
     const dispatch = useAppDispatch()
+    const [gendervalue, setGenderValue] = useState('mens')
+    const [typeValue, setTypeValue] = useState('boots')
 
     const onSubmitForm: SubmitHandler<FormData> = (data) => {
         const product = {
             name: data.name,
             price: data.price,
-            imageFile: data.files[0]
+            imageFile: data.files[0],
+            gender: 'string',
+            type: 'string',
         }
         dispatch(addProduct(product))
         if (onSubmit) {
@@ -95,17 +111,30 @@ export const AddNewProductForm: FC<AddNewProductFormProps> = ({ onSubmit }) => {
         }
     }
 
+    const handleOnChangeGender = (event: ChangeEvent<HTMLSelectElement>) => {
+        setGenderValue(event.target.value)
+    }
+    const handleOnChangeType = (event: ChangeEvent<HTMLSelectElement>) => {
+        setTypeValue(event.target.value)
+    }
 
     return (
         <Form onSubmit={handleSubmit(onSubmitForm)}>
             <FormTitle>ADD NEW PRODUCT</FormTitle>
-            {/* <Category>
-                <CategoryLabel htmlFor="category">Category</CategoryLabel>
-                <select name="category" id="category">
-                    <option value="mens">Mens</option>
-                    <option value="womens">Womens</option>
-                </select>
-            </Category> */}
+            <Category>
+                <CategoryLabel>Gender</CategoryLabel>
+                <Select
+                    value={gendervalue}
+                    options={genderOptions}
+                    onChange={handleOnChangeGender}
+                />
+                <CategoryLabel>Type</CategoryLabel>
+                <Select
+                    value={typeValue}
+                    options={typeOptions}
+                    onChange={handleOnChangeType}
+                />
+            </Category>
             <Input
                 label='Name'
                 errorText={errors?.name?.message}

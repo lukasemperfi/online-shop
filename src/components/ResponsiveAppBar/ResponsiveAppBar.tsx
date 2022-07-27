@@ -16,6 +16,10 @@ import { GenderCategory } from '../../firebase/models/GenderCategory'
 import { StyledLink, StyledMenuLink } from '../StyledLink/StyledLink.styled'
 import { TabsPanel } from '../TabsPanel/TabsPanel'
 import { ShoesTypeCategories } from '../../firebase/models/ShoesTypeCategories'
+import { checkUserIsAdmin } from '../../utils/checkUserIsAdmin'
+import { useAdminAuth } from '../../hooks/useAdminAuth'
+import { useAppSelector } from '../../hooks/redux'
+import { selectUser } from '../../store/userSlice'
 
 const items = [{ name: 'Ботинки', href: '#' }, { name: 'Туфли', href: '#' }, { name: 'Кеды', href: '#' }, { name: 'Сланцы', href: '#' },]
 
@@ -28,20 +32,25 @@ const menuCategories = [
 
 export const ResponsiveAppBar: FC = () => {
     const { gender } = useParams()
-    const isAdmin = true
+    // const currentUser = useAppSelector(selectUser)
+    // const isAdmin = checkUserIsAdmin(currentUser)
+    const isAdmin = useAdminAuth()
     const [responsiveAppBarRef, { height: responsiveAppBarHeight }] = useElementSize()
     const isMobile = useMediaQuery(`(max-width: ${Breakpoints.lg})`)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+    // console.log(isAdmin);
+
 
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen)
 
     const handleMenuClose = () => setIsMenuOpen(false)
 
 
-    const renderMenuItem = (item: ShoesTypeCategories) =>
+    const renderMenuItem = (item: ShoesTypeCategories, onClick?: () => void) =>
         <StyledMenuLink
             to={`/${gender}/catalog/${item.searchQuery}`}
-            onClick={handleMenuClose}
+            onClick={onClick}
             color={Colors.primary}
         >
             {item.name}
@@ -53,12 +62,8 @@ export const ResponsiveAppBar: FC = () => {
                 <Styled.AdminPanelContainer>
                     <StyledLink to={`/admin`} color='white'>Admin</StyledLink>
                 </Styled.AdminPanelContainer>
-
             </Styled.AdminPanel>}
             <PageContainer>
-                {/* {isAdmin && <Styled.AdminPanel>
-                    <StyledLink to={`/admin`} color='white'>Admin</StyledLink>
-                </Styled.AdminPanel>} */}
                 <Styled.Top isMobile={isMobile} >
                     <Styled.Col1>
                         {isMobile && <BurgerBtn onClick={handleMenuOpen} isActive={isMenuOpen} />}
@@ -76,10 +81,11 @@ export const ResponsiveAppBar: FC = () => {
                 <Menu
                     data={menuCategories}
                     renderItem={renderMenuItem}
-                    keyExtractor={({id}) => id}
+                    keyExtractor={({ id }) => id}
                     isMobile={isMobile}
                     positionTop={responsiveAppBarHeight}
                     isOpen={isMenuOpen}
+                    onClick={handleMenuClose}
                 />
             </PageContainer>
         </Styled.ResponsiveAppBar>
