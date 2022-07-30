@@ -16,35 +16,11 @@ import { OverlayPreloader } from '../components/OverlayPreloader/OverlayPreloade
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { deleteProduct, selectProducts, setProducts } from '../store/productsSlice/productsSlice'
 import { Product } from '../firebase/models/Product'
-import { onSnapshot } from 'firebase/firestore'
+import { onSnapshot, orderBy, query } from 'firebase/firestore'
 import { productsCollection } from '../firebase/firebase'
-const data = [
-  {
-    image: 'https://i.insider.com/61d1c0e2aa741500193b2d18?width=1136&format=jpeg',
-    title: 'Крутой кот в очках. Босс всех котов на районе ', price: 3500
-  },
-  {
-    image: 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg',
-    title: 'Кот на чиле', price: 45
-  },
-  {
-    image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-    title: 'Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня Кот после рабочего дня', price: 77
-  },
-  {
-    image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-    title: 'Кот после рабочего дня 2222', price: 56
-  },
-  {
-    image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-    title: 'Кот после рабочего дня 333', price: 56
-  },
-  {
-    image: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/41CF/production/_109474861_angrycat-index-getty3-3.jpg',
-    title: 'Кот после рабочего дня 4444', price: 444444
-  },
-]
-
+import { NoDataFound } from '../components/NoDataFound/NoDataFound'
+import { AdminCard } from '../components/AdminCard/AdminCard'
+import noProductImage from "../assets/no-product-found.jpg"
 
 const GridContainer = styled.div`
   display: grid;
@@ -112,21 +88,21 @@ export const AdminPage = () => {
   const dispatch = useAppDispatch()
   const products = useAppSelector(selectProducts)
 
-  // useEffect(() => {
+  useEffect(() => {
+    const q = query(productsCollection, orderBy('createdAt', 'desc'))
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const products: Product[] = []
 
-  //   const unsubscribe = onSnapshot(productsCollection, (snapshot) => {
-  //     const products: Product[] = []
+      snapshot.docs.forEach((doc) => {
+        products.push({ ...doc.data() })
+      })
+      dispatch(setProducts(products))
 
-  //     snapshot.docs.forEach((doc) => {
-  //       products.push({ ...doc.data() })
-  //     })
-  //     dispatch(setProducts(products))
-      
-  //   })
+    })
 
-  //   return () => unsubscribe();
+    return () => unsubscribe();
 
-  // }, [])
+  }, [])
 
   const handleAddNewProductPopupOnOpen = () => {
     setIsAddNewProductPopupOpen(true)
@@ -136,17 +112,14 @@ export const AdminPage = () => {
     setIsAddNewProductPopupOpen(false)
   }
 
-  const removeProduct = (id: string) => {
-    dispatch(deleteProduct(id))
-  }
-
-  // const renderItem = (item: Product, index?: number) =>
-  //   <CartItem
-  //     item={item}
-  //     key={item.id}
-  //     onDelete={removeProduct}
-  //     quantity={false}
-  //   />
+  const renderItem = (item: Product) =>
+    <AdminCard
+      name={item.name}
+      price={item.price}
+      image={item.image}
+      id={item.id}
+      key={item.id}
+    />
 
   return (
     <GridContainer>
@@ -174,6 +147,23 @@ export const AdminPage = () => {
         <ModalAddNewProductForm
           isOpened={isAddNewProductPopupOpen}
           onClose={handleAddNewProductPopupOnClose}
+        />
+        <ItemsList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={({ id }) => id}
+          gap="20px"
+          listEmptyComponent={
+            <NoDataFound
+              title='Products Is Empty!'
+              src={noProductImage}
+              dimensions={{
+                width: 592,
+                height: 253,
+              }}
+              maxWidth='500px'
+            />
+          }
         />
       </Products>
     </GridContainer>

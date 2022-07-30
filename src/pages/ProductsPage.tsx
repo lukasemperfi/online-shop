@@ -124,13 +124,14 @@ const options = [
 
 
 export const ProductsPage = () => {
-    const { isLoading, pagination: { isEmptyData, isFetchingMore } } = useAppSelector(selectProductsState)
+    const { isLoading, pagination: {isEmpty, isFetchingMore } } = useAppSelector(selectProductsState)
     const { gender, productType } = useParams()
     const dispatch = useAppDispatch()
     const products = useAppSelector(selectProducts)
     const [sortValue, setSortValue] = useState<OrderByDirection>('desc')
 
-    const isLoadMoreBtnShow = !isFetchingMore && !isEmptyData && !isLoading
+    
+    const isLoadMoreBtnShow = !isFetchingMore && !isEmpty && !isLoading
 
     useEffect(() => {
         dispatch(fetchProductsByCategoryAndOrder({ gender, category: productType, order: sortValue }))

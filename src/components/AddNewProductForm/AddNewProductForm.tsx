@@ -10,8 +10,8 @@ import { InferType } from 'yup';
 import { ref } from 'firebase/storage';
 import { storage } from '../../firebase/firebase';
 import { FileInput } from '../FileInput/FileInput';
-import { useAppDispatch } from '../../hooks/redux';
-import { addProduct } from '../../store/productsSlice/productsSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { addProduct, selectProductsState } from '../../store/productsSlice/productsSlice';
 import { Select } from '../Select/Select';
 
 const Form = styled.form`
@@ -94,6 +94,7 @@ export const AddNewProductForm: FC<AddNewProductFormProps> = ({ onSubmit }) => {
         resolver: yupResolver(schema)
     });
     const dispatch = useAppDispatch()
+    const {isLoading} = useAppSelector(selectProductsState)
     const [gendervalue, setGenderValue] = useState('mens')
     const [typeValue, setTypeValue] = useState('boots')
 
@@ -102,8 +103,8 @@ export const AddNewProductForm: FC<AddNewProductFormProps> = ({ onSubmit }) => {
             name: data.name,
             price: data.price,
             imageFile: data.files[0],
-            gender: 'string',
-            type: 'string',
+            gender: gendervalue,
+            type: typeValue,
         }
         dispatch(addProduct(product))
         if (onSubmit) {
@@ -150,7 +151,7 @@ export const AddNewProductForm: FC<AddNewProductFormProps> = ({ onSubmit }) => {
                 errorText={errors?.files?.message}
                 {...register("files")}
             />
-            <MainButton type='submit'>ADD PRODUCT</MainButton>
+            <MainButton type='submit' isLoading={isLoading}>ADD PRODUCT</MainButton>
         </Form>
     )
 }

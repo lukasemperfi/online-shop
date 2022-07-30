@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { AdaptiveImage } from '../components/Image/AdaptivImage'
 import womanImage from '../assets/woman.jpg'
+import womanThumbImage from '../assets/womanThumb.jpg'
 import manImage from '../assets/man.jpg'
+import manThumbImage from '../assets/manThumb.jpg'
+import carImage from '../assets/car.jpg'
+import carThumbImage from '../assets/carThumb.jpg'
 import { calcAdaptiveValue } from '../styles/helpers'
 import { Link } from 'react-router-dom'
 import { ProductsRoutes } from '../navigation/routeNames'
 import { PageContainer } from '../components/PageContainer/PageContainer'
 import { ResponsiveAppBar } from '../components/ResponsiveAppBar/ResponsiveAppBar'
+import { addProduct } from '../store/productsSlice/productsSlice'
+import { useAppDispatch } from '../hooks/redux'
 
 
 const Container = styled.div`
@@ -18,6 +24,8 @@ const Container = styled.div`
 `
 const Col = styled.div`
   position: relative;
+  width: 50vw;
+  height: 100vh;
 `
 
 const womanImageStyle = css`
@@ -43,16 +51,17 @@ const StyledLink = styled(Link)`
 `
 
 export const HomePage = () => {
+ 
   return (
-    <>
-      <ResponsiveAppBar />
       <Container>
         <Col>
           <AdaptiveImage
             src={womanImage}
+            thumbImage={womanThumbImage}                        
+            imageStyles={womanImageStyle}
             width='50vw'
             height='100vh'
-            imageStyles={womanImageStyle}
+            blur
           />
           <StyledTitle>
             <StyledLink to='/womens'>woman</StyledLink>
@@ -61,16 +70,16 @@ export const HomePage = () => {
         <Col>
           <AdaptiveImage
             src={manImage}
-            width='50vw'
-            height='100vh'
             imageStyles={manImageStyle}
+            thumbImage={manThumbImage}
+            width='50vw'
+            height='100vh'     
+            blur
           />
           <StyledTitle>
             <StyledLink to='/mens'>man</StyledLink>
           </StyledTitle>
         </Col>
       </Container>
-    </>
-
   )
 }

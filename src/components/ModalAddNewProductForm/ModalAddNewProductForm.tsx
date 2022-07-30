@@ -39,7 +39,7 @@ export const ModalAddNewProductForm = ({ isOpened, onClose }: MainPopupProps) =>
 
     return (
         <>
-            {isLoading && isOpened ? <StyledOverlay /> : null}
+            {/* {isLoading && isOpened ? <StyledOverlay /> : null} */}
             <MainPopup
                 isOpened={isOpened}
                 onClose={onClose}

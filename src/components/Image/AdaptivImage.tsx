@@ -10,10 +10,13 @@ export interface AdaptiveImageProps extends ComponentPropsWithoutRef<'img'> {
         width: number;
         height: number;
     }
+    thumbImage?: string;
+    blur?: boolean;
 }
 
 interface StyledAdaptiveImageProps extends AdaptiveImageProps {
     isImageLoaded?: boolean;
+    isThumbImageLoaded?: boolean;
 }
 
 
@@ -49,15 +52,29 @@ const skeletonActiveStyle = css`
     }
 `
 const StyledSkeleton = styled.div<StyledAdaptiveImageProps>`
+    /* width: 100%;
+    height: 100%; */
 
     ${({ skeleton }) => skeleton && skeletonStyle}
 
     ${({ skeleton, isImageLoaded }) => (skeleton && !isImageLoaded) && skeletonActiveStyle}
 
 `
+const isLoadedImageStyle = css`
+    transition: opacity 1s ease-out;
+	opacity: 1;
+`
+
+const isLoadedThumbImageStyle = css`
+	opacity: 1;
+`
+
+const isLoadedThumbStyle = css`
+	opacity: 0;
+`
 
 const StyledAdaptiveImage = styled.img<StyledAdaptiveImageProps>`
-    width: ${({ width, maxWidth }) => {
+        width: ${({ width, maxWidth }) => {
         if (maxWidth) {
             return maxWidth
         }
@@ -68,27 +85,59 @@ const StyledAdaptiveImage = styled.img<StyledAdaptiveImageProps>`
     }};
 
     max-width: 100%;
-    height: ${({ height, maxWidth }) => (height && !maxWidth) ? height : 'auto'};
+    height: ${({ height, maxWidth }) => (height && !maxWidth) ? height : '100%'};
     aspect-ratio: ${({ dimensions }) => dimensions ? (dimensions.width / dimensions.height) : 1};
     object-fit: cover;
-    opacity: ${({ isImageLoaded }) => isImageLoaded ? 1 : 0};
 
     ${({ imageStyles }) => imageStyles}
 `
 
-export const AdaptiveImage: FC<AdaptiveImageProps> = ({ imageStyles, maxWidth, dimensions, skeleton = false, ...imageProperies }) => {
+const StyledLoadedImage = styled(StyledAdaptiveImage)`
+    opacity: 0;
+   
+    ${({ isImageLoaded }) => isImageLoaded && isLoadedImageStyle};
+`
+
+const StyledLoadedThumb = styled(StyledAdaptiveImage)`
+	position: absolute;
+	top: 0;
+	left: 0;
+    opacity: 1;
+	filter: blur(10px);
+	transition: opacity 1s ease-out;
+
+    ${({ isImageLoaded }) => isImageLoaded && isLoadedThumbStyle};
+`
+
+
+
+export const AdaptiveImage: FC<AdaptiveImageProps> = ({ 
+    imageStyles, 
+    maxWidth, 
+    dimensions, 
+    skeleton = false,
+    thumbImage, 
+    blur = false,
+    ...imageProperies 
+}) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false)
-
-
-
 
     const handleOnLoad = () => {
         setIsImageLoaded(true)
     };
 
+
     return (
         <StyledSkeleton isImageLoaded={isImageLoaded} skeleton={skeleton}>
-            <StyledAdaptiveImage
+            {blur && <StyledLoadedThumb
+                imageStyles={imageStyles}
+                dimensions={dimensions}
+                maxWidth={maxWidth}
+                isImageLoaded={isImageLoaded}
+                {...imageProperies}
+                src={thumbImage}
+            />}
+            <StyledLoadedImage
                 imageStyles={imageStyles}
                 dimensions={dimensions}
                 maxWidth={maxWidth}

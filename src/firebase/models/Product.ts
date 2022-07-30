@@ -5,4 +5,5 @@ export interface Product {
     image: string;
     gender:string;
     type: string;
+    createdAt: string,
 }

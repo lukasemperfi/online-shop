@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, OrderByDirection, query, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, OrderByDirection, query, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where, serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { productsCollection, storage } from "../../firebase/firebase";
 import { Product } from "../../firebase/models/Product";
@@ -13,8 +13,8 @@ interface initialStateProps {
     isLoading?: boolean,
     pagination: {
         lastDoc: QueryDocumentSnapshot | null;
-        isEmptyData: boolean;
         isFetchingMore: boolean;
+        isEmpty: boolean;
     }
 }
 
@@ -25,8 +25,8 @@ const initialState: initialStateProps = {
     isLoading: false,
     pagination: {
         lastDoc: null,
-        isEmptyData: false,
         isFetchingMore: false,
+        isEmpty: false,
     }
 }
 
@@ -34,29 +34,31 @@ interface ProductData {
     name: string;
     price: number;
     imageFile: File;
+    gender: string;
+    type: string;
 }
 
-// export const getProducts = createAsyncThunk<Product[], void, { rejectValue: string }>(
-//     `${RootReducers.products}/getProducts`,
-//     async (_, { rejectWithValue }) => {
-//         try {
-//             const snapshot = await getDocs(productsCollection)
-//             const products: Product[] = []
+export const getProducts = createAsyncThunk<Product[], void, { rejectValue: string }>(
+    `${RootReducers.products}/getProducts`,
+    async (_, { rejectWithValue }) => {
+        try {
+            const snapshot = await getDocs(productsCollection)
+            const products: Product[] = []
 
-//             snapshot.docs.forEach((doc) => {
-//                 products.push({ ...doc.data() })
-//             })
+            snapshot.docs.forEach((doc) => {
+                products.push({ ...doc.data() })
+            })
 
-//             return products
+            return products
 
-//         } catch (error: any) {
-//             return rejectWithValue(error.message as string);
-//         }
-//     }
-// );,
+        } catch (error: any) {
+            return rejectWithValue(error.message as string);
+        }
+    }
+);
 
 const queryFilter = (gender?: string, category?: string, order?: OrderByDirection) => {
-    let q = query(productsCollection, orderBy('price', order),  limit(2))
+    let q = query(productsCollection, orderBy('price', order),  limit(10))
 
     if (gender) {
         q = query(q, where('gender', '==', gender));
@@ -137,7 +139,7 @@ export const fetchMore = createAsyncThunk<Product[], CategoryData, { rejectValue
 
 export const addProduct = createAsyncThunk<void, ProductData, { rejectValue: string }>(
     `${RootReducers.products}/addProduct`,
-    async ({ name, price, imageFile }, { rejectWithValue, requestId }) => {
+    async ({ name, price, imageFile, gender, type }, { rejectWithValue, requestId }) => {
         try {
             const imageRef = ref(storage, `products-images/${imageFile.name + requestId}`)
             const snapshot = await uploadBytes(imageRef, imageFile)
@@ -150,8 +152,9 @@ export const addProduct = createAsyncThunk<void, ProductData, { rejectValue: str
                 name: name,
                 price: price,
                 image: url,
-                gender:'string',
-                type: 'string',
+                gender:gender,
+                type: type,
+                createdAt: serverTimestamp(),
             });
 
         } catch (error: any) {
@@ -187,15 +190,16 @@ const products = createSlice({
         },
         updateState: (state, { payload: documentSnapshots }: { payload: QuerySnapshot<Product> }) => {
             const isDocumentSnapshotsEmpty = documentSnapshots.size === 0;
-
+            // console.log(documentSnapshots.docs);
+            
             if (!isDocumentSnapshotsEmpty) {    
                 const lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1];
                 // console.log('in update');
                 state.pagination.lastDoc = lastDoc
+                state.pagination.isEmpty = false
             } else {
-                state.pagination.isEmptyData = true
+                state.pagination.isEmpty = true
             }
-
 
         }
     },
@@ -237,6 +241,7 @@ const products = createSlice({
 
         builder.addCase(addProduct.rejected, (state, { payload }) => {
             state.errorMessage = payload
+            state.isLoading = false
         })
 
         builder.addCase(fetchProductById.pending, (state) => {
