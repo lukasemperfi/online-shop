@@ -13,7 +13,8 @@ import { ProductsRoutes } from '../navigation/routeNames'
 import { PageContainer } from '../components/PageContainer/PageContainer'
 import { ResponsiveAppBar } from '../components/ResponsiveAppBar/ResponsiveAppBar'
 import { addProduct } from '../store/productsSlice/productsSlice'
-import { useAppDispatch } from '../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../hooks/redux'
+import { GenderSearchQuery, setGenderCategory } from '../store/filtersSlice'
 
 
 const Container = styled.div`
@@ -51,7 +52,16 @@ const StyledLink = styled(Link)`
 `
 
 export const HomePage = () => {
- 
+  const dispatch = useAppDispatch()
+  
+  const setWomensCategory = () => {
+    dispatch(setGenderCategory(GenderSearchQuery.womens))
+  }
+
+  const setMensCategory = () => {
+    dispatch(setGenderCategory(GenderSearchQuery.mens))
+  }
+
   return (
       <Container>
         <Col>
@@ -64,7 +74,7 @@ export const HomePage = () => {
             blur
           />
           <StyledTitle>
-            <StyledLink to='/womens'>woman</StyledLink>
+            <StyledLink to='/womens' onClick={setWomensCategory}>woman</StyledLink>
           </StyledTitle>
         </Col>
         <Col>
@@ -77,7 +87,7 @@ export const HomePage = () => {
             blur
           />
           <StyledTitle>
-            <StyledLink to='/mens'>man</StyledLink>
+            <StyledLink to='/mens' onClick={setMensCategory}>man</StyledLink>
           </StyledTitle>
         </Col>
       </Container>

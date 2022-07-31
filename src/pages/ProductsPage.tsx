@@ -19,6 +19,7 @@ import { useParams } from "react-router-dom"
 import { Loader, LoaderSize } from "../components/Loaders/Loader"
 import { Select } from "../components/Select/Select"
 import { getDocs, limit, orderBy, OrderByDirection, query, where } from "firebase/firestore"
+import { selectFiltersState } from "../store/filtersSlice"
 
 
 const data = [
@@ -128,17 +129,19 @@ export const ProductsPage = () => {
     const { gender, productType } = useParams()
     const dispatch = useAppDispatch()
     const products = useAppSelector(selectProducts)
+    const {genderCategory} = useAppSelector(selectFiltersState)
     const [sortValue, setSortValue] = useState<OrderByDirection>('desc')
+    const genderSearchQuery = genderCategory && gender
 
     
     const isLoadMoreBtnShow = !isFetchingMore && !isEmpty && !isLoading
 
     useEffect(() => {
-        dispatch(fetchProductsByCategoryAndOrder({ gender, category: productType, order: sortValue }))
-    }, [sortValue, gender, productType])
+        dispatch(fetchProductsByCategoryAndOrder({ gender: genderSearchQuery, category: productType, order: sortValue }))
+    }, [sortValue, genderSearchQuery, productType])
 
     const loadMore = () => {
-        dispatch(fetchMore({ gender, category: productType, order: sortValue }))
+        dispatch(fetchMore({ gender: genderSearchQuery, category: productType, order: sortValue }))
     }
 
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {

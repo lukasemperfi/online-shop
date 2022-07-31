@@ -48,7 +48,7 @@ const buttonButtonColors = {
         &:active {
             opacity: 1;
         }
-`
+`,
 }
 
 const StyledButton = styled.button<StyledButtonProps>`

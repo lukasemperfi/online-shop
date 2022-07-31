@@ -23,14 +23,18 @@ export const AppRouter = () => {
 
 	// return <>{routes}</>
 
+	console.log('undefined when tabs not active');
+	
 
 	return (
 		<Routes>
+			{/* <Route index element={<TestPage />} /> */}
 			<Route index element={<HomePage />} />
 			<Route path='/' element={<MainLayout />}>
 				<Route path=':gender' element={<ProductsPage />} />
-				<Route path=':gender/:id' element={<ProductDetails />} />
+				<Route path='products/:gender/:id' element={<ProductDetails />} />
 				<Route path=':gender/catalog/:productType' element={<ProductsPage />} />
+				<Route path='products/:gender/catalog/:productType/:id' element={<ProductsPage />} />
 				<Route path='cart' element={<CartPage />} />
 				<Route path='admin' element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
 			</Route>

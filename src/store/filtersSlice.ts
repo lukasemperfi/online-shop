@@ -10,58 +10,41 @@ import { RootReducers } from "./rootReducers";
 
 import { RootState } from "./store";
 
+export enum GenderSearchQuery {
+    mens = 'mens',
+    womens = 'womens',
+}
+
 interface filtersState {
-    GenderCategory: GenderCategory[],
-    shoesTypeCategories: ShoesTypeCategories[],
-    sortCategories: SortCategories[],
+    genderCategory: GenderSearchQuery,
+    // shoesTypeCategories: ShoesTypeCategories[],
+    // sortCategories: SortCategories[],
 }
 
 
 
 const initialState: filtersState = {
-    GenderCategory: [],
-    shoesTypeCategories: [],
-    sortCategories: [],
+    genderCategory: GenderSearchQuery.womens,
+    // shoesTypeCategories: [],
+    // sortCategories: [],
 }
 
-export const getGenderCategory = createAsyncThunk<void, void, { rejectValue: string }>(
-    `${RootReducers.filters}/getGenderCategory`,
-    async (_, { rejectWithValue }) => {
-        try {
-
-
-        } catch (error: any) {
-            return rejectWithValue(error.message as string);
-        }
-    }
-);
 
 
 const filters = createSlice({
     name: RootReducers.filters,
     initialState,
     reducers: {
-
+        setGenderCategory: (state, action: PayloadAction<GenderSearchQuery>) => {
+            state.genderCategory = action.payload;
+          },
     },
-    extraReducers: (builder) => {
-
-        builder.addCase(getGenderCategory.pending, (state) => {
-
-        })
-
-        builder.addCase(getGenderCategory.fulfilled, (state, { payload }) => {
-
-        })
-        builder.addCase(getGenderCategory.rejected, (state, { payload }) => {
-
-        })
-
-    }
+    extraReducers: (builder) => {}
 
     });
 
-export const { } = filters.actions;
+export const { setGenderCategory } = filters.actions;
 
-export const selectUser = (state: RootState) => state?.filters;
+export const selectFiltersState = (state: RootState) => state?.filters;
 
 export const filtersSlice = filters.reducer;

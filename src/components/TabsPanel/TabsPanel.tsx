@@ -2,13 +2,15 @@ import React, { FC, memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { css } from 'styled-components'
 import { GenderCategory } from '../../firebase/models/GenderCategory'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { GenderSearchQuery, selectFiltersState, setGenderCategory } from '../../store/filtersSlice'
 import { Colors } from '../../styles/styles'
 import { StyledMenuLink, StyledTabsLink } from '../StyledLink/StyledLink.styled'
 import { Tabs } from '../Tabs/Tabs'
 
 const tabsCategories = [
-    { id: 'fdhher', name: 'Woman', searchQuery: 'womens' },
-    { id: 'fdgjhjktyhher', name: 'Man', searchQuery: 'mens' }
+    { id: '1', name: 'Woman', searchQuery: GenderSearchQuery.womens },
+    { id: '2', name: 'Man', searchQuery: GenderSearchQuery.mens }
 ]
 
 interface TabsPanelProps {
@@ -18,17 +20,21 @@ interface TabsPanelProps {
 export const TabsPanel: FC<TabsPanelProps> = memo(({onClick}) => {
     const [activeTab, setActiveTab] = useState<number | undefined>()
     const { gender } = useParams()
+    const {genderCategory} = useAppSelector(selectFiltersState)
+    const dispatch = useAppDispatch()
+    const genderSearchQuery = genderCategory && gender
 
-    const handleLinkClick = (tabPosition: number) => {
+    const handleLinkClick = (tabPosition: number, genderSearchQuery: GenderSearchQuery) => {
         setActiveTab(tabPosition)
+        dispatch(setGenderCategory(genderSearchQuery))
         if (onClick) {
             onClick()
         }
     }
 
     useEffect(() => {
-        if (gender) {
-         const tabIndex = tabsCategories?.findIndex(item => item.searchQuery === gender)
+        if (genderSearchQuery) {
+         const tabIndex = tabsCategories?.findIndex(item => item.searchQuery === genderSearchQuery)
             
          setActiveTab(tabIndex)
         }
@@ -37,7 +43,7 @@ export const TabsPanel: FC<TabsPanelProps> = memo(({onClick}) => {
     const renderItemTabs = (item: GenderCategory, index: number, active: boolean) =>
         <StyledTabsLink
             to={`/${item.searchQuery}`}
-            onClick={() => handleLinkClick(index)}
+            onClick={() => handleLinkClick(index, item.searchQuery)}
             className={active ? 'active' : ''}
             color={Colors.primary}
         >

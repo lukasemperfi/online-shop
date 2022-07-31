@@ -20,6 +20,7 @@ import { checkUserIsAdmin } from '../../utils/checkUserIsAdmin'
 import { useAdminAuth } from '../../hooks/useAdminAuth'
 import { useAppSelector } from '../../hooks/redux'
 import { selectUser } from '../../store/userSlice'
+import { selectFiltersState } from '../../store/filtersSlice'
 
 const items = [{ name: 'Ботинки', href: '#' }, { name: 'Туфли', href: '#' }, { name: 'Кеды', href: '#' }, { name: 'Сланцы', href: '#' },]
 
@@ -38,6 +39,7 @@ export const ResponsiveAppBar: FC = () => {
     const [responsiveAppBarRef, { height: responsiveAppBarHeight }] = useElementSize()
     const isMobile = useMediaQuery(`(max-width: ${Breakpoints.lg})`)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const {genderCategory} = useAppSelector(selectFiltersState)
 
     // console.log(isAdmin);
 
@@ -49,7 +51,7 @@ export const ResponsiveAppBar: FC = () => {
 
     const renderMenuItem = (item: ShoesTypeCategories, onClick?: () => void) =>
         <StyledMenuLink
-            to={`/${gender}/catalog/${item.searchQuery}`}
+            to={`/${genderCategory}/catalog/${item.searchQuery}`}
             onClick={onClick}
             color={Colors.primary}
         >

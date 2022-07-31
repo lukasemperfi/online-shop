@@ -19,10 +19,11 @@ export const ProductDetails = () => {
   const { product, isLoading } = useAppSelector(selectProductsState)
 
   const isPoductNotExist = (product === undefined)
+console.log(id);
 
   useEffect(() => {
     if (!product || !!id) {
-      // dispatch(fetchProductById(id))
+      dispatch(fetchProductById(id))
     }
 
   }, [id])
