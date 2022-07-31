@@ -13,6 +13,7 @@ import { Product } from '../../firebase/models/Product'
 import { CartItem } from '../../store/cartSlice/models/CartItem'
 import { useAppDispatch } from '../../hooks/redux'
 import { addItem } from '../../store/cartSlice/cartSlice'
+import { formatPrice } from '../../utils/redux'
 
 interface ProductCardProps {
     name: string,
@@ -58,7 +59,7 @@ export const ProductCard: FC<ProductCardProps> = ({ name, price, image, id }) =>
                 <Styled.CardTitle >{name}</Styled.CardTitle>
             </Styled.LinkTitle>
             <Styled.CardFooter>
-                <Styled.CardPrice>{price} грн</Styled.CardPrice>
+                <Styled.CardPrice>{formatPrice(price)}</Styled.CardPrice>
                 <IconButton
                     styles={Styled.addCartButtonStyles}
                     onClick={onClickAdd}

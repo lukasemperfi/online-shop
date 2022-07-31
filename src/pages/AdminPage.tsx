@@ -21,6 +21,7 @@ import { productsCollection } from '../firebase/firebase'
 import { NoDataFound } from '../components/NoDataFound/NoDataFound'
 import { AdminCard } from '../components/AdminCard/AdminCard'
 import noProductImage from "../assets/no-product-found.jpg"
+import { logOut, selectUser } from '../store/userSlice'
 
 const GridContainer = styled.div`
   display: grid;
@@ -87,6 +88,8 @@ export const AdminPage = () => {
   const [isAddNewProductPopupOpen, setIsAddNewProductPopupOpen] = useState(false)
   const dispatch = useAppDispatch()
   const products = useAppSelector(selectProducts)
+  const user = useAppSelector(selectUser)
+  const userName = `${user?.firstName} ${user?.lastName}`
 
   useEffect(() => {
     const q = query(productsCollection, orderBy('createdAt', 'desc'))
@@ -112,6 +115,10 @@ export const AdminPage = () => {
     setIsAddNewProductPopupOpen(false)
   }
 
+  const onLogOut = () => {
+    dispatch(logOut())
+}
+
   const renderItem = (item: Product) =>
     <AdminCard
       name={item.name}
@@ -129,11 +136,11 @@ export const AdminPage = () => {
             src={userIcon}
             width={50}
           />
-          <AvatarTitle>ADMIN</AvatarTitle>
+          <AvatarTitle>{userName}</AvatarTitle>
         </Avatar>
         <Menu>
           <MenuItem>
-            <MainButton color={ButtonColors.text}>Sign Out</MainButton>
+            <MainButton color={ButtonColors.text} onClick={onLogOut}>Sign Out</MainButton>
           </MenuItem>
         </Menu>
       </Aside>

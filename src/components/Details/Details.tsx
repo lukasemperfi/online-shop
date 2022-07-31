@@ -1,6 +1,10 @@
 import React, { FC } from 'react'
 import styled, { css } from 'styled-components'
 import { Product } from '../../firebase/models/Product'
+import { useAppDispatch } from '../../hooks/redux'
+import { addItem } from '../../store/cartSlice/cartSlice'
+import { CartItem } from '../../store/cartSlice/models/CartItem'
+import { formatPrice } from '../../utils/redux'
 import { AdaptiveImage } from '../Image/AdaptivImage'
 import { MainButton } from '../MainButton/MainButton'
 
@@ -36,20 +40,40 @@ const butonStyle = css`
 `
 
 interface DetailsProps {
-    item: Product
+  item: Product
 }
 
-export const Details: FC<DetailsProps> = ({item}) => {
-    return (
-        <StyledDetails>
-            <StyledCol1>
-                <AdaptiveImage src={item.image} />
-            </StyledCol1>
-            <StyledCol2>
-                <StyledTitle>{item.name}</StyledTitle>
-                <StyledPrice>${item.price}</StyledPrice>
-                <MainButton styles={butonStyle}>ADD TO CART</MainButton>
-            </StyledCol2>
-        </StyledDetails>
-    )
+export const Details: FC<DetailsProps> = ({ item }) => {
+  const {
+    id,
+    name,
+    price,
+    image,
+  } = item
+  const dispatch = useAppDispatch()
+
+  const onClickAdd = () => {
+    const item: CartItem = {
+      id,
+      name,
+      price,
+      image,
+      count: 0,
+    }
+
+    dispatch(addItem(item))
+  }
+
+  return (
+    <StyledDetails>
+      <StyledCol1>
+        <AdaptiveImage src={image} />
+      </StyledCol1>
+      <StyledCol2>
+        <StyledTitle>{name}</StyledTitle>
+        <StyledPrice>{formatPrice(price)}</StyledPrice>
+        <MainButton styles={butonStyle} onClick={onClickAdd}>ADD TO CART</MainButton>
+      </StyledCol2>
+    </StyledDetails>
+  )
 }
