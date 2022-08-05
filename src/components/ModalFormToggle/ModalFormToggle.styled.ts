@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Colors } from '../../styles/styles';
-import { MainButton } from '../MainButton/MainButton';
+import { MainButton } from '../UI/MainButton/MainButton';
 
 export const Container = styled.div`
     padding: 40px;

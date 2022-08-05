@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import * as Styled from './ResponsiveAppBar.styled';
 import { Breakpoints, Colors } from '../../styles/styles';
 import { PageContainer } from '../PageContainer/PageContainer';
-import { Menu } from '../Menu/Menu';
+import { Menu } from '../UI/Menu/Menu';
 import logo from '../../assets/logo.png';
-import { BurgerBtn } from '../BurgerBtn/BurgerBtn';
+import { BurgerBtn } from '../UI/BurgerBtn/BurgerBtn';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useElementSize } from '../../hooks/useElementSize';
 import { UserMenu } from '../UserMenu/UserMenu';
@@ -16,7 +16,7 @@ import { ShoesTypeCategories } from '../../firebase/models/ShoesTypeCategories';
 import { useAdminAuth } from '../../hooks/useAdminAuth';
 import { useAppSelector } from '../../hooks/redux';
 import { selectFiltersState } from '../../store/filtersSlice';
-import { AdaptiveImage } from '../AdaptivImage/AdaptivImage';
+import { AdaptiveImage } from '../UI/AdaptivImage/AdaptivImage';
 
 const menuCategories = [
     { id: '0', name: 'Boots', searchQuery: 'boots' },

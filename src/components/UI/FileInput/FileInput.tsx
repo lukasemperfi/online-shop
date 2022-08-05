@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC, forwardRef } from 'react';
+import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 import * as Styled from './FileInput.styled';
 

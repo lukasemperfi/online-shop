@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MainButton } from '../components/MainButton/MainButton';
+import { MainButton } from '../components/UI/MainButton/MainButton';
 import { PageContainer } from '../components/PageContainer/PageContainer';
 import { TestButton } from './TestButton';
 

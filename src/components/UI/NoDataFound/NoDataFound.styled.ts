@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { screenWidth } from '../../styles/styles';
-import { calcAdaptiveValue } from "../../styles/helpers";
+import { screenWidth } from '../../../styles/styles';
+import { calcAdaptiveValue } from "../../../styles/helpers";
 
 export const Wrapper = styled.div`
     display: flex;

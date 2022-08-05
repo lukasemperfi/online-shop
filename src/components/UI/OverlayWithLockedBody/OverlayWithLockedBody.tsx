@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useLockedBody } from '../../hooks/useLockedBody';
+import { useLockedBody } from '../../../hooks/useLockedBody';
 import * as Styled from './OverlayWithLockedBody.styled';
 
 interface OverlayWithLockedBodyProps {

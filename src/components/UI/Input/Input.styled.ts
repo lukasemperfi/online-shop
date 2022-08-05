@@ -1,6 +1,6 @@
 import styled, { FlattenSimpleInterpolation } from 'styled-components';
 
-import { Colors } from '../../styles/styles';
+import { Colors } from '../../../styles/styles';
 
 interface StyledInputProps {
   errorText?: string,

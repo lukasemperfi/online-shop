@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 
-import { useLockedBody } from '../../hooks/useLockedBody';
+import { useLockedBody } from '../../../hooks/useLockedBody';
 import { MenuList } from '../MenuList/MenuList';
-import { PageContainer } from '../PageContainer/PageContainer';
-import { TabsPanel } from '../TabsPanel/TabsPanel';
+import { PageContainer } from '../../PageContainer/PageContainer';
+import { TabsPanel } from '../../TabsPanel/TabsPanel';
 import * as Styled from './Menu.styled';
 import * as styles from './styles';
 

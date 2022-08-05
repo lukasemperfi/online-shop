@@ -1,7 +1,7 @@
 import { FC, ReactNode, useState } from 'react';
 
-import { PopoverPlacement } from '../../hooks/usePopoverPosition/models/PopoverPlacement';
-import { usePopoverPosition } from '../../hooks/usePopoverPosition/usePopoverPosition';
+import { PopoverPlacement } from '../../../hooks/usePopoverPosition/models/PopoverPlacement';
+import { usePopoverPosition } from '../../../hooks/usePopoverPosition/usePopoverPosition';
 import { OverlayWithLockedBody } from '../OverlayWithLockedBody/OverlayWithLockedBody';
 import { Portal } from '../Portal/Portal';
 import * as Styled from './Popover.styled';

@@ -3,9 +3,9 @@ import { FlattenSimpleInterpolation } from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 
 import { ReactComponent as AddCartIcon } from '../../assets/add-cart.svg';
-import { IconButton } from '../IconButton/IconButton';
+import { IconButton } from '../UI/IconButton/IconButton';
 import * as Styled from './ProductCard.styled';
-import { AdaptiveImage } from '../AdaptivImage/AdaptivImage';
+import { AdaptiveImage } from '../UI/AdaptivImage/AdaptivImage';
 import { ProductsRoutes } from '../../navigation/routeNames';
 import { CartItem } from '../../store/cartSlice/models/CartItem';
 import { useAppDispatch } from '../../hooks/redux';

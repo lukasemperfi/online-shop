@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { CartItem } from '../components/CartItem/CartItem'
-import { ItemsList } from '../components/ItemsList/ItemsList'
-import {  MainButton } from '../components/MainButton/MainButton'
+import { ItemsList } from '../components/UI/ItemsList/ItemsList'
+import {  MainButton } from '../components/UI/MainButton/MainButton'
 import { PageContainer } from '../components/PageContainer/PageContainer'
 import { ProductCardProps } from '../models/ProductCardProps'
 import { Breakpoints } from '../styles/styles'
@@ -15,12 +15,12 @@ import { deleteProduct, selectProducts, setProducts } from '../store/productsSli
 import { Product } from '../firebase/models/Product'
 import { onSnapshot, orderBy, query } from 'firebase/firestore'
 import { productsCollection } from '../firebase/firebase'
-import { NoDataFound } from '../components/NoDataFound/NoDataFound'
+import { NoDataFound } from '../components/UI/NoDataFound/NoDataFound'
 import { AdminCard } from '../components/AdminCard/AdminCard'
 import noProductImage from "../assets/no-product-found.jpg"
 import { logOut, selectUser } from '../store/userSlice'
-import { AdaptiveImage } from '../components/AdaptivImage/AdaptivImage'
-import { ButtonColors } from '../components/MainButton/MainButton.styled'
+import { AdaptiveImage } from '../components/UI/AdaptivImage/AdaptivImage'
+import { ButtonColors } from '../components/UI/MainButton/MainButton.styled'
 
 const GridContainer = styled.div`
   display: grid;

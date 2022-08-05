@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 
-import { LoaderCenterFullScreen } from './components/Loaders/LoaderCenterFullScreen/LoaderCenterFullScreen';
+import { LoaderCenterFullScreen } from './components/UI/Loaders/LoaderCenterFullScreen/LoaderCenterFullScreen';
 import { auth } from './firebase/firebase';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { AppRouter } from './navigation/AppRouter';

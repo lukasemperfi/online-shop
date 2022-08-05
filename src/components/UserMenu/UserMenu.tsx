@@ -1,17 +1,17 @@
 import { memo, MouseEvent, MouseEventHandler, useState } from 'react';
 import { useMatch, useNavigate } from 'react-router-dom';
 
-import { IconButton } from '../IconButton/IconButton';
+import { IconButton } from '../UI/IconButton/IconButton';
 import * as Styled from './UserMenu.styled';
 import userIcon from '../../assets/user.png';
 import cartIcon from '../../assets/cart.png';
 import { CartRoutes } from '../../navigation/routeNames';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logOut, selectIsLoggedIn } from '../../store/userSlice';
-import { DropdownMenu } from '../DropdownMenu/DropdownMenu';
+import { DropdownMenu } from '../UI/DropdownMenu/DropdownMenu';
 import { PopoverPlacement } from '../../hooks/usePopoverPosition/models/PopoverPlacement';
 import { ModalFormToggle } from '../ModalFormToggle/ModalFormToggle';
-import { DropdownMenuItem } from '../DropdownMenu/DropdownMenuItem';
+import { DropdownMenuItem } from '../UI/DropdownMenu/DropdownMenuItem';
 import { selectCartItemsAmount } from '../../store/cartSlice/selectors';
 import { useAdminAuth } from '../../hooks/useAdminAuth';
 

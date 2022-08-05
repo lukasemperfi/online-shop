@@ -2,8 +2,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Input } from '../Input/Input';
-import { MainButton } from '../MainButton/MainButton';
+import { Input } from '../UI/Input/Input';
+import { MainButton } from '../UI/MainButton/MainButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { selectUserState, signUp } from '../../store/userSlice';
 import { getMessageFromErrorCode } from '../../firebase/utils/getMessageFromErrorCode';

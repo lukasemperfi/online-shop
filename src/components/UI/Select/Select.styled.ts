@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import arrowIcon from '../../assets/down-arrow.png';
+import arrowIcon from '../../../assets/down-arrow.png';
 
 interface WrapperProps {
     rotateArrow: boolean;

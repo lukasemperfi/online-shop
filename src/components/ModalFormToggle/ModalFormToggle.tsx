@@ -5,7 +5,7 @@ import { selectIsLoading } from '../../store/userSlice';
 import { LoginForm } from '../LoginForm/LoginForm';
 import { MainPopup, MainPopupProps } from '../MainPopup/MainPopup';
 import { SignUpForm } from '../SignUpForm/SignUpForm';
-import { ButtonColors } from '../MainButton/MainButton.styled';
+import { ButtonColors } from '../UI/MainButton/MainButton.styled';
 import * as Styled from './ModalFormToggle.styled';
 
 export const ModalFormToggle = ({

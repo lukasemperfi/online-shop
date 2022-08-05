@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Breakpoints } from '../../styles/styles';
+import { Breakpoints } from '../../../styles/styles';
 
 export const Item = styled.li`
     background-color: transparent;

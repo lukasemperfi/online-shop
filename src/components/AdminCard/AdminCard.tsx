@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { AdaptiveImage } from '../AdaptivImage/AdaptivImage';
-import { IconButton } from '../IconButton/IconButton';
+import { AdaptiveImage } from '../UI/AdaptivImage/AdaptivImage';
+import { IconButton } from '../UI/IconButton/IconButton';
 import { ReactComponent as TrashIcon } from '../../assets/trash.svg';
 import { useAppDispatch } from '../../hooks/redux';
 import { formatPrice } from '../../utils/redux';

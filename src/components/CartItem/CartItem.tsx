@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { AdaptiveImage } from '../AdaptivImage/AdaptivImage';
+import { AdaptiveImage } from '../UI/AdaptivImage/AdaptivImage';
 
-import { IconButton } from '../IconButton/IconButton';
+import { IconButton } from '../UI/IconButton/IconButton';
 import { ReactComponent as PlusIcon } from '../../assets/plus.svg';
 import { ReactComponent as MinusIcon } from '../../assets/minus.svg';
 import { ReactComponent as TrashIcon } from '../../assets/trash.svg';

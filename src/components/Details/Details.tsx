@@ -5,8 +5,8 @@ import { useAppDispatch } from '../../hooks/redux';
 import { addItem } from '../../store/cartSlice/cartSlice';
 import { CartItem } from '../../store/cartSlice/models/CartItem';
 import { formatPrice } from '../../utils/redux';
-import { AdaptiveImage } from '../AdaptivImage/AdaptivImage';
-import { MainButton } from '../MainButton/MainButton';
+import { AdaptiveImage } from '../UI/AdaptivImage/AdaptivImage';
+import { MainButton } from '../UI/MainButton/MainButton';
 import * as Styled from './Details.styled';
 import { butonStyle } from './Details.styled';
 

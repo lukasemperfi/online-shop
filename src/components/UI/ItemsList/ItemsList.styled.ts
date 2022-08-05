@@ -1,6 +1,6 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
-import { Breakpoints, Colors } from '../../styles/styles';
+import { Breakpoints, Colors } from '../../../styles/styles';
 
 interface ContainerProps {
   containerStyles?: FlattenSimpleInterpolation;

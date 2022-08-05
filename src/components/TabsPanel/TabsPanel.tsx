@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { GenderSearchQuery, selectFiltersState, setGenderCategory } from '../../store/filtersSlice';
 import { Colors } from '../../styles/styles';
 import { StyledTabsLink } from '../StyledLink/StyledLink.styled';
-import { Tabs } from '../Tabs/Tabs';
+import { Tabs } from '../UI/Tabs/Tabs';
 
 const tabsCategories = [
     { id: '1', name: 'Woman', searchQuery: GenderSearchQuery.womens },

@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { FlattenSimpleInterpolation } from 'styled-components';
 
-import { OverlayingPopup } from '../OverlayingPopup/OverlayingPopup';
+import { OverlayingPopup } from '../UI/OverlayingPopup/OverlayingPopup';
 import * as Styled from './MainPopup.styled';
 
 export interface MainPopupProps {

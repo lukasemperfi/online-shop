@@ -1,21 +1,21 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { CartItem } from '../components/CartItem/CartItem'
-import {  MainButton } from '../components/MainButton/MainButton'
+import {  MainButton } from '../components/UI/MainButton/MainButton'
 import { PageContainer } from '../components/PageContainer/PageContainer'
-import { ItemsList } from '../components/ItemsList/ItemsList'
+import { ItemsList } from '../components/UI/ItemsList/ItemsList'
 import { Colors } from '../styles/styles'
 import { ProductCardProps } from '../models/ProductCardProps'
 import { Product } from '../firebase/models/Product'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { selectCart } from '../store/cartSlice/selectors'
 import { CartItem as CartItemType } from '../store/cartSlice/models/CartItem'
-import { NoDataFound } from '../components/NoDataFound/NoDataFound'
+import { NoDataFound } from '../components/UI/NoDataFound/NoDataFound'
 
 import emptyCartImage from '../assets/empty-cart.png'
 import { clearCart } from '../store/cartSlice/cartSlice'
 import { formatPrice } from '../utils/redux'
-import { ButtonColors } from '../components/MainButton/MainButton.styled'
+import { ButtonColors } from '../components/UI/MainButton/MainButton.styled'
 
 const Container = styled.div`
     display: flex;

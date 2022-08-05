@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { PopoverPositionProps } from '../../hooks/usePopoverPosition/usePopoverPosition';
+import { PopoverPositionProps } from '../../../hooks/usePopoverPosition/usePopoverPosition';
 
 interface PopoverContent {
     elementPosition: PopoverPositionProps

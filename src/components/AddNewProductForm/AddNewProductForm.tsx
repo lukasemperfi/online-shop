@@ -3,12 +3,12 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { Input } from '../Input/Input';
-import { MainButton } from '../MainButton/MainButton';
-import { FileInput } from '../FileInput/FileInput';
+import { Input } from '../UI/Input/Input';
+import { MainButton } from '../UI/MainButton/MainButton';
+import { FileInput } from '../UI/FileInput/FileInput';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addProduct, selectProductsState } from '../../store/productsSlice/productsSlice';
-import { Select } from '../Select/Select';
+import { Select } from '../UI/Select/Select';
 import * as Styled from './AddNewProductForm.styled';
 import { FormData } from './models/FormData';
 import { GenderSearchQuery } from '../../store/filtersSlice';
