@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components'
-import { Breakpoints } from '../../styles/styles'
-import { StyledLink } from '../StyledLink/StyledLink.styled'
+import styled, { css } from 'styled-components';
+import { Breakpoints } from '../../styles/styles';
 
+import { StyledLink } from '../StyledLink/StyledLink.styled';
 
 export const contentContainerStyles = css`
     width: 500px;
@@ -19,6 +19,7 @@ export const Wrapper = styled.div`
         gap: 15px;
     }
 `
+
 export const Link = styled(StyledLink)`
     padding: 2px;
     align-self: flex-end;

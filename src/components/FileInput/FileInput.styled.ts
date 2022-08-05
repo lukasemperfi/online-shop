@@ -1,4 +1,5 @@
 import styled, { FlattenSimpleInterpolation } from 'styled-components';
+
 import { Colors } from '../../styles/styles';
 
 interface StyledInputProps {
@@ -13,6 +14,7 @@ interface StyledInputProps {
       font-size: inherit;
       margin-bottom: 5px;
   `
+  
   export const Error = styled.div<StyledInputProps>`
     color: ${Colors.error};
     font-size: inherit;

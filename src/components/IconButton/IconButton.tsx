@@ -1,7 +1,7 @@
-import { FC, ComponentPropsWithoutRef } from 'react'
+import { FC, ComponentPropsWithoutRef } from 'react';
 import { FlattenSimpleInterpolation } from 'styled-components';
 
-import * as Styled from './IconButton.styled'
+import * as Styled from './IconButton.styled';
 
 interface IconButtonProps extends ComponentPropsWithoutRef<'button'> {
     width?: number | string;
@@ -17,12 +17,12 @@ export const IconButton: FC<IconButtonProps> = ({
     styles,
     ...rest
 }) =>
-  <Styled.IconButton
-      width={width}
-      height={height}
-      onClick={onClick}
-      styles={styles}
-      {...rest}
-  >
-      {children}
-  </Styled.IconButton>
+    <Styled.IconButton
+        width={width}
+        height={height}
+        onClick={onClick}
+        styles={styles}
+        {...rest}
+    >
+        {children}
+    </Styled.IconButton>

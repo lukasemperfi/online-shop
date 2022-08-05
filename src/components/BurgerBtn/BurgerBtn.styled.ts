@@ -10,10 +10,12 @@ const line1Active = css`
     transform: rotate(45deg);
     top: 11px;
 `
+
 const line2Active = css`
     width: 0%;
     opacity: 0;
 `
+
 const line3Active = css`
     transform: rotate(-45deg);
     top: 11px;
@@ -45,10 +47,12 @@ export const Line1 = styled(Line)`
     top: 3px;
     ${({ isActive }) => isActive && line1Active}
 `
+
 export const Line2 = styled(Line)`
     top: 12px;
     ${({ isActive }) => isActive && line2Active}
 `
+
 export const Line3 = styled(Line)`
     top: 21px;
     ${({ isActive }) => isActive && line3Active}

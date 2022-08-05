@@ -2,17 +2,14 @@ import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { CartItem } from '../components/CartItem/CartItem'
 import { ItemsList } from '../components/ItemsList/ItemsList'
-import { ButtonColors, MainButton } from '../components/MainButton/MainButton'
+import {  MainButton } from '../components/MainButton/MainButton'
 import { PageContainer } from '../components/PageContainer/PageContainer'
 import { ProductCardProps } from '../models/ProductCardProps'
 import { Breakpoints } from '../styles/styles'
 import userIcon from '../assets/user.png'
-import { Image } from '../components/Image/Image'
-import { AdminProductCard } from '../components/AdminProductCard/AdminProductCard'
 import { AddNewProductForm } from '../components/AddNewProductForm/AddNewProductForm'
 import { MainPopup } from '../components/MainPopup/MainPopup'
 import { ModalAddNewProductForm } from '../components/ModalAddNewProductForm/ModalAddNewProductForm'
-import { OverlayPreloader } from '../components/OverlayPreloader/OverlayPreloader'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { deleteProduct, selectProducts, setProducts } from '../store/productsSlice/productsSlice'
 import { Product } from '../firebase/models/Product'
@@ -22,6 +19,8 @@ import { NoDataFound } from '../components/NoDataFound/NoDataFound'
 import { AdminCard } from '../components/AdminCard/AdminCard'
 import noProductImage from "../assets/no-product-found.jpg"
 import { logOut, selectUser } from '../store/userSlice'
+import { AdaptiveImage } from '../components/AdaptivImage/AdaptivImage'
+import { ButtonColors } from '../components/MainButton/MainButton.styled'
 
 const GridContainer = styled.div`
   display: grid;
@@ -132,9 +131,9 @@ export const AdminPage = () => {
     <GridContainer>
       <Aside>
         <Avatar>
-          <Image
+          <AdaptiveImage
             src={userIcon}
-            width={50}
+            maxWidth='50px'
           />
           <AvatarTitle>{userName}</AvatarTitle>
         </Avatar>

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
-import { AdaptiveImage } from '../components/Image/AdaptivImage'
+import { AdaptiveImage } from '../components/AdaptivImage/AdaptivImage'
 import womanImage from '../assets/woman.jpg'
 import womanThumbImage from '../assets/womanThumb.jpg'
 import manImage from '../assets/man.jpg'

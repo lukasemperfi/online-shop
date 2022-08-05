@@ -1,19 +1,16 @@
-import React, { FC } from 'react'
+import { FC } from 'react';
+import { FlattenSimpleInterpolation } from 'styled-components';
+import { Link, useParams } from 'react-router-dom';
 
-import { Image } from '../Image/Image'
-import { ReactComponent as AddCartIcon } from '../../assets/add-cart.svg'
-import { IconButton } from '../IconButton/IconButton'
-import * as Styled from './ProductCard.styled'
-import styled, { FlattenSimpleInterpolation } from 'styled-components'
-import { AdaptiveImage } from '../Image/AdaptivImage'
-import { MainButton } from '../MainButton/MainButton'
-import { Link, useParams } from 'react-router-dom'
-import { ProductsRoutes } from '../../navigation/routeNames'
-import { Product } from '../../firebase/models/Product'
-import { CartItem } from '../../store/cartSlice/models/CartItem'
-import { useAppDispatch } from '../../hooks/redux'
-import { addItem } from '../../store/cartSlice/cartSlice'
-import { formatPrice } from '../../utils/redux'
+import { ReactComponent as AddCartIcon } from '../../assets/add-cart.svg';
+import { IconButton } from '../IconButton/IconButton';
+import * as Styled from './ProductCard.styled';
+import { AdaptiveImage } from '../AdaptivImage/AdaptivImage';
+import { ProductsRoutes } from '../../navigation/routeNames';
+import { CartItem } from '../../store/cartSlice/models/CartItem';
+import { useAppDispatch } from '../../hooks/redux';
+import { addItem } from '../../store/cartSlice/cartSlice';
+import { formatPrice } from '../../utils/redux';
 
 interface ProductCardProps {
     name: string,
@@ -27,7 +24,12 @@ type ParamsProps = {
     gender?: string,
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ name, price, image, id }) => {
+export const ProductCard: FC<ProductCardProps> = ({
+    name,
+    price,
+    image,
+    id
+}) => {
     const { gender } = useParams<ParamsProps>()
     const dispatch = useAppDispatch()
 
@@ -38,9 +40,9 @@ export const ProductCard: FC<ProductCardProps> = ({ name, price, image, id }) =>
             price,
             image,
             count: 0,
-          }
+        }
 
-          dispatch(addItem(item))
+        dispatch(addItem(item))
     }
 
     return (
@@ -64,7 +66,11 @@ export const ProductCard: FC<ProductCardProps> = ({ name, price, image, id }) =>
                     styles={Styled.addCartButtonStyles}
                     onClick={onClickAdd}
                 >
-                    <AddCartIcon width='25px' height='25px' fill='#ffd800' />
+                    <AddCartIcon
+                        width='25px'
+                        height='25px'
+                        fill='#ffd800'
+                    />
                 </IconButton>
             </Styled.CardFooter>
         </Styled.Card>

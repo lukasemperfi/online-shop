@@ -1,7 +1,5 @@
-import React, { ReactNode, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { Colors, spacing } from '../../styles/styles'
+import React, { ReactNode, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 const StyledTabs = styled.div`
     display: flex;
@@ -16,7 +14,6 @@ interface TabsProps<T> {
 
 export const Tabs = <T,>({ categories, renderItem, value }: TabsProps<T>) => {
     const [activeTab, setActiveTab] = useState(value)
-
 
     useEffect(() => {
         setActiveTab(value)

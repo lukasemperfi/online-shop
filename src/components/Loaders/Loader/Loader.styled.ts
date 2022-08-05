@@ -1,6 +1,4 @@
-import { FC } from "react"
-import styled, { css } from "styled-components"
-
+import styled from "styled-components";
 
 export enum LoaderSize {
   standart = '10px',
@@ -8,12 +6,12 @@ export enum LoaderSize {
   small = '3px',
 }
 
-interface StyledLoaderProps {
+interface LoaderProps {
   size?: string;
   margin?: string;
 }
 
-const StyledLoader = styled.div<StyledLoaderProps>`
+export const Loader = styled.div<LoaderProps>`
   margin: ${({ margin }) => margin ? `${margin}` : '0'};
   font-size: ${({ size }) => size ? size : '10px'};
   position: relative;
@@ -42,19 +40,3 @@ const StyledLoader = styled.div<StyledLoaderProps>`
   }
 
 `
-
-interface LoaderProps {
-  size?: string,
-  margin?: string,
-}
-
-
-export const Loader: FC<LoaderProps> = ({ size, margin}) => {
-  return (
-      <StyledLoader size={size} margin={margin}></StyledLoader>
-  )
-}
-
-
-
-

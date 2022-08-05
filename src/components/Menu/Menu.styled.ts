@@ -1,7 +1,12 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { StyledProps } from './models/StyledProps'
-import * as styles from './styles'
+import * as styles from './styles';
+
+export interface StyledProps {
+    isMobile: boolean;
+    positionTop?: number;
+    isOpen: boolean;
+}
 
 export const Container = styled.div<StyledProps>`
     ${({ isMobile }) => isMobile ? styles.mobileContainerStyle : styles.desktopContainerStyle}
@@ -14,6 +19,7 @@ export const Wrapper = styled.div<StyledProps>`
     ${({isOpen, isMobile}) => (isMobile && !isOpen) ? styles.mobileNavStyle : styles.desktopNavStyle}
 
 `
+
 export const Nav = styled.nav`
     display: inline-block;
 `

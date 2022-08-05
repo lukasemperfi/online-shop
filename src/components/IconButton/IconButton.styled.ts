@@ -25,4 +25,3 @@ export const IconButton = styled.button<IconButtonProps>`
     };
       ${({ styles }) => styles};
 `;
-

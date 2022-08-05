@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { CartItem } from '../components/CartItem/CartItem'
-import { ButtonColors, MainButton } from '../components/MainButton/MainButton'
+import {  MainButton } from '../components/MainButton/MainButton'
 import { PageContainer } from '../components/PageContainer/PageContainer'
 import { ItemsList } from '../components/ItemsList/ItemsList'
 import { Colors } from '../styles/styles'
@@ -15,6 +15,7 @@ import { NoDataFound } from '../components/NoDataFound/NoDataFound'
 import emptyCartImage from '../assets/empty-cart.png'
 import { clearCart } from '../store/cartSlice/cartSlice'
 import { formatPrice } from '../utils/redux'
+import { ButtonColors } from '../components/MainButton/MainButton.styled'
 
 const Container = styled.div`
     display: flex;

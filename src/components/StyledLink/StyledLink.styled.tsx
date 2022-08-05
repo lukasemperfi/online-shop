@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import styled, { css, FlattenSimpleInterpolation } from "styled-components";
-import { screenWidth, spacing } from "../../styles/styles";
-import { Colors } from '../../styles/styles';
-import { calcAdaptiveValue } from "../../styles/helpers";
+import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
+
+import { screenWidth, spacing } from "../../styles/styles";
+import { calcAdaptiveValue } from "../../styles/helpers";
 
 interface LinkProps {
     color?: string;
@@ -12,9 +12,8 @@ interface LinkProps {
 const linkStyle = css<LinkProps>`
     display: inline-flex;
     padding: ${spacing.tiny} 0;
-    color: ${({color}) => color ? color : '#ffffff'};
+    color: ${({ color }) => color ? color : '#ffffff'};
     position: relative;
-    /* width: 100%; */
     font-weight: 500;
 `
 
@@ -38,7 +37,7 @@ const linkActiveStyle = css`
     }
 `
 
-export const StyledLink = styled(Link)<LinkProps>`
+export const StyledLink = styled(Link) <LinkProps>`
     ${linkStyle}
 
     ${calcAdaptiveValue('font-size', '12px', '16px', screenWidth.min, screenWidth.max)}
@@ -47,12 +46,14 @@ export const StyledLink = styled(Link)<LinkProps>`
         opacity: 0.5;
     }
 `
+
 export const StyledTabsLink = styled(Link)`
     ${linkStyle}
     ${linkActiveStyle}
     font-weight: 600;
     ${calcAdaptiveValue('font-size', '16px', '18px', screenWidth.min, screenWidth.max)}
 `
+
 export const StyledMenuLink = styled(NavLink)`
     ${linkStyle}
     ${linkActiveStyle}

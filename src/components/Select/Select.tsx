@@ -1,40 +1,11 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
-import styled from 'styled-components';
-import arrowIcon from '../../assets/down-arrow.png'
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
-interface StyledWrapperProps {
-    rotateArrow: boolean;
+import * as Styled from './Select.styled';
+
+interface SelectOption {
+    value: string,
+    name: string,
 }
-
-const StyledWrapper = styled.div<StyledWrapperProps>`
-    position: relative;
-    display: inline-flex;
-
-    &::after {
-        content: '';
-        width: 16px;
-        height: 16px; 
-        position: absolute;
-        right: 10px;
-        top: 51%;
-        transform: translateY(-50%) ${({ rotateArrow }) => rotateArrow && 'rotate(180deg)'};
-        pointer-events: none;
-        background: url(${arrowIcon}) 50% /16px 16px no-repeat;
-    }
-`
-
-
-const StyledSelect = styled.select`
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 500;
-    border: 1px solid #adacac;
-    border-radius: 3px;
-    padding: 5px 35px 5px 10px;
-    appearance: none;
-    background-color: #ffffff;
-
-`
 
 interface SelectProps {
     options: SelectOption[],
@@ -42,12 +13,11 @@ interface SelectProps {
     onChange?: (event: ChangeEvent<HTMLSelectElement>) => void
 }
 
-interface SelectOption {
-    value: string,
-    name: string,
-}
-
-export const Select: FC<SelectProps> = ({ options, value, onChange }) => {
+export const Select: FC<SelectProps> = ({
+    options,
+    value,
+    onChange
+}) => {
     const [arrowRotate, setArrowRotate] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
 
@@ -66,8 +36,8 @@ export const Select: FC<SelectProps> = ({ options, value, onChange }) => {
     }, [isOpen])
 
     return (
-        <StyledWrapper rotateArrow={arrowRotate}>
-            <StyledSelect
+        <Styled.Wrapper rotateArrow={arrowRotate}>
+            <Styled.Select
                 onClick={handleOnClick}
                 onBlur={handleOnBlur}
                 value={value}
@@ -79,7 +49,7 @@ export const Select: FC<SelectProps> = ({ options, value, onChange }) => {
                     </option>
                 )}
 
-            </StyledSelect>
-        </StyledWrapper>
+            </Styled.Select>
+        </Styled.Wrapper>
     )
 }

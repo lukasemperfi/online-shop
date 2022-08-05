@@ -1,6 +1,6 @@
-import { css } from 'styled-components'
+import { css } from 'styled-components';
 
-import { StyledProps } from './models/StyledProps'
+import { StyledProps } from './Menu.styled';
 
 export const desktopPageContainerStyle = css`
     @media (min-width: 0px) {
@@ -26,7 +26,6 @@ export const mobileContainerStyle = css<StyledProps>`
     overflow: hidden;
     transition: all 0.3s ;
 `
-//////////////////////////////
 
 //MenuListContainer Styles
 export const desktopMenuListContainerStyle = css`
@@ -41,8 +40,6 @@ export const mobileMenuListContainerStyle = css`
     gap: 20px;
 `
 
-//////////////////////////////
-
 //Nav styles
 export const desktopNavStyle = css`
     opacity: 1;
@@ -54,5 +51,3 @@ export const mobileNavStyle = css`
     visibility: hidden;
     transition: all 0.3s;
 `
-
-//////////////////////////////

@@ -1,51 +1,17 @@
-import React, { ChangeEvent, FC, useState } from 'react'
-import styled, { css } from 'styled-components'
-import { Input } from '../Input/Input'
-import { MainButton } from '../MainButton/MainButton'
-import { v4 as uuidv4 } from 'uuid';
+import { ChangeEvent, FC, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { InferType } from 'yup';
-import { ref } from 'firebase/storage';
-import { storage } from '../../firebase/firebase';
+
+import { Input } from '../Input/Input';
+import { MainButton } from '../MainButton/MainButton';
 import { FileInput } from '../FileInput/FileInput';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addProduct, selectProductsState } from '../../store/productsSlice/productsSlice';
 import { Select } from '../Select/Select';
-
-const Form = styled.form`
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-`
-const FormTitle = styled.h2`
-    font-size: 1.5rem;
-    font-weight: 500;
-`
-const Category = styled.div`
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    width: auto;
-`
-
-const CategoryLabel = styled.label`
-    font-weight: 500;
-`
-
-const TextArea = styled.textarea`
-    resize: vertical;
-    border: 1px solid;
-`
-
-interface FormData {
-    name: string;
-    price: number;
-    files: FileList;
-}
+import * as Styled from './AddNewProductForm.styled';
+import { FormData } from './models/FormData';
+import { GenderSearchQuery } from '../../store/filtersSlice';
 
 const filesTypes = ['image/jpeg', 'image/png']
 
@@ -53,7 +19,7 @@ const schema = yup.object({
     name: yup.string()
         .required('Name is a required field')
         .max(70, 'Max length 70 characters'),
-        price: yup.number()
+    price: yup.number()
         .required()
         .typeError('You must specify a number')
         .test(
@@ -73,13 +39,9 @@ const schema = yup.object({
         })
 })
 
-interface AddNewProductFormProps {
-    onSubmit?: () => void;
-}
-
 const genderOptions = [
-    { value: 'mens', name: 'Mens' },
-    { value: 'womens', name: 'Womens' },
+    { value: GenderSearchQuery.mens, name: 'Mens' },
+    { value: GenderSearchQuery.womens, name: 'Womens' },
 ]
 
 const typeOptions = [
@@ -88,14 +50,18 @@ const typeOptions = [
     { value: 'sandals', name: 'Sandals' },
 ]
 
+interface AddNewProductFormProps {
+    onSubmit?: () => void;
+}
+
 export const AddNewProductForm: FC<AddNewProductFormProps> = ({ onSubmit }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         mode: 'all',
         resolver: yupResolver(schema)
     });
     const dispatch = useAppDispatch()
-    const {isLoading} = useAppSelector(selectProductsState)
-    const [gendervalue, setGenderValue] = useState('mens')
+    const { isLoading } = useAppSelector(selectProductsState)
+    const [gendervalue, setGenderValue] = useState(GenderSearchQuery.mens)
     const [typeValue, setTypeValue] = useState('boots')
 
     const onSubmitForm: SubmitHandler<FormData> = (data) => {
@@ -113,29 +79,29 @@ export const AddNewProductForm: FC<AddNewProductFormProps> = ({ onSubmit }) => {
     }
 
     const handleOnChangeGender = (event: ChangeEvent<HTMLSelectElement>) => {
-        setGenderValue(event.target.value)
+        setGenderValue(event.target.value as GenderSearchQuery)
     }
     const handleOnChangeType = (event: ChangeEvent<HTMLSelectElement>) => {
         setTypeValue(event.target.value)
     }
 
     return (
-        <Form onSubmit={handleSubmit(onSubmitForm)}>
-            <FormTitle>ADD NEW PRODUCT</FormTitle>
-            <Category>
-                <CategoryLabel>Gender</CategoryLabel>
+        <Styled.Form onSubmit={handleSubmit(onSubmitForm)}>
+            <Styled.FormTitle>ADD NEW PRODUCT</Styled.FormTitle>
+            <Styled.Category>
+                <Styled.CategoryLabel>Gender</Styled.CategoryLabel>
                 <Select
                     value={gendervalue}
                     options={genderOptions}
                     onChange={handleOnChangeGender}
                 />
-                <CategoryLabel>Type</CategoryLabel>
+                <Styled.CategoryLabel>Type</Styled.CategoryLabel>
                 <Select
                     value={typeValue}
                     options={typeOptions}
                     onChange={handleOnChangeType}
                 />
-            </Category>
+            </Styled.Category>
             <Input
                 label='Name'
                 errorText={errors?.name?.message}
@@ -152,6 +118,6 @@ export const AddNewProductForm: FC<AddNewProductFormProps> = ({ onSubmit }) => {
                 {...register("files")}
             />
             <MainButton type='submit' isLoading={isLoading}>ADD PRODUCT</MainButton>
-        </Form>
+        </Styled.Form>
     )
 }

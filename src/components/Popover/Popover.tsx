@@ -1,12 +1,10 @@
-import React, { FC, ReactNode, RefObject, useEffect, useLayoutEffect, useState } from 'react'
-import { useRef } from 'react';
-import styled from 'styled-components';
+import { FC, ReactNode, useState } from 'react';
+
 import { PopoverPlacement } from '../../hooks/usePopoverPosition/models/PopoverPlacement';
-import { PopoverPositionProps, usePopoverPosition } from '../../hooks/usePopoverPosition/usePopoverPosition';
-import { useElementSize } from '../../hooks/useElementSize';
-import { useOnClickOutside } from '../../hooks/useOnClickOutside';
+import { usePopoverPosition } from '../../hooks/usePopoverPosition/usePopoverPosition';
 import { OverlayWithLockedBody } from '../OverlayWithLockedBody/OverlayWithLockedBody';
 import { Portal } from '../Portal/Portal';
+import * as Styled from './Popover.styled';
 
 export interface PopoverProps {
     children?: ReactNode;
@@ -16,25 +14,16 @@ export interface PopoverProps {
     placement: PopoverPlacement;
 }
 
-interface PopoverContent {
-    elementPosition: PopoverPositionProps
-}
-
-const StyledPopoverContent = styled.div<PopoverContent>`
-    position: fixed;
-    top: ${({ elementPosition }) => elementPosition.vertical + 'px'};
-    left: ${({ elementPosition }) => elementPosition.horizontal + 'px'};
-    z-index: 2;
-`
-
-export const Popover: FC<PopoverProps> = ({ children, anchorEl, onClose, isOpened, placement }) => {
-    console.log('render popover');
+export const Popover: FC<PopoverProps> = ({
+    children,
+    anchorEl,
+    onClose,
+    isOpened,
+    placement
+}) => {
     const [popoverRef, setPopoverRef] = useState<HTMLElement | null>(null)
-
     const popoverPosition = usePopoverPosition(anchorEl, popoverRef, placement)
 
-
-    
     if (!isOpened) {
         return null
     }
@@ -42,12 +31,12 @@ export const Popover: FC<PopoverProps> = ({ children, anchorEl, onClose, isOpene
     return (
         <Portal>
             <OverlayWithLockedBody isOpened={isOpened} onClick={onClose} />
-            <StyledPopoverContent
+            <Styled.PopoverContent
                 ref={setPopoverRef}
                 elementPosition={popoverPosition}
             >
                 {children}
-            </StyledPopoverContent>
+            </Styled.PopoverContent>
         </Portal>
     )
 }

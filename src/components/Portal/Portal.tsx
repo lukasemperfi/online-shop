@@ -1,5 +1,5 @@
-import React, { FC, ReactNode, useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
+import { FC, ReactNode, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 
 interface PortalProps {
     children: ReactNode;
