@@ -12,6 +12,9 @@ const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 
+console.log(process.env.REACT_APP_FIREBASE_API_KEY);
+
+
 root.render(
 	// <React.StrictMode>
 	<Provider store={store}>
