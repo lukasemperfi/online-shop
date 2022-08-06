@@ -5,7 +5,6 @@ import { IconButton } from '../UI/IconButton/IconButton';
 import * as Styled from './UserMenu.styled';
 import userIcon from '../../assets/user.png';
 import cartIcon from '../../assets/cart.png';
-import { CartRoutes } from '../../navigation/routeNames';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logOut, selectIsLoggedIn } from '../../store/userSlice';
 import { DropdownMenu } from '../UI/DropdownMenu/DropdownMenu';
@@ -14,6 +13,8 @@ import { ModalFormToggle } from '../ModalFormToggle/ModalFormToggle';
 import { DropdownMenuItem } from '../UI/DropdownMenu/DropdownMenuItem';
 import { selectCartItemsAmount } from '../../store/cartSlice/selectors';
 import { useAdminAuth } from '../../hooks/useAdminAuth';
+import { createPath } from '../../navigation/Utils/createPath';
+import { Path } from '../../navigation/routeNames';
 
 export interface DropdownMenuItemProps {
     id: string,
@@ -24,7 +25,7 @@ export interface DropdownMenuItemProps {
 export const UserMenu = memo(() => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const match = useMatch(CartRoutes.Cart)
+    const match = useMatch(Path.Cart)
     const isCartPage = match !== null
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const cartItemsAmount = useAppSelector(selectCartItemsAmount)
@@ -50,8 +51,7 @@ export const UserMenu = memo(() => {
 
     const cartIconOnclick = () => {
         if (!isCartPage) {
-            console.log('navigate');
-            navigate(CartRoutes.Cart)
+            navigate(createPath({ path: Path.Cart }))
         }
 
     }
@@ -60,7 +60,6 @@ export const UserMenu = memo(() => {
         dispatch(logOut())
         closeDropdownMenu()
         closeModalForm()
-        console.log('loggout');
     }
 
     const dropdownMenuData: DropdownMenuItemProps[] = [

@@ -17,6 +17,8 @@ import { useAdminAuth } from '../../hooks/useAdminAuth';
 import { useAppSelector } from '../../hooks/redux';
 import { selectFiltersState } from '../../store/filtersSlice';
 import { AdaptiveImage } from '../UI/AdaptivImage/AdaptivImage';
+import { createPath } from '../../navigation/Utils/createPath';
+import { Path } from '../../navigation/routeNames';
 
 const menuCategories = [
     { id: '0', name: 'Boots', searchQuery: 'boots' },
@@ -37,7 +39,10 @@ export const ResponsiveAppBar: FC = () => {
 
     const renderMenuItem = (item: ShoesTypeCategories, onClick?: () => void) =>
         <StyledMenuLink
-            to={`/${genderCategory}/catalog/${item.searchQuery}`}
+            to={createPath({
+                path: Path.ProductType,
+                params: { gender: genderCategory, productType: item.searchQuery },
+            })}
             onClick={onClick}
             color={Colors.primary}
         >
@@ -49,7 +54,7 @@ export const ResponsiveAppBar: FC = () => {
             {isAdmin && <Styled.AdminPanel>
                 <Styled.AdminPanelContainer>
                     <StyledLink
-                        to={`/admin`}
+                        to={Path.Admin}
                         color='white'
                     >
                         Admin

@@ -1,6 +1,5 @@
 import { AuthErrorCodes } from "firebase/auth";
 
-
 const AuthErrorCodeValues = Object.values(AuthErrorCodes)
 
 export type ErrorCode = typeof AuthErrorCodeValues[number] | ''
@@ -15,14 +14,9 @@ const errorMessages: ErrorMessages = {
     [AuthErrorCodes.EMAIL_EXISTS]: "This email address is already being used",
 }
 
-
-
 export const getMessageFromErrorCode = (errorCode?: ErrorCode) => {
     if (!errorCode) {
         return errorCode
     }
     return errorMessages[errorCode]
 }
-
-const tyty = "auth/wrong-password"
-console.log(getMessageFromErrorCode("auth/wrong-password"));

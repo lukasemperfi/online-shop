@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react';
 
 interface Size {
   width: number
   height: number
 }
 
-export const useElementSize = <T extends HTMLElement = HTMLDivElement>(): [(node: T | null) => void,Size,] => {
+export const useElementSize = <T extends HTMLElement = HTMLDivElement>(): [(node: T | null) => void, Size,] => {
   const [ref, setRef] = useState<T | null>(null)
   const [size, setSize] = useState<Size>({
     width: 0,
@@ -24,7 +24,7 @@ export const useElementSize = <T extends HTMLElement = HTMLDivElement>(): [(node
     handleSize()
     window.addEventListener("resize", handleSize);
     return () => {
-        window.removeEventListener("resize", handleSize);
+      window.removeEventListener("resize", handleSize);
     };
   }, [ref?.offsetHeight, ref?.offsetWidth])
 

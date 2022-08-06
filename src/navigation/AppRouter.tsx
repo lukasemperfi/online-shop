@@ -1,44 +1,25 @@
-import { Routes, Route, useRoutes, } from 'react-router-dom';
-import { errorRouteGroup, homeRoutes, mainRoutes } from './routes';
+import { Routes, Route, } from 'react-router-dom';
+
 import { MainLayout } from '../components/MainLayout/MainLayout';
-import { AdminPage } from '../pages/AdminPage';
-import { CartPage } from '../pages/CartPage';
-import { PageNotFound } from '../pages/PageNotFound';
+import { AdminPage } from '../pages/AdminPage/AdminPage';
+import { CartPage } from '../pages/CartPage/CartPage';
+import { PageNotFound } from '../pages/PageNotFound/PageNotFound';
 import { ProductDetails } from '../pages/ProductDetails';
 import { ProductsPage } from '../pages/ProductsPage';
-import { HomePage } from '../pages/HomePage';
-import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase/firebase';
-import { TestPage } from '../pages/TestPage';
+import { HomePage } from '../pages/HomePage/HomePage';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
+import { Path } from './routeNames';
 
-export const AppRouter = () => {
-
-	// const routes = useRoutes([
-	// 	homeRoutes, 
-	// 	mainRoutes, 
-	// 	...errorRouteGroup
-	// ])
-
-	// return <>{routes}</>
-
-	console.log('undefined when tabs not active');
-	
-
-	return (
-		<Routes>
-			{/* <Route index element={<TestPage />} /> */}
-			<Route index element={<HomePage />} />
-			<Route path='/' element={<MainLayout />}>
-				<Route path=':gender' element={<ProductsPage />} />
-				<Route path='products/:gender/:id' element={<ProductDetails />} />
-				<Route path=':gender/catalog/:productType' element={<ProductsPage />} />
-				<Route path='products/:gender/catalog/:productType/:id' element={<ProductsPage />} />
-				<Route path='cart' element={<CartPage />} />
-				<Route path='admin' element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
-			</Route>
-			<Route path='*' element={<PageNotFound />} />
-		</Routes>)
-
-}
+export const AppRouter = () =>
+	<Routes>
+		<Route index element={<HomePage />} />
+		<Route path={Path.Home} element={<MainLayout />}>
+			<Route path={Path.GenderCategory} element={<ProductsPage />} />
+			<Route path={Path.GenderCategoryDetails} element={<ProductDetails />} />
+			<Route path={Path.ProductType} element={<ProductsPage />} />
+			<Route path={Path.ProductTypeDetails} element={<ProductDetails />} />
+			<Route path={Path.Cart} element={<CartPage />} />
+			<Route path={Path.Admin} element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
+		</Route>
+		<Route path='*' element={<PageNotFound />} />
+	</Routes>

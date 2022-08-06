@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import { GenderCategory } from '../../firebase/models/GenderCategory';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { Path } from '../../navigation/routeNames';
+import { createPath } from '../../navigation/Utils/createPath';
 import { GenderSearchQuery, selectFiltersState, setGenderCategory } from '../../store/filtersSlice';
 import { Colors } from '../../styles/styles';
 import { StyledTabsLink } from '../StyledLink/StyledLink.styled';
@@ -40,9 +42,13 @@ export const TabsPanel: FC<TabsPanelProps> = memo(({ onClick }) => {
         }
     }, [])
 
+
     const renderItemTabs = (item: GenderCategory, index: number, active: boolean) =>
         <StyledTabsLink
-            to={`/${item.searchQuery}`}
+            to={createPath({
+                path: Path.GenderCategory,
+                params: { gender: `/${item.searchQuery}` }
+            })}
             onClick={() => handleLinkClick(index, item.searchQuery)}
             className={active ? 'active' : ''}
             color={Colors.primary}

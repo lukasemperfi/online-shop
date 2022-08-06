@@ -6,11 +6,12 @@ import { ReactComponent as AddCartIcon } from '../../assets/add-cart.svg';
 import { IconButton } from '../UI/IconButton/IconButton';
 import * as Styled from './ProductCard.styled';
 import { AdaptiveImage } from '../UI/AdaptivImage/AdaptivImage';
-import { ProductsRoutes } from '../../navigation/routeNames';
+import { Path } from '../../navigation/routeNames';
 import { CartItem } from '../../store/cartSlice/models/CartItem';
 import { useAppDispatch } from '../../hooks/redux';
 import { addItem } from '../../store/cartSlice/cartSlice';
 import { formatPrice } from '../../utils/redux';
+import { createPath } from '../../navigation/Utils/createPath';
 
 interface ProductCardProps {
     name: string,
@@ -22,6 +23,7 @@ interface ProductCardProps {
 
 type ParamsProps = {
     gender?: string,
+    productType?: string,
 }
 
 export const ProductCard: FC<ProductCardProps> = ({
@@ -30,8 +32,25 @@ export const ProductCard: FC<ProductCardProps> = ({
     image,
     id
 }) => {
-    const { gender } = useParams<ParamsProps>()
+    const { gender, productType } = useParams<ParamsProps>()
     const dispatch = useAppDispatch()
+
+    const getPath = () => {
+        if (gender && !productType) {
+            return createPath({
+                path: Path.GenderCategoryDetails,
+                params: { gender, id },
+            })
+        }
+
+        if (gender && productType) {
+            return createPath({
+                path: Path.ProductTypeDetails,
+                params: { gender, productType, id },
+            })
+        }
+        return ''
+    }
 
     const onClickAdd = () => {
         const item: CartItem = {
@@ -47,7 +66,7 @@ export const ProductCard: FC<ProductCardProps> = ({
 
     return (
         <Styled.Card>
-            <Link to={`${ProductsRoutes.ProductsPage}/${gender}/${id}`}>
+            <Link to={getPath()}>
                 <AdaptiveImage
                     src={image}
                     dimensions={{
@@ -57,7 +76,7 @@ export const ProductCard: FC<ProductCardProps> = ({
                     skeleton
                 />
             </Link>
-            <Styled.LinkTitle to={`${ProductsRoutes.ProductsPage}/${gender}/${id}`}>
+            <Styled.LinkTitle to={getPath()}>
                 <Styled.CardTitle >{name}</Styled.CardTitle>
             </Styled.LinkTitle>
             <Styled.CardFooter>

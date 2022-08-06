@@ -4,7 +4,6 @@ import { PageContainer } from "../components/PageContainer/PageContainer"
 import { ProductCard } from "../components/ProductCard/ProductCard"
 import { ItemsList } from "../components/UI/ItemsList/ItemsList"
 import { productsData } from '../productsData'
-import { ProductCardProps } from "../models/ProductCardProps"
 import { auth, db, productsCollection } from "../firebase/firebase"
 import { Product } from "../firebase/models/Product"
 import { MainButton } from "../components/UI/MainButton/MainButton"

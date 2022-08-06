@@ -1,20 +1,9 @@
-export enum MainRoutes  {
-    Main = '/',
-}
-
-export enum ProductsRoutes  {
-    ProductsPage = '/products',
-    ProductDetails = '/products/:id'
-}
-
-export enum AdminRoutes  {
-    AdminPage = '/admin',
-}
-
-export enum CartRoutes  {
+export enum Path {
+    Home = '/',
+    GenderCategory = '/:gender',
+    GenderCategoryDetails = '/products/:gender/:id',
+    ProductType = '/:gender/catalog/:productType',
+    ProductTypeDetails = '/products/:gender/catalog/:productType/:id',
     Cart = '/cart',
-}
-
-export enum PageNotFoundRoutes  {
-    PageNotFound = '*',
+    Admin = '/admin',
 }

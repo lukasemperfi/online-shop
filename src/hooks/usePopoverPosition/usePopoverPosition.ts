@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from "react";
+
 import { PopoverPlacement } from "./models/PopoverPlacement";
 import { HTMLElementOrNull, PopoverPositionValue } from "./models/types";
 
@@ -47,9 +48,6 @@ export const usePopoverPosition = (
         });
 
       }
-
-
-
     }
 
     handlePosition();
@@ -61,19 +59,5 @@ export const usePopoverPosition = (
   }, [anchorEl, popoverEl, placement.horizontal, placement.vertical]);
 
   return popoverPosition;
-
-}
-
-
-function isHidden(element: HTMLElementOrNull) {
-  if (element !== null) {
-    const elementRect = element.getBoundingClientRect();
-    const elementHidesUp = elementRect.top < 0;
-    const elementHidesLeft = elementRect.left < 0;
-    const elementHidesDown = elementRect.bottom > window.innerHeight;
-    const elementHidesRight = elementRect.right > window.innerWidth;
-    const elementHides = elementHidesUp || elementHidesLeft || elementHidesDown || elementHidesRight;
-    return elementHides;
-  }
 
 }
