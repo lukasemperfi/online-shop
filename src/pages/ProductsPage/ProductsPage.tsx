@@ -35,7 +35,7 @@ export const ProductsPage = () => {
     const { genderCategory } = useAppSelector(selectFiltersState)
     const [sortValue, setSortValue] = useState<OrderByDirection>('desc')
     const genderSearchQuery = genderCategory && gender
-    const isLoadMoreBtnShow = !isFetchingMore && !isEmpty && !isLoading
+    const isLoadMoreBtnShow = !isFetchingMore && !isEmpty && !isLoading && !!products.length
 
     useEffect(() => {
         dispatch(fetchProductsByCategoryAndOrder({ gender: genderSearchQuery, category: productType, order: sortValue }))
@@ -102,6 +102,7 @@ export const ProductsPage = () => {
                     >
                         LOAD MORE
                     </MainButton>}
+                    {isEmpty && <h2>No more data</h2>}
                 {isFetchingMore &&
                     <Loader
                         size="5px"
