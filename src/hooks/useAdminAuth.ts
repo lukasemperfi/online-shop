@@ -1,4 +1,4 @@
-import { selectUser } from '../store/userSlice';
+import { selectUser } from '../store/userSlice/selectors';
 import { useAppSelector } from './redux';
 
 export const useAdminAuth = () => {

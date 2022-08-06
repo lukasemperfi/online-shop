@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { MainButton } from '../../components/UI/MainButton/MainButton';
 
 import { Breakpoints } from '../../styles/styles';
 
@@ -45,6 +46,7 @@ export const MenuItem = styled.div`
   padding: 20px;
   border-bottom: 3px solid rgb(0 0 0 / 20%);
 `
+
 export const Products = styled.main`
   padding: 20px;
 `
@@ -53,6 +55,13 @@ export const ProductsTitle = styled.h2`
   margin-bottom: 20px;
   font-weight: 500;
   font-size: 1.5rem;
+`
+
+export const UserTitle = styled.h3`
+  text-align: center;
+`
+export const TextButton = styled(MainButton)`
+  padding: 5px;
 `
 
 export const addProductButtonStyles = css`

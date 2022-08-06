@@ -5,9 +5,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Input } from '../UI/Input/Input';
 import { MainButton } from '../UI/MainButton/MainButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { selectUserState, signUp } from '../../store/userSlice';
+import { signUp } from '../../store/userSlice/userSlice';
 import { getMessageFromErrorCode } from '../../firebase/utils/getMessageFromErrorCode';
 import * as Styled from './SignUpForm.styled';
+import { selectUserState } from '../../store/userSlice/selectors';
 
 interface FormData {
     firstName: string;

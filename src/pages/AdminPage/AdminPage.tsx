@@ -6,16 +6,18 @@ import { MainButton } from '../../components/UI/MainButton/MainButton';
 import userIcon from '../../assets/user.png';
 import { ModalAddNewProductForm } from '../../components/ModalAddNewProductForm/ModalAddNewProductForm';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { selectProducts, setProducts } from '../../store/productsSlice/productsSlice';
+import { setProducts } from '../../store/productsSlice/productsSlice';
 import { Product } from '../../firebase/models/Product';
 import { productsCollection } from '../../firebase/firebase';
 import { NoDataFound } from '../../components/UI/NoDataFound/NoDataFound';
 import { AdminCard } from '../../components/AdminCard/AdminCard';
 import noProductImage from "../../assets/no-product-found.jpg";
-import { logOut, selectUser } from '../../store/userSlice';
+import { logOut } from '../../store/userSlice/userSlice';
 import { AdaptiveImage } from '../../components/UI/AdaptivImage/AdaptivImage';
 import { ButtonColors } from '../../components/UI/MainButton/MainButton.styled';
 import * as Styled from './AdminPage.styled';
+import { selectProducts } from '../../store/productsSlice/selectors';
+import { selectUser } from '../../store/userSlice/selectors';
 
 export const AdminPage = () => {
   const [isAddNewProductPopupOpen, setIsAddNewProductPopupOpen] = useState(false)
@@ -69,16 +71,16 @@ export const AdminPage = () => {
             src={userIcon}
             maxWidth='50px'
           />
-          <h3>{userName}</h3>
+          <Styled.UserTitle>{userName}</Styled.UserTitle>
         </Styled.Avatar>
         <div>
           <Styled.MenuItem>
-            <MainButton
+            <Styled.TextButton
               color={ButtonColors.text}
               onClick={onLogOut}
             >
               Sign Out
-            </MainButton>
+            </Styled.TextButton>
           </Styled.MenuItem>
         </div>
       </Styled.Aside>

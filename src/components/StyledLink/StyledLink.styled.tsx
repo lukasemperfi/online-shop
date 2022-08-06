@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import { screenWidth, spacing } from "../../styles/styles";
+import { screenWidth } from "../../styles/styles";
 import { calcAdaptiveValue } from "../../styles/helpers";
 
 interface LinkProps {
@@ -11,7 +11,7 @@ interface LinkProps {
 
 const linkStyle = css<LinkProps>`
     display: inline-flex;
-    padding: ${spacing.tiny} 0;
+    padding: 5px 0px;
     color: ${({ color }) => color ? color : '#ffffff'};
     position: relative;
     font-weight: 500;

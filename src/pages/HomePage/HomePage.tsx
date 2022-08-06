@@ -4,7 +4,7 @@ import womanThumbImage from '../../assets/womanThumb.jpg';
 import manImage from '../../assets/man.jpg';
 import manThumbImage from '../../assets/manThumb.jpg';
 import { useAppDispatch } from '../../hooks/redux';
-import { GenderSearchQuery, setGenderCategory } from '../../store/filtersSlice';
+import { GenderSearchQuery, setGenderCategory } from '../../store/filtersSlice/filtersSlice';
 import * as Styled from './HomePage.styled';
 import { Path } from '../../navigation/routeNames';
 import { createPath } from '../../navigation/Utils/createPath';

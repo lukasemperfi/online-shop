@@ -5,7 +5,8 @@ import { LoaderCenterFullScreen } from './components/UI/Loaders/LoaderCenterFull
 import { auth } from './firebase/firebase';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { AppRouter } from './navigation/AppRouter';
-import { selectUserState, userStateChanged } from './store/userSlice';
+import { selectUserState } from './store/userSlice/selectors';
+import { userStateChanged } from './store/userSlice/userSlice';
 
 export const App = () => {
 	const dispatch = useAppDispatch()

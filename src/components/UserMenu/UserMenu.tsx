@@ -6,15 +6,15 @@ import * as Styled from './UserMenu.styled';
 import userIcon from '../../assets/user.png';
 import cartIcon from '../../assets/cart.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { logOut, selectIsLoggedIn } from '../../store/userSlice';
+import { logOut } from '../../store/userSlice/userSlice';
 import { DropdownMenu } from '../UI/DropdownMenu/DropdownMenu';
 import { PopoverPlacement } from '../../hooks/usePopoverPosition/models/PopoverPlacement';
 import { ModalFormToggle } from '../ModalFormToggle/ModalFormToggle';
 import { DropdownMenuItem } from '../UI/DropdownMenu/DropdownMenuItem';
 import { selectCartItemsAmount } from '../../store/cartSlice/selectors';
-import { useAdminAuth } from '../../hooks/useAdminAuth';
 import { createPath } from '../../navigation/Utils/createPath';
 import { Path } from '../../navigation/routeNames';
+import { selectIsLoggedIn } from '../../store/userSlice/selectors';
 
 export interface DropdownMenuItemProps {
     id: string,

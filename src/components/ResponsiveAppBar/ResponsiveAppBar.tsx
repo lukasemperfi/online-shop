@@ -15,10 +15,10 @@ import { TabsPanel } from '../TabsPanel/TabsPanel';
 import { ShoesTypeCategories } from '../../firebase/models/ShoesTypeCategories';
 import { useAdminAuth } from '../../hooks/useAdminAuth';
 import { useAppSelector } from '../../hooks/redux';
-import { selectFiltersState } from '../../store/filtersSlice';
 import { AdaptiveImage } from '../UI/AdaptivImage/AdaptivImage';
 import { createPath } from '../../navigation/Utils/createPath';
 import { Path } from '../../navigation/routeNames';
+import { selectFiltersState } from '../../store/filtersSlice/selectors';
 
 const menuCategories = [
     { id: '0', name: 'Boots', searchQuery: 'boots' },

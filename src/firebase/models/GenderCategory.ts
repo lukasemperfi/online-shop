@@ -1,4 +1,4 @@
-import { GenderSearchQuery } from "../../store/filtersSlice";
+import { GenderSearchQuery } from "../../store/filtersSlice/filtersSlice";
 
 export interface GenderCategory {
     id: string,

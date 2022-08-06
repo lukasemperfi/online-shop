@@ -1,10 +1,28 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, OrderByDirection, query, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where, serverTimestamp } from "firebase/firestore";
+import {
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    limit,
+    orderBy,
+    OrderByDirection,
+    query,
+    QueryDocumentSnapshot,
+    QuerySnapshot,
+    setDoc,
+    startAfter,
+    where,
+    serverTimestamp
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+
 import { productsCollection, storage } from "../../firebase/firebase";
 import { Product } from "../../firebase/models/Product";
 import { RootReducers } from "../rootReducers";
 import { AppDispatch, RootState } from "../store";
+import { CategoryData } from "./models/CategoryData";
+import { ProductData } from "./models/ProductData";
 
 interface initialStateProps {
     products: Product[];
@@ -30,14 +48,6 @@ const initialState: initialStateProps = {
     }
 }
 
-interface ProductData {
-    name: string;
-    price: number;
-    imageFile: File;
-    gender: string;
-    type: string;
-}
-
 export const getProducts = createAsyncThunk<Product[], void, { rejectValue: string }>(
     `${RootReducers.products}/getProducts`,
     async (_, { rejectWithValue }) => {
@@ -58,7 +68,7 @@ export const getProducts = createAsyncThunk<Product[], void, { rejectValue: stri
 );
 
 const queryFilter = (gender?: string, category?: string, order?: OrderByDirection) => {
-    let q = query(productsCollection, orderBy('price', order),  limit(10))
+    let q = query(productsCollection, orderBy('price', order), limit(10))
 
     if (gender) {
         q = query(q, where('gender', '==', gender));
@@ -72,19 +82,13 @@ const queryFilter = (gender?: string, category?: string, order?: OrderByDirectio
 
 }
 
-interface CategoryData {
-    gender?: string;
-    category?: string;
-    order?: OrderByDirection;
-}
-
 export const fetchProductById = createAsyncThunk<Product | undefined, string | undefined, { rejectValue: string }>(
     `${RootReducers.products}/fetchProductById`,
     async (id, { rejectWithValue }) => {
         try {
             const docRef = doc(productsCollection, id)
             const document = await getDoc(docRef)
-            
+
             return document.data()
 
         } catch (error: any) {
@@ -152,7 +156,7 @@ export const addProduct = createAsyncThunk<void, ProductData, { rejectValue: str
                 name: name,
                 price: price,
                 image: url,
-                gender:gender,
+                gender: gender,
                 type: type,
                 createdAt: serverTimestamp(),
             });
@@ -178,23 +182,19 @@ export const deleteProduct = createAsyncThunk<void, string, { rejectValue: strin
     }
 );
 
-
 const products = createSlice({
     name: RootReducers.products,
     initialState,
     reducers: {
         setProducts: (state, action: PayloadAction<Product[]>) => {
-            console.log('done');
-
             state.products = action.payload
         },
         updateState: (state, { payload: documentSnapshots }: { payload: QuerySnapshot<Product> }) => {
             const isDocumentSnapshotsEmpty = documentSnapshots.size === 0;
-            // console.log(documentSnapshots.docs);
-            
-            if (!isDocumentSnapshotsEmpty) {    
+
+            if (!isDocumentSnapshotsEmpty) {
                 const lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1];
-                // console.log('in update');
+
                 state.pagination.lastDoc = lastDoc
                 state.pagination.isEmpty = false
             } else {
@@ -211,7 +211,7 @@ const products = createSlice({
 
         builder.addCase(fetchProductsByCategoryAndOrder.fulfilled, (state, { payload }) => {
             state.isLoading = false
-            state.products = payload      
+            state.products = payload
         })
 
         builder.addCase(fetchProductsByCategoryAndOrder.rejected, (state, { payload }) => {
@@ -229,7 +229,6 @@ const products = createSlice({
         builder.addCase(fetchMore.rejected, (state, { payload }) => {
             state.errorMessage = payload
         })
-
 
         builder.addCase(addProduct.pending, (state) => {
             state.isLoading = true
@@ -262,11 +261,5 @@ const products = createSlice({
 });
 
 export const { setProducts, updateState } = products.actions;
-
-export const selectProductsState = (state: RootState) => state?.products
-export const selectIsProductLoading = (state: RootState) => state?.products?.isLoading
-export const selectProducts = (state: RootState) => state?.products?.products
-export const selectProduct = (state: RootState) => state?.products?.product
-
 
 export const productsSlice = products.reducer;

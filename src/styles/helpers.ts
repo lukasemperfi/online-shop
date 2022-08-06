@@ -33,3 +33,4 @@ export const  textCut = (text: string, limit: number) => {
   
     return text + "...";
   }
+  

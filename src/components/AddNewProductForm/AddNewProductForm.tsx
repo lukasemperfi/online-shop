@@ -7,11 +7,12 @@ import { Input } from '../UI/Input/Input';
 import { MainButton } from '../UI/MainButton/MainButton';
 import { FileInput } from '../UI/FileInput/FileInput';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { addProduct, selectProductsState } from '../../store/productsSlice/productsSlice';
+import { addProduct } from '../../store/productsSlice/productsSlice';
 import { Select } from '../UI/Select/Select';
 import * as Styled from './AddNewProductForm.styled';
 import { FormData } from './models/FormData';
-import { GenderSearchQuery } from '../../store/filtersSlice';
+import { GenderSearchQuery } from '../../store/filtersSlice/filtersSlice';
+import { selectProductsState } from '../../store/productsSlice/selectors';
 
 const filesTypes = ['image/jpeg', 'image/png']
 

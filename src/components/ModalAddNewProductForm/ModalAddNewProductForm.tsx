@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useAppSelector } from '../../hooks/redux';
-import { selectIsProductLoading } from '../../store/productsSlice/productsSlice';
+import { selectIsProductLoading } from '../../store/productsSlice/selectors';
 import { AddNewProductForm } from '../AddNewProductForm/AddNewProductForm';
 import { MainPopup, MainPopupProps } from '../MainPopup/MainPopup';
 

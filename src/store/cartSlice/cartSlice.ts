@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { getItemExist, calcTotalPrice } from "../../utils/redux";
 import { RootReducers } from "../rootReducers";
 import { CartItem } from "./models/CartItem";
@@ -12,7 +13,6 @@ const initialState: CartState = {
     items: [],
     totalPrice: 0,
 }
-
 
 const cart = createSlice({
     name: RootReducers.cart,

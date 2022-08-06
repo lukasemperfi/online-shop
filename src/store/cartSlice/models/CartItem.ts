@@ -1,5 +1,3 @@
-import { Product } from "../../../firebase/models/Product";
-
 export interface CartItem {
     id: string;
     name: string;

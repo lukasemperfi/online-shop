@@ -18,27 +18,7 @@ export enum Breakpoints {
     xxl= '1400px'
 }
 
-export const fontSizes = {
-    base: '16px',
-    secondary: '14px',
-    h1: '20px',
-}
-
-export const spacing = {
-    mobile: '10px',
-    desktop: '20px',
-    tiny: '5px',
-    small: '10px',
-    medium: '20px',
-    large: '30px',
-}
-
 export const screenWidth = {
     min: '320px',
     max: '1200px',
 }
-
-export const mediaQuery = {
-    mobile: '(max-width: 960px)',
-}
-

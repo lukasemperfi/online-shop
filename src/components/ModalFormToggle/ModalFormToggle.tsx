@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useAppSelector } from '../../hooks/redux';
-import { selectIsLoading } from '../../store/userSlice';
+import { selectIsLoading } from '../../store/userSlice/selectors';
 import { LoginForm } from '../LoginForm/LoginForm';
 import { MainPopup, MainPopupProps } from '../MainPopup/MainPopup';
 import { SignUpForm } from '../SignUpForm/SignUpForm';

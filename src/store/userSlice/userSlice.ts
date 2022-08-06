@@ -1,12 +1,14 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth, db, usersCollection } from "../firebase/firebase";
-import { UserInfo } from "../firebase/models/UserInfo";
-import { ErrorCode, getMessageFromErrorCode } from "../firebase/utils/getMessageFromErrorCode";
-import { RootReducers } from "./rootReducers";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
 
-import { RootState } from "./store";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, usersCollection } from "../../firebase/firebase";
+import { UserInfo } from "../../firebase/models/UserInfo";
+import { ErrorCode } from "../../firebase/utils/getMessageFromErrorCode";
+import { RootReducers } from "../rootReducers";
+
+import { SignInData } from "./models/SignInData";
+import { SignUpData } from "./models/SignUpData";
 
 interface userAuthState {
     user?: UserInfo | null;
@@ -14,18 +16,6 @@ interface userAuthState {
     isLoading: boolean;
     errorCode?: ErrorCode;
     isAuthChecked: boolean;
-}
-
-interface SignUpData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-}
-
-interface SignInData {
-    email: string;
-    password: string;
 }
 
 const initialState: userAuthState = {
@@ -51,8 +41,6 @@ export const signUp = createAsyncThunk<void, SignUpData, { rejectValue: string }
             });
 
         } catch (error: any) {
-            console.log(error.code);
-            
             return rejectWithValue(error.code);
         }
     }
@@ -65,7 +53,6 @@ export const signIn = createAsyncThunk<void, SignInData, { rejectValue: string }
             await signInWithEmailAndPassword(auth, email, password)
 
         } catch (error: any) {
-            console.log(error.code);
             return rejectWithValue(error.code);
         }
     }
@@ -104,15 +91,11 @@ export const userStateChanged = createAsyncThunk(
             }
 
         } catch (error: any) {
-            console.log(error.message);
             return rejectWithValue(error.message as string);
         }
 
-
-
     }
 );
-
 
 const authentication = createSlice({
     name: RootReducers.userAuth,
@@ -132,8 +115,6 @@ const authentication = createSlice({
             state.user = payload
             state.isLoading = false
             state.isAuthChecked = true
-            console.log('in dispatch');
-            
         })
 
         builder.addCase(userStateChanged.rejected, (state, { payload }) => {
@@ -162,7 +143,7 @@ const authentication = createSlice({
             state.isLoading = false
         })
 
-        builder.addCase(signIn.rejected, (state, {payload}) => {
+        builder.addCase(signIn.rejected, (state, { payload }) => {
             state.isLoading = false
             state.errorCode = payload as ErrorCode
         })
@@ -175,19 +156,12 @@ const authentication = createSlice({
             state.isLoading = false
         })
 
-        builder.addCase(logOut.rejected, (state, {payload}) => {
+        builder.addCase(logOut.rejected, (state, { payload }) => {
             state.isLoading = false
             state.errorCode = payload as ErrorCode
         })
 
     },
 });
-
-export const { } = authentication.actions;
-
-export const selectUserState = (state: RootState) => state?.userAuth;
-export const selectUser = (state: RootState) => state?.userAuth?.user;
-export const selectIsLoggedIn = (state: RootState) => state?.userAuth?.isLoggedIn;
-export const selectIsLoading = (state: RootState) => state?.userAuth?.isLoading;
 
 export const userSlice = authentication.reducer;

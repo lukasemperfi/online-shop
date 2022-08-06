@@ -5,9 +5,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Input } from '../UI/Input/Input';
 import { MainButton } from '../UI/MainButton/MainButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { selectUserState, signIn } from '../../store/userSlice';
+import { signIn } from '../../store/userSlice/userSlice';
 import { getMessageFromErrorCode } from '../../firebase/utils/getMessageFromErrorCode';
 import * as Styled from './LoginForm.styled';
+import { selectUserState } from '../../store/userSlice/selectors';
 
 interface FormData {
     email: string;
