@@ -68,7 +68,7 @@ export const getProducts = createAsyncThunk<Product[], void, { rejectValue: stri
 );
 
 const queryFilter = (gender?: string, category?: string, order?: OrderByDirection) => {
-    let q = query(productsCollection, orderBy('price', order), limit(10))
+    let q = query(productsCollection, orderBy('price', order), limit(12))
 
     if (gender) {
         q = query(q, where('gender', '==', gender));
