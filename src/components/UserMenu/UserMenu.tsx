@@ -1,5 +1,5 @@
 import { memo, MouseEvent, MouseEventHandler, useState } from 'react';
-import { useMatch, useNavigate } from 'react-router-dom';
+import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 
 import { IconButton } from '../UI/IconButton/IconButton';
 import * as Styled from './UserMenu.styled';
@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logOut } from '../../store/userSlice/userSlice';
 import { DropdownMenu } from '../UI/DropdownMenu/DropdownMenu';
 import { PopoverPlacement } from '../../hooks/usePopoverPosition/models/PopoverPlacement';
-import { ModalFormToggle } from '../ModalFormToggle/ModalFormToggle';
 import { DropdownMenuItem } from '../UI/DropdownMenu/DropdownMenuItem';
 import { selectCartItemsAmount } from '../../store/cartSlice/selectors';
 import { createPath } from '../../navigation/Utils/createPath';
@@ -25,17 +24,13 @@ export interface DropdownMenuItemProps {
 export const UserMenu = memo(() => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
     const match = useMatch(Path.Cart)
     const isCartPage = match !== null
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const cartItemsAmount = useAppSelector(selectCartItemsAmount)
-    const [isModalFormOpen, setIsModalFormOpen] = useState(false)
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const isOpened = Boolean(anchorEl);
-
-    const openModalForm = () => setIsModalFormOpen(true);
-
-    const closeModalForm = () => setIsModalFormOpen(false);
 
     const openDropdownMenu = (event: MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
 
@@ -45,7 +40,7 @@ export const UserMenu = memo(() => {
         if (isLoggedIn) {
             openDropdownMenu(event)
         } else {
-            openModalForm()
+            navigate(Path.Login, { state: { backgroundLocation: location } })
         }
     }
 
@@ -59,7 +54,6 @@ export const UserMenu = memo(() => {
     const onLogOut = () => {
         dispatch(logOut())
         closeDropdownMenu()
-        closeModalForm()
     }
 
     const dropdownMenuData: DropdownMenuItemProps[] = [
@@ -97,8 +91,7 @@ export const UserMenu = memo(() => {
                 <img src={cartIcon} alt="cart-icon" />
                 <Styled.CartItemsAmountStyle>{cartItemsAmount}</Styled.CartItemsAmountStyle>
             </IconButton>
-            {isLoggedIn
-                ?
+            {isLoggedIn &&
                 <DropdownMenu
                     data={dropdownMenuData}
                     renderItem={renderItem}
@@ -107,11 +100,6 @@ export const UserMenu = memo(() => {
                     isOpened={isOpened}
                     onClose={closeDropdownMenu}
                     placement={dropdownPlacement}
-                />
-                :
-                <ModalFormToggle
-                    isOpened={isModalFormOpen}
-                    onClose={closeModalForm}
                 />
             }
         </Styled.Wrapper>

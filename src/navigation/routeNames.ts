@@ -6,4 +6,6 @@ export enum Path {
     ProductTypeDetails = '/products/:gender/catalog/:productType/:id',
     Cart = '/cart',
     Admin = '/admin',
+    Login = '/login',
+    Registration = '/registration',
 }

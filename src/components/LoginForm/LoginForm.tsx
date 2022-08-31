@@ -9,6 +9,9 @@ import { signIn } from '../../store/userSlice/userSlice';
 import { getMessageFromErrorCode } from '../../firebase/utils/getMessageFromErrorCode';
 import * as Styled from './LoginForm.styled';
 import { selectUserState } from '../../store/userSlice/selectors';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { BackgroundLocation } from '../../navigation/BackgroundLocation';
+import { Path } from '../../navigation/routeNames';
 
 interface FormData {
     email: string;
@@ -25,6 +28,8 @@ const schema = yup.object({
 })
 
 export const LoginForm = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useAppDispatch()
     const { errorCode, isLoading } = useAppSelector(selectUserState)
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
@@ -32,8 +37,12 @@ export const LoginForm = () => {
         resolver: yupResolver(schema)
     });
 
+    const state = location.state as BackgroundLocation ;
+    const from = state?.backgroundLocation?.pathname || Path.Home;
+
     const onSubmit: SubmitHandler<FormData> = (data) => {
         dispatch(signIn(data))
+        navigate(from, {replace: true})
     }
 
     return (

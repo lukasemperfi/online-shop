@@ -9,6 +9,9 @@ import { signUp } from '../../store/userSlice/userSlice';
 import { getMessageFromErrorCode } from '../../firebase/utils/getMessageFromErrorCode';
 import * as Styled from './SignUpForm.styled';
 import { selectUserState } from '../../store/userSlice/selectors';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { BackgroundLocation } from '../../navigation/BackgroundLocation';
+import { Path } from '../../navigation/routeNames';
 
 interface FormData {
     firstName: string;
@@ -36,6 +39,8 @@ const schema = yup.object({
 })
 
 export const SignUpForm = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useAppDispatch()
     const { errorCode, isLoading } = useAppSelector(selectUserState)
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
@@ -43,8 +48,12 @@ export const SignUpForm = () => {
         resolver: yupResolver(schema)
     });
 
+    const state = location.state as BackgroundLocation ;
+    const from = state?.backgroundLocation?.pathname || Path.Home;
+
     const onSubmit: SubmitHandler<FormData> = (data) => {
         dispatch(signUp(data))
+        navigate(from, {replace: true})
     }
 
     return (
@@ -83,7 +92,6 @@ export const SignUpForm = () => {
                 {...register("passwordConfirmation")}
             />
             <MainButton
-                styles={Styled.formItemStyle}
                 isLoading={isLoading}
                 type='submit'
             >
